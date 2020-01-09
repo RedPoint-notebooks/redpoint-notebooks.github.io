@@ -708,6 +708,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/security_and_resources/Docker Image and Containers.png"
             alt="docker image and containers" />
+            <p>A docker image acts as a blueprint to create self-contained copies of an application</p>
         </div>
 
         <p>Containerized deployment means that we can be sure that our application runs in a consistent environment with
@@ -724,7 +725,8 @@
 
 
         <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container" />
+          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container"/>
+          <p>If a malicious user manages to crash one session, concurrent sessions aren't impacted</p>
         </div>
 
         <h4>4.1.4 Restricted User Privileges</h4>
@@ -746,6 +748,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions" />
+          <p>Restricting user permissions and access to harmful commands</p>
         </div>
 
         <p>These restrictions enhance our security profile by making it more difficult to execute destructive commands
@@ -772,6 +775,7 @@
 
           <div class="img-wrapper">
             <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" />
+            <p>The default Docker runtime provides a weak level of isolation from the host kernel</p>
           </div>
 
           <p>To mitigate this risk, we added an additional level of isolation between the container and the host kernel,
@@ -797,6 +801,7 @@
 
           <div class="img-wrapper">
             <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" />
+            <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
           </div>
 
           <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
@@ -813,6 +818,7 @@
 
           <div class="img-wrapper">
             <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table" />
+            <p>Using gVisor means fewer containers per host system</p>
           </div>
 
           <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
@@ -822,7 +828,6 @@
           <h3>4.2 Resource Management</h3>
           <h4>4.2.1 Control Groups</h4>
 
-          <p>IMG: Resource hog screenshot</p>
           <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
             monopolize our
             system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
@@ -836,6 +841,7 @@
             have an adverse impact on other concurrent sessions in other containers. </p>
           <div class="img-wrapper">
             <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" />
+            <p>CPU-intensive code in one container could starve another container of resources</p>
           </div>
           <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
             the
@@ -857,6 +863,7 @@
 
           <div class="img-wrapper">
             <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" />
+            <p>Control groups provide a way to balance resources between containers</p>
           </div>
 
           <p>We also set a boundary for memory usage for each container. By choosing cgroup limits that still keep our
@@ -872,7 +879,6 @@
 
         <ul>
           <li>How to spin up a container for each user’s session?</li>
-        </ul>
         <li>How to expose an external address for a container while masking any internal information about the
           container’s IP
           address? </li>
@@ -898,6 +904,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/RedPoint_System_V2.png" alt="redpoint system" />
+          <p>The system architecture of RedPoint</p>
         </div>
 
         <h3>5.1 Reverse Proxy</h3>
@@ -910,6 +917,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" />
+          <p>Port forwarding is a naive way to connect users with containers</p>
         </div>
 
         <p>This approach, known as port forwarding, would leave our application vulnerable to a port scanning attack,
@@ -926,6 +934,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Reverse Proxy.png" alt="reverse proxying" />
+          <p>Using a reverse proxy to handle all HTTP and WebSocket messages from our clients</p>
         </div>
 
         <p>We considered existing reverse proxy solutions, such as NGINX or HAProxy. However, given the significant
@@ -956,6 +965,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data" />
+          <p>Our session data maps a unique URL to the important internal information for a session</p>
         </div>
 
         <p>Our original, naive implementation stored the session as an in-memory JavaScript object in our dispatch
@@ -969,6 +979,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Redis vs Server for session storage.png"
             alt="Dispatch vs Redis" />
+            <p>Storing session data in Redis makes our dispatch server stateless</p>
         </div>
 
         <p>Our solution was to use Redis to store our session data. As an in-memory data store, Redis is fast enough to
@@ -1017,6 +1028,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown" />
+          <p>Tearing down a container and session when a client disconnects</p>
         </div>
 
         <p>This strategy works well for most teardown scenarios, but there are a few edge cases to consider. The first
@@ -1037,6 +1049,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Premature Teardown.png" alt="premature teardown" />
+          <p>Using timestamps to avoid tearing down a session prematurely if the user refreshes</p>
         </div>
 
         <p>The second edge case is that if a user navigates away or closes their tab while waiting to be redirected, a
@@ -1055,6 +1068,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Orphaned container.png" alt="zombie container" />
+          <p>Pinging newly created containers to detect and tear down abandoned sessions</p>
         </div>
 
         <h3>5.3 Database Middleware</h3>
@@ -1118,6 +1132,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook" />
+          <p>The dispatch server coordinates the interactions involved in a save request</p>
         </div>
 
         <p>After a successful write to the database, the user is presented with a URL in the format
@@ -1132,7 +1147,8 @@
           client to hydrate the notebook state. </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Load notebook.png" alt="load notebook" />
+          <img src="images/diagrams/system_architecture/Load notebook.png" alt="load notebook" /> 
+          <p>Handling a load notebook request from a client</p>
         </div>
 
 
@@ -1198,68 +1214,7 @@
 
       <section id="footnotes">
         <h2 id="references">7 References</h2>
-        <p>Here are some references that were valuable to us during our journey to create RedPoint: </p>
-
-        <h3>Computational Notebooks</h3>
-        <p>Time Traveling in Node.js Notebooks</p>
-        <p><u>Open-Sourcing </u><u>Polynote</u></p>
-        <p>Observable's Not Javascript</p>
-        <p>nteract: building on top of Jupyter</p>
-        <p>Notebook Wars</p>
-        <p>Literate programming</p>
-        <p>Jupyter Lab: Evolution of the Jupyter Notebook</p>
-        <p>The Scientific Paper is Obsolete</p>
-        <p>Devops with Juypter</p>
-        <p>Notebook Innovation at Netflix </p>
-        <p>nteract: Revolutionizing the Notebook Experience</p>
-        <p>I Don't Like Notebooks - Joel Grus - #JupyterCon 2018</p>
-        <p>Advanced Jupyter Notebook Tutorial</p>
-        <p>WebSockets</p>
-
-        <p>WebSockets - A Conceptual Deep-Dive</p>
-        <p>Performance comparison of XHR polling, Long polling, Server sent events and Websockets</p>
-        <p>HTTP vs Websockets: A performance comparison</p>
-
-        <p>Node Child Processes and Streams</p>
-
-        <p>How to Exit in Node.js</p>
-        <p>Understanding execFile, spawn, exec, and fork in Node.js</p>
-        <p>Running Shell Script Using Node.js</p>
-        <p>Child Process Docs</p>
-        <p>Unix / Linux - Shell Input/Output Redirections</p>
-        <p>Node JS Streams</p>
-
-        <p>Docker</p>
-        <p>Containers, VMs and Docker</p>
-        <p>Dockerfile Best Practices</p>
-        <p><u>Containerizing an applicatio</u>n</p>
-        <p>Docker Curriculum</p>
-        <p>An Updated Performance Comparison of Virtual Machines and Linux Containers</p>
-        <p>When and Why to Use Docker</p>
-        <p>When Not to Use Docker: Understanding the Limitations of Containers</p>
-        <p>Containers vs Virtual Machines (VMs): Critical Differences to Understand</p>
-        <p>Docker Misconceptions</p>
-        <p>Docker in the Real World at Yelp</p>
-        <p>Docker Log Management</p>
-
-        <p>gVisor, security, and cgroups: </p>
-
-        <p>How To Limit User's Access To The Linux System</p>
-        <p>Docker security</p>
-        <p>gVisor Security Model</p>
-        <p>How to Implement Secure Containers Using Google's gVisor</p>
-        <p>cgroups</p>
-        <p>Runtime options with Memory, CPUs, and GPUs</p>
-        <p>Container Processes shouldn't run as root</p>
-
-        <p>MongoDB and Redis:</p>
-        <p><u>Using Redis with Node.j</u><u>s</u></p>
-        <p>First-in, first-out queues in Redis</p>
-        <p>The MongoDB Manual</p>
-        <p>Optimize MongoDB Query Performance</p>
-
-
-
+      
         <ol>
           <li id="footnote-1">
             <a href="" target="_blank">https://en.wikipedia.org</a>
