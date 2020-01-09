@@ -461,6 +461,15 @@ h3 {
   margin-bottom: 15px;
 }
 
+.chapter p {
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+hr {
+  margin-bottom: 20px;
+}
+
 .img-wrapper {
   position: relative;
   margin-bottom: 50px;
@@ -484,6 +493,26 @@ h3 {
   line-height: 1rem;
   margin: 0 auto;
   margin-bottom: 0;
+}
+
+#case-study .img-wrapper img {
+  width: 70%;
+}
+
+#case-study .img-wrapper img.big {
+  max-width: 40%;
+}
+
+#session-data-screenshot {
+  max-width: 650px !important;
+}
+
+#container-teardown {
+  max-width: 865px !important;
+}
+
+#save-clone {
+  max-width: 700px !important;
 }
 
 #case-study blockquote p {
@@ -956,6 +985,21 @@ small {
 
 @media (max-width: 600px) {
   /* General */
+  #case-study .img-wrapper img.big {
+    width: 70% !important;
+  }
+
+  /* #case-study .img-wrapper img.big {
+    min-width: 315px !important;
+  }   */
+
+  main {
+    padding-right: 45px !important;
+  }
+
+  .chapter {
+    padding: 25px;
+  }
 
   h1 {
     font-size: 2.7rem;
