@@ -164,8 +164,7 @@ sup a {
 }
 
 sup a:hover {
-  /* color: #ed6a40; */
-  color: #ed6a40;
+  color: #ed7164;
 }
 
 /* ---------------------------------
@@ -206,6 +205,10 @@ img {
 
 #github-logo:hover {
   filter: invert(100%);
+}
+
+#redpoint-logo:hover {
+  filter: contrast(125%) brightness(75%);
 }
 
 #toTop-logo {
@@ -272,7 +275,7 @@ pre code {
 }
 
 code {
-  color: #ed6a40;
+  color: #ed7164;
   font-family: "Fira Code", monospace;
   font-size: 1rem;
 }
@@ -304,7 +307,7 @@ nav#site-navigation ul {
 }
 
 nav#site-navigation ul li {
-  margin: 25px 20px 25px 40px;
+  margin: 13px 20px 13px 40px;
   float: left;
 }
 
@@ -347,7 +350,7 @@ header p {
 }
 
 header span {
-  color: #ed6a40;
+  color: #ed7164;
 }
 
 header h1 img {
@@ -368,7 +371,7 @@ header h1 img {
 
   left: 2%;
   position: fixed;
-  top: 2%;
+  top: 5%;
   transform: translateY(-50%);
 }
 
@@ -406,7 +409,7 @@ header h1 img {
 }
 
 #case-study nav a:hover {
-  color: #e38a5f;
+  color: #ed7164;
 }
 
 #case-study h3,
@@ -606,7 +609,7 @@ h2#references {
 }
 
 #footnotes a:hover {
-  color: #ef431b;
+  color: #ed7164;
 }
 
 /* ---------------------------------
