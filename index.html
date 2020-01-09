@@ -251,7 +251,7 @@
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/intro/note_taking_flow.png" alt="note taking workflow" />
-          <p>Context switching required for notes about programming.</p>
+          <p>Context switching required for notes about programming</p>
         </div>
         <p>The other limitation with note-taking apps is that none of the major ones are web-native. For example, in
           order to
@@ -670,14 +670,12 @@
 
       <div class="chapter">
         <h2 id="security">4 Security and Resources</h2>
-        <p>IMG: malicious code screenshot</p>
-
         <h3>4.1 Security</h3>
         <h4>4.1.1 Risks</h4>
 
         <p>Allowing users to run arbitrary code on our server presents a significant security challenge. Specific
           examples of security concerns include unauthorized access to database data, interference with the sessions of
-          other users and
+          other users, and
           malicious server file manipulation. To address these concerns, we implemented multiple layers of protection
           against
           malicious code on our servers. </p>
@@ -707,7 +705,10 @@
         </p>
 
 
-        <p>IMG: Docker Image and Containers</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Docker Image and Containers.png"
+            alt="docker image and containers" />
+        </div>
 
         <p>Containerized deployment means that we can be sure that our application runs in a consistent environment with
           all
@@ -722,7 +723,9 @@
           users will not be impacted. </p>
 
 
-        <p>IMG: Crashing container with malicious code </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container" />
+        </div>
 
         <h4>4.1.4 Restricted User Privileges</h4>
 
@@ -741,7 +744,9 @@
           <li>Permission to alter the `.bash_profile` and `.bashrc` of the user is revoked</li>
         </ol>
 
-        <p>IMG: Restricted User</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions" />
+        </div>
 
         <p>These restrictions enhance our security profile by making it more difficult to execute destructive commands
           or loosen
@@ -760,16 +765,18 @@
             for a new user within a matter of seconds, they aren't a good fit. </p>
 
           <p>Containers are lightweight and fast to spin up compared to virtual machines. However, the default container
-            runtime
-            `runc` provides a weak level of isolation between the container and the host kernel, which can leave the
+            runtime, <code>runc</code>, provides a weak level of isolation between the container and the host kernel,
+            which can leave the
             kernel
             vulnerable to exploits such as privilege-escalation attacks.</p>
 
-          <p>IMG: Without gVisor</p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" />
+          </div>
 
           <p>To mitigate this risk, we added an additional level of isolation between the container and the host kernel,
-            using the
-            `runsc` runtime from Google's gVisor. gVisor is a lightweight user-space kernel, which acts as the guest
+            using the <code>runsc</code> runtime from Google's gVisor. gVisor is a lightweight user-space kernel, which
+            acts as the guest
             kernel for a
             container and provides strong isolation from the host kernel, without the overhead of virtualization. It
             does
@@ -788,19 +795,25 @@
             only
             altering an ephemeral in-memory overlay, not the actual host.</p>
 
-          <p>IMG: With gVisor</p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" />
+          </div>
 
-          <p>The trade-off is that the runsc runtime consumes more memory than runc, meaning that a given host system
+          <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
+            that a given host system
             can
             support
-            fewer containers when using runsc. Using Artillery, a load testing library, we tested how many
+            fewer containers when using the more secure runtime. Using Artillery, a load testing library, we tested how
+            many
             concurrent
             container instances could be run on hosts with varying amounts of memory. The results showed that using
             gVisor
             reduced
             the number of concurrent container a given host would support by roughly 25 percent:</p>
 
-          <p>IMG: Load testing table</p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table" />
+          </div>
 
           <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
             acceptable
@@ -821,7 +834,9 @@
             container
             doesn't
             have an adverse impact on other concurrent sessions in other containers. </p>
-          <p>DIAGRAM: <u>Without Cgroups </u></p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" />
+          </div>
           <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
             the
             user's
@@ -840,7 +855,9 @@
             container. </p>
 
 
-          <p>DIAGRAM: <u>With Cgroups</u></p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" />
+          </div>
 
           <p>We also set a boundary for memory usage for each container. By choosing cgroup limits that still keep our
             application
@@ -879,7 +896,9 @@
           <li>Database Middleware</li>
         </ol>
 
-        <p>IMG: RedPoint System</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/RedPoint_System_V2.png" alt="redpoint system" />
+        </div>
 
         <h3>5.1 Reverse Proxy</h3>
 
@@ -889,7 +908,9 @@
           system and
           map that port directly to a container.</p>
 
-        <p>DIAGRAM <u>Port Forwarding</u></p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" />
+        </div>
 
         <p>This approach, known as port forwarding, would leave our application vulnerable to a port scanning attack,
           which
@@ -903,7 +924,9 @@
           Responses from
           the containerized application are then proxied to the client in a similar fashion. </p>
 
-        <p>DIAGRAM: <u>Reverse proxy</u></p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Reverse Proxy.png" alt="reverse proxying" />
+        </div>
 
         <p>We considered existing reverse proxy solutions, such as NGINX or HAProxy. However, given the significant
           amount of
@@ -931,7 +954,9 @@
           dispatch server uses to map important information such as container and notebook IDs to the correct session.
         </p>
 
-        <p>IMG: Example Session Object</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data" />
+        </div>
 
         <p>Our original, naive implementation stored the session as an in-memory JavaScript object in our dispatch
           server. This
@@ -941,7 +966,10 @@
           unsuitable, since latency incurred by reading and writing session data would be added to each proxy
           interaction.</p>
 
-        <p>IMG: Redis vs Dispatch</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Redis vs Server for session storage.png"
+            alt="Dispatch vs Redis" />
+        </div>
 
         <p>Our solution was to use Redis to store our session data. As an in-memory data store, Redis is fast enough to
           meet our
@@ -954,7 +982,7 @@
           to use
           Redis to implement a buffer for our webhook traffic</p>
 
-          <h4>5.2.2 Session and Container Creation</h4>
+        <h4>5.2.2 Session and Container Creation</h4>
 
         <p>Once the session data is stored, the session URL is inserted into a redirect page which is served to the
           client.
@@ -987,7 +1015,9 @@
           the
           running Docker container, and deletes the current session’s data from Redis. </p>
 
-        <p>DIAGRAM: <u>teardown</u></p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown" />
+        </div>
 
         <p>This strategy works well for most teardown scenarios, but there are a few edge cases to consider. The first
           is that
@@ -1005,7 +1035,9 @@
           teardown. If the timestamps differ, it means the user has revisited the container, and the session is kept
           alive.</p>
 
-        <p>DIAGRAM: <u>premature teardownulation</u> </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Premature Teardown.png" alt="premature teardown" />
+        </div>
 
         <p>The second edge case is that if a user navigates away or closes their tab while waiting to be redirected, a
           container
@@ -1015,13 +1047,15 @@
           idle. We
           need a different teardown strategy for this kind of ‘zombie’ container.</p>
 
-        <p>IMG: Zombie Container</p>
-
         <p>To solve this problem, our application server sets a flag which marks the creation of a successful WebSocket
           connection with the client. After initiating the creation of a container, the dispatch server pings the
           containerized
           application server to check this connection flag. If the application server reports the lack of a WebSocket
           connection, the container has been abandoned, and the dispatch server immediately tears it down.</p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Orphaned container.png" alt="zombie container" />
+        </div>
 
         <h3>5.3 Database Middleware</h3>
 
@@ -1082,7 +1116,9 @@
           to the
           user using the SendGrid API.</p>
 
-        <p>IMG: Save/Clone Notebook</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook" />
+        </div>
 
         <p>After a successful write to the database, the user is presented with a URL in the format
           <code>www.yourdomain.com/notebooks/$notebookID</code>. When a user navigates to this URL to load the notebook,
@@ -1095,7 +1131,9 @@
           the
           client to hydrate the notebook state. </p>
 
-        <p>IMG: Load Notebook</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Load notebook.png" alt="load notebook" />
+        </div>
 
 
 
@@ -1107,7 +1145,12 @@
           saves of the same ID overwrite the same MongoDB document. Therefore, when cloning a notebook, a new Mongo
           document
           with identical data to its parent is created and associated with a new notebook ID. </p>
-        <p>Save UUID vs Clone UUID</p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/system_architecture/Save UUID vs Clone UUID.png" alt="save vs clone URL" />
+          <p>Cloning a notebook creates a new notebook ID</p>
+        </div>
+
         <p>There’s still a problem, however: if multiple users are given the cloned notebook URL (such as a publicly
           posted
           notebook), any subsequent saves will mutate all copies of the clone. Our solution to this problem is to give
