@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .join(" ")
   );
 
-  const getCaseStudyHeadingPositions = () =>
-    h2Text.reduce((obj, h2Str) => {
+  const getCaseStudyHeadingPositions = () => {
+    return h2Text.reduce((obj, h2Str) => {
       const selector = `#${snakeCaseify(h2Str)}`;
       const h2 = document.querySelector(selector);
 
@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       obj[`${selector}-nav`] = position;
       return obj;
     }, {});
+  };
 
   const highlightSection = (li, a) => {
     li.style.listStyle = "disc";
@@ -208,6 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const handleCaseStudyNavStyles = () => {
     const positions = getCaseStudyHeadingPositions();
+    // debugger;
     const positionValues = Object.values(positions);
     const positionSelectors = Object.keys(positions);
     const mobileCaseStudyNav = document.querySelector("#case-study-mobile");
