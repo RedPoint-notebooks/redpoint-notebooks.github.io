@@ -1,617 +1,664 @@
 <!DOCTYPE html>
 
 <html lang="en-US" prefix="og: http://opg.me/ns#">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="title" property="og:title" content="RedPoint" />
+<head>
+  <meta charset="UTF-8" />
 
-    <meta
-      name="description"
-      property="og:description"
-      content="RedPoint is a web-based, multi-language computational notebook for programmers"
-    />
+  <meta name="title" property="og:title" content="RedPoint" />
 
-    <meta name="type" property="og:type" content="website" />
+  <meta name="description" property="og:description"
+    content="RedPoint is a web-based, multi-language computational notebook for programmers" />
 
-    <meta
-      name="url"
-      property="og:url"
-      content="https://redpoint-notebooks.github.io/"
-    />
+  <meta name="type" property="og:type" content="website" />
 
-    <meta
-      name="image"
-      property="og:image"
-      content="images/logos/redpoint-brand-logo_horizontal-on_dark.png"
-    />
+  <meta name="url" property="og:url" content="https://redpoint-notebooks.github.io/" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="image" property="og:image" content="images/logos/redpoint-brand-logo_horizontal-on_dark.png" />
 
-    <meta name="author" content="Charles Ging, Ben Harvey, William Mills" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>RedPoint Notebooks</title>
+  <meta name="author" content="Charles Ging, Ben Harvey, William Mills" />
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="images/icons/favicon_package_v0.16/favicon-16x16.png"
-    />
+  <title>RedPoint Notebooks</title>
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon_package_v0.16/favicon-16x16.png" />
 
-    <!-- <style>reset</style> -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="stylesheets/reset.css" />
+  <!-- <style>reset</style> -->
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/gruvbox-dark.min.css"
-      charset="utf-8"
-    />
+  <link rel="stylesheet" href="stylesheets/reset.css" />
 
-    <!-- <style></style> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/gruvbox-dark.min.css"
+    charset="utf-8" />
 
-    <link rel="stylesheet" href="stylesheets/main.css" />
+  <!-- <style></style> -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="stylesheets/main.css" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
 
-    <!-- <script></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="javascripts/application.js"></script>
-  </head>
+  <!-- <script></script> -->
 
-  <body>
-    <div class="logo-links">
-      <p id="redpoint-logo">
-        <img src="./images/logos/redpoint-brand-logo_plane-only.png" />
-      </p>
-      <a
-        href="https://github.com/redPoint-notebook/redPoint-notebook"
-        target="_blank"
-      >
-        <img
-          src="images/github/github_white.png"
-          alt="github logo"
-          id="github-logo"
-        />
-      </a>
-    </div>
-    <a id="toTop-link" href="#" target="_blank">
-      <img
-        src="images/logos/back-to-top.png"
-        alt="Back to top"
-        id="toTop-logo"
-      />
+  <script src="javascripts/application.js"></script>
+</head>
+
+<body>
+  <div class="logo-links">
+    <p id="redpoint-logo">
+      <img src="./images/logos/redpoint-brand-logo_plane-only.png" />
+    </p>
+    <a href="https://github.com/redPoint-notebook/redPoint-notebook" target="_blank">
+      <img src="images/github/github_white.png" alt="github logo" id="github-logo" />
     </a>
-    <nav id="site-navigation">
-      <ul>
-        <li>
-          <a href="#home" id="home-link">HOME</a>
-        </li>
+  </div>
+  <a id="toTop-link" href="#" target="_blank">
+    <img src="images/logos/back-to-top.png" alt="Back to top" id="toTop-logo" />
+  </a>
+  <nav id="site-navigation">
+    <ul>
+      <li>
+        <a href="#home" id="home-link">HOME</a>
+      </li>
 
-        <li>
-          <a href="#case-study" id="case-study-link">CASE STUDY</a>
+      <li>
+        <a href="#case-study" id="case-study-link">CASE STUDY</a>
 
-          <nav id="case-study-mobile">
-            <ul></ul>
-          </nav>
-        </li>
-
-        <li>
-          <a href="#our-team" id="our-team-link">OUR TEAM</a>
-        </li>
-      </ul>
-    </nav>
-
-    <header id="home">
-      <h1>
-        <img
-          src="images/logos/redpoint-brand-logo_horizontal-on_dark.png"
-          alt="RedPoint Logo"
-        />
-
-        <p>a web-native computational notebook for programmers</p>
-      </h1>
-    </header>
-
-    <section class="integration">
-      <div class="box">
-        <img
-          id="banner-deploy"
-          src="images/gifs/multi_language.gif"
-          class="softened"
-          alt="Gif of JS, ruby, and python execution in a notebook"
-        />
-      </div>
-
-      <article class="box">
-        <div class="text-box">
-          <h1>Multiple languages in the same notebook</h1>
-
-          <p>
-            Execute multiple programming languages within one notebook, and
-            share ideas, notes, or questions with others.
-          </p>
-
-          <!-- <a class="button" href="#case-study">Learn More</a> -->
-        </div>
-      </article>
-    </section>
-
-    <section class="integration">
-      <article class="box">
-        <div class="text-box">
-          <h1>Web Native</h1>
-
-          <p>
-            Interact with API endpoints, or load webhook data into a notebook by
-            providing a custom endpoint to a webhook provider.
-          </p>
-
-          <!-- <a class="button" href="#case-study">Learn More</a> -->
-        </div>
-      </article>
-      <div class="box">
-        <img
-          id="banner-deploy"
-          src="images/diagrams/api_data.gif"
-          class="softened"
-          alt="Gif of notebook retrieving API data"
-        />
-      </div>
-    </section>
-
-    <main>
-      <section id="case-study">
-        <h1>Case Study</h1>
-
-        <div id="side-nav">
-          <img
-            src="images/logos/redpoint-brand-logo_horizontal-on_dark.png"
-            alt="RedPoint Logo"
-          />
-        </div>
-
-        <nav>
+        <nav id="case-study-mobile">
           <ul></ul>
         </nav>
+      </li>
 
-        <div class="chapter">
-          <h2 id="introduction">1 Introduction</h2>
+      <li>
+        <a href="#our-team" id="our-team-link">OUR TEAM</a>
+      </li>
+    </ul>
+  </nav>
 
-          <h3>1.1 What is a Redpoint Notebook?</h3>
+  <header id="home">
+    <h1>
+      <img src="images/logos/redpoint-brand-logo_horizontal-on_dark.png" alt="RedPoint Logo" />
+
+      <p>a web-native computational notebook for programmers</p>
+    </h1>
+  </header>
+
+  <section class="integration">
+    <div class="box">
+      <img id="banner-deploy" src="images/gifs/multi_language.gif" class="softened"
+        alt="Gif of JS, ruby, and python execution in a notebook" />
+    </div>
+
+    <article class="box">
+      <div class="text-box">
+        <h1>Multiple languages in the same notebook</h1>
+
+        <p>
+          Execute multiple programming languages within one notebook, and
+          share ideas, notes, or questions with others.
+        </p>
+
+        <!-- <a class="button" href="#case-study">Learn More</a> -->
+      </div>
+    </article>
+  </section>
+
+  <section class="integration">
+    <article class="box">
+      <div class="text-box">
+        <h1>Web Native</h1>
+
+        <p>
+          Interact with API endpoints, or load webhook data into a notebook by
+          providing a custom endpoint to a webhook provider.
+        </p>
+
+        <!-- <a class="button" href="#case-study">Learn More</a> -->
+      </div>
+    </article>
+    <div class="box">
+      <img id="banner-deploy" src="images/diagrams/api_data.gif" class="softened"
+        alt="Gif of notebook retrieving API data" />
+    </div>
+  </section>
+
+  <main>
+    <section id="case-study">
+      <h1>Case Study</h1>
+
+      <div id="side-nav">
+        <img src="images/logos/redpoint-brand-logo_horizontal-on_dark.png" alt="RedPoint Logo" />
+      </div>
+
+      <nav>
+        <ul></ul>
+      </nav>
+
+      <div class="chapter">
+        <h2 id="introduction">1 Introduction</h2>
+
+        <h3>1.1 What is Redpoint?</h3>
+
+        <p>RedPoint is a free and open-source computational notebook tool that emphasizes ease of use, multi-language
+          support and web connectivity. RedPoint notebooks run in the browser, and allow you to write and execute
+          JavaScript, Ruby, and Python code within the same document. This case study will explain the uses of
+          computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
+          technical challenges we faced in building a web-native computational notebook and the solutions we devised to
+          address them.</p>
+
+        <h3>1.2 What is a computational notebook?</h3>
+        <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
+          up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
+        <h4>1.2.1 Text Cells</h4>
+        <p>Each text cell is essentially a mini text editor. Many notebook products support the Markdown language for
+          their text cells, which enables many common editor features such as headings, subheadings, lists, and inline
+          images. In a typical notebook, text cells are interspersed with code cells, and used to document and explain
+          the code in those cells.</p>
+        <h4>1.2.2 Code Cells</h4>
+        <p>Code cells act as mini code editors, supporting features such as syntax highlighting and auto-indentation. A
+          key feature of notebooks is that they are backed by a computational engine, and code written in a code cell
+          can be executed in-place. When a cell is executed, information about the execution, such as output or return
+          value, is displayed below the cell. Code cells share state across cells, but the implementation is different
+          in different notebook products. Notebooks with a data science emphasis often use code cells to render
+          visualizations. </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" />
+          <p>Simple example with a rendered Markdown text cell above a code cell.</p>
+        </div>
+        <h4>1.2.3 Computational Narratives</h4>
+        <p>When you combine dynamic code cells with descriptive text cells it provides the building blocks for what’s
+          called a computational narrative. Inline code comments help us make narrative sense of the dense syntax of the
+          surrounding code. Computational notebooks elevate the descriptive text of comments to the same level of
+          importance as the code itself. Fernando Perez, co-creator of the popular Jupyter Notebook, described the goal
+          of computational notebooks as: </p>
+        <blockquote>
+          <p>
+            “the weaving of a narrative directly into a live computation,
+            interleaving text with code and results to construct a complete
+            piece that relies equally on the textual explanations and the
+            computational components."
+          </p>
+          <p>
+            - Fernando Perez, co-creator of Jupyter Notebooks
+          </p>
+          </p>
+        </blockquote>
+        <p>Image: Sample computational narrative</p>
+        <h3>1.3 Uses of Computational Notebooks</h3>
+        <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
+          enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
+          and iterative way --the same way that scientific discoveries are made.</p>
+
+        <p>Jupyter notebooks allow a given cell to be executed multiple times, independently from other cells, to allow
+          iterative exploration. This style of notebook is backed by a computational kernel that behaves like a REPL,
+          building up program state across multiple cell executions. </p>
+
+        <p>These design decisions support a data science workflow, but the way they handle code state creates
+          complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become out
+          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain `const`
+          declarations will produce errors if the same cell is run more than once.</p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1"
+            alt="Hidden State1" />
 
           <p>
-            RedPoint notebooks are computational notebooks that emphasize ease of use, multi-language support and web connectivity. They allow you to write and execute JavaScript, Ruby, and Python code in the same notebook, and document that code with Markdown.  A RedPoint notebook can make API calls or act as a webhook endpoint, letting users interact programmatically with the response payload directly in the notebook.  This case study will explain the uses of computational notebooks in general, and highlight solutions to the technical challenges we faced in bulding our own notebook.
+            Hidden state in Jupyter notebooks
           </p>
+          <div class="buttons">
+            <button id="resetButton" class="redpointButton">Reset</button>
 
-          <h3>1.2 What is a computational notebook?</h3>
-          <p>Computational notebooks are dynamic documents that combine styled text with runnable code.  A notebook is made up of modular units called cells. Each type of cell has specific features, and cells of different types can be inserted side-by-side in the same notebook.  Cells fall into two broad categories: text cells and code cells.</p>
-          <h4>1.2.1 Text Cells</h4>
-          <p>
-            Each text cell is essentially a mini text editor. Many notebook products support the Markdown language for their text cells, which uses a form of shorthand to enable many common editor features such as headings, subheadings, ordered/unordered lists, and inline images. In a typical notebook, text cells are interspersed with another cell type, code cells, and used to document and explain the code in those cells.
-          </p>
-          <h4>1.2.2 Code Cells</h4>
-          <p>
-            Code cells in most notebooks act as mini code editors, supporting features such as syntax highlighting and auto-indentation.  A key feature of notebooks is that they are backed by a computational engine, and code written in a code cell can be executed in-place.  When a cell is executed, information about the execution, such as output or return value, is displayed below the cell. Notebooks with a data science emphasis also use code cells to render visualizations.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/intro/cells_example.png"
-              alt="text and code cells example"
-            />
-            <p>Simple example with a rendered markdown cell above a code cell.</p>
+            <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
-          <h4>1.2.3 Computational Narratives</h4>
-          <p>
-            Why combine these two cell types in one document?  Computers don’t need prose descriptions to do their work, only clear instructions given in machine-readable form.  Humans, however, have different needs when interacting with code, as illustrated by the existence of code comment syntax in virtually every programming language.  
-          </p>
-          <p>
-            Code comments are descriptions in human language, interspersed with machine-readable code, that help us make narrative sense of the dense syntax of the surrounding code. Computational notebooks elevate the descriptive text of comments to the same level of importance as the code itself. Fernando Perez, a co-creator of Jupyter, described the goal of computational notebooks as 
-          </p>
-          <blockquote>
-            <p>
-              “the weaving of a narrative directly into a live computation,
-              interleaving text with code and results to construct a complete
-              piece that relies equally on the textual explanations and the
-              computational components."
-              </p>
-              <p>
-                - Fernando Perez, co-creator of Jupyter Notebooks
-              </p>
-            </p>
-          </blockquote>
-          <p>
-            One of the primary uses of notebooks is to create this kind of computational narrative.
-          </p>
-          <h3>1.3 Uses of Computational Notebooks</h3>
-          <p>
-            The original use of notebooks was in the field of data science, using computational narratives as an alternative to static presentations of data sets.  A typical workflow for a Jupyter notebook would involve storing a large data set in a variable in a code cell, describing the data in a text cell, then using different algorithms or visualization tools to iteratively explore the data in subsequent cells.  
-          </p>
-          <p>Several design decisions in Jupyter notebooks support this workflow.  First, Jupyter notebooks allow a given cell to be executed multiple times, independently from other cells, to allow iterative exploration. Second, this style of notebook is backed by a computational kernel that acts similarly to a REPL, which keeps track of state across multiple executions.  </p>
-          <p>Although these decisions support a data science workflow, they can be hard to reason about because of they way they handle code state.  When cells are re-executed, the visible state of the notebook can quickly become out of phase with the hidden state of the kernel. For example, in Javascript, cells that contain <code>const</code> declarations will produce errors if the same cell is run repeatedly.</p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/slides/hidden_state/slide_1.png"
-              id="hidden-state"
-              data-id="1"
-              alt="Hidden State1"
-            />
+        </div>
+        <p>GIF of Jupyter running const twice</p>
+        <p>Caption: Hidden state in Jupyter notebooks can lead to confusing results </p>
+        <p>As far as the underlying program state is concerned, the variable ‘foo’ has already been declared. This
+          hidden
+          notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It also
+          limits
+          sharing notebooks to people who have experience with the intricacies of Jupyter notebook state. </p>
 
-            <p>
-              Hidden state in Jupyter notebooks
-            </p>
-            <div class="buttons">
-              <button id="resetButton" class="redpointButton">Reset</button>
-  
-              <button id="nextButton" class="redpointButton">&rarr;</button>
-            </div>
-          </div>
+        <p>Other notebook products such as ObservableHQ use a custom system to link state between cells, and a
+          non-standard
+          dialect of JavaScript. Although they can enable powerful features, non-standard language dialects are not
+          suitable for
+          people interested in documenting and sharing vanilla code. </p>
 
-          <h3>1.4 Note Taking Apps for Programmers</h3>
-          <p>Another alternative exists for programmers looking to create a narrative documentation of code. Note-taking applications help users document and present their notes, which can be organized into folders, grouped by tags, and searched by keywords.  A subset of note-taking apps are focused on programmers, the most popular of which are Quiver, MedleyNote, and BoostNote.  </p>
-          <p>To support their presentational use case, each of these products has a focus on a clean, simple and readable UI. Some of these apps use the same cell-based design as computational notebooks, and support syntax highlighting and other editor features.  The key difference is that note taking apps are not backed by a computational engine.  Any code notes exist only in a static form, and must be copy-pasted into code editing software to be run.  </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/intro/note_taking_flow.png"
-              alt="note taking workflow"
-            />
-            <p>Context switching required for notes about programming.</p>
-          </div>
+
+        <h3>1.4 Note Taking Apps for Programmers</h3>
+        <p>Most programmers looking to document code choose more traditional note-taking applications to present their
+          notes. A
+          subset of note-taking apps are focused on programmers, such as Quiver, MedleyNote, and BoostNote. </p>
+
+        <p>BoostNote screenshot</p>
+
+        <p>Note-taking apps support syntax highlighting and other stylization features, although most don’t include a
+          full-featured code editor. The key limitation is that note taking apps are not backed by a computational
+          engine. Code
+          within note-taking apps exist only in a static form, and must be copy-pasted into code editing software to be
+          run.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/intro/note_taking_flow.png" alt="note taking workflow" />
+          <p>Context switching required for notes about programming.</p>
+        </div>
+        <p>The other limitation with note-taking apps is that none of the major ones are web-native. For example, in
+          order to
+          access your Boostnote coding notes on a mobile device you must pay a fee. Quiver is also a paid application
+          that only
+          supports the MacOS platform. </p>
+
+        <h3>1.5 RedPoint</h3>
+
+        <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
+          applications.
+          Like note-taking apps, we wanted to present a clean and simple UI that emphasizes the note contents. We wanted
+          to
+          avoid the context-switching that traditional approaches require, by letting users run the code they are
+          documenting
+          directly in their notebook. </p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/intro/redpoint_on_spectrum.png" alt="context for redpoint among other notebooks" />
+        </div>
+
+        <p>Like other notebook products, we wanted to support the creation of computational narratives, but in an
+          environment
+          optimized for people interested in documenting and sharing the code itself. Our core goals were to create a
+          notebook
+          whose program state is immediately obvious and where the rendering of code execution information is
+          presentable and
+          clear. </p>
+
+        <p>Although Jupyter notebooks support multiple programming languages, each notebook only supports a single
+          language.
+          Other notebook products such as ObservableHQ and Runkit only support a single language (JavaScript). We
+          decided to
+          create a notebook environment where different languages could be run side-by-side. Being able to run multiple
+          languages with one click in a cell-based environment allows you to compare and contrast different languages
+          without
+          context switching. </p>
+
+        <p>Multilanguage GIF</p>
+
+        <p>We wanted to take full advantage of being web-native by making note sharing easy, and by offering a
+          responsive design
+          that allows use on mobile devices as easily as on desktop computers. Another design goal was to support
+          interactions
+          with APIs and webhooks directly from within a notebook. RedPoint notebooks convert JSON payloads and insert
+          them into
+          a notebook cell, where it is possible to inspect and interact with the resulting object programatically. </p>
+
+        <p>API demo</p>
+
+        <p>Finally, we wanted to create a tool for other programmers that is totally free and open-source. If you’re
+          interested
+          in contributing, please contact us! In the following sections of this case study, we’ll detail some of the
+          problems we
+          encountered in implementing these design goals, and some of the solutions we devised to resolve them.</p>
+
+      </div>
+
+      <div class="chapter">
+        <h2 id="network-architecture">2 Network Architecture</h2>
+        <h3>2.1 Where to execute code?</h3>
+        <p>Our first major decision was deciding whether to execute user code on the client or server side. The main advantage
+          of client-side code execution is that there is no network latency incurred by a round-trip to a server. However,
+          browsers only have native support for JavaScript, and any other languages would have to be compiled into JavaScript to
+          be run. </p>
+
+          <p>DIAGRAM: pros and cons of client vs server execution </p>
         
-          <h3>1.5 RedPoint</h3>
-           
-          <p>
-            We hope to situate RedPoint in the middle ground between data-science-oriented notebooks and note-taking applications.  Like note-taking apps, we wanted to present a clean and simple UI that emphasizes the note contents.  However, we wanted to avoid the context-switching these apps require, by letting users run the code they are documenting right in their notebook. 
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/intro/redpoint_on_spectrum.png"
-              alt="context for redpoint among other notebooks"
-            />
-          </div>           
-          <p>
-          Like other computational notebooks, we wanted to let users intersperse narrative with live computation, but in an environment that is optimized for those learning a programming language. We feel that the ability to run cells in any order is powerful, but can also be confusing. For learners focused on understanding code examples, we decided to trade some computational efficiency in exchange for a notebook where rules of scope and state are familiar easy to reason about. 
-          </p>
-          <p>
-          As polyglot programmers, we have found that comparing several programming languages is a great way to learn about the commonalities that underly all languages.  We wanted to create a notebook environment where languages could be run side-by-side to compare and contrast their syntax and behaviors.
-          </p>
+        <p>Our experiments with in-browser compilers for other languages showed them to be slow and unreliable. Each additional
+          supported language for our notebook would require another in-browser compiler, which would quickly escalate client
+          memory usage to unacceptable levels.</p>
+        <p>Client-side execution would also rely on the client’s computing resources, and would lead to a poor user experience
+          on slower (mobile) devices. Overall, we decided that server-side execution was the best solution. However, executing arbitrary user code on our server presents security and network latency concerns. We devised several
+          strategies (link) to mitigate them.</p>
+        
+        
+        
+        
+       
+        
+        <p>https://drive.google.com/file/d/1ta1tIjZgluzL4DhSYe5ItKrR3GXzSjnE/view?usp=sharing</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/client_vs_server_execution.png" alt="client vs server execution" />
         </div>
 
-        <div class="chapter">
-          <h2 id="network-architecture">2 Network Architecture</h2>
-          <h3>2.1 Where to execute user code?</h3>
-          <p>
-            Our first challenge was figuring out whether to execute user code on the client or server side. The main advantage of client-side code execution is that there is no network latency incurred by a round-trip to a server. However, browsers only have native support for JavaScript code execution, while other languages would have to be compiled into Javascript, which can have performance implications .  Each additional language supported would require another in-browser compiler, which would quickly make the client memory usage unacceptable. Client-side execution would also rely on the client’s computing resources, which vary widely by device. There are inherent security concerns with executing user code on our server, which we discuss <a href="#security">below</a>, but overall we decided that server-side execution was the best fit for our use case.
-          </p>
+        <h3>2.2 Limitations of HTTP</h3>
+        <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was executed
+          server-side, relevant data (output, errors, and return value) was stored in a single JavaScript object, which was
+          serialized and returned to the client in the HTTP response. This approach worked fine in basic examples, but had
+          drawbacks with more complex code.</p>
+        
+          <p>This IMG needs updating</p>
           <div class="img-wrapper">
-            <img
-              src="images/diagrams/client_vs_server_execution.png"
-              alt="client vs server execution"
-            />
+            <img src="images/diagrams/network_architecture/async_execution_over_http.png"
+              alt="limitations of http for asynchronous user code" />
           </div>
+        <p>In the above example using a single HTTP request/response cycle, even though the server processes the first log
+          statement immediately, the user has to wait ten seconds for the asynchronous code to execute before seeing any
+          results. In order to improve the responsiveness of our application, we needed a connection that would permit the
+          server to issue many responses to a single client request. That way, a user could receive real-time feedback as each
+          cell of code was run by our server, rather than waiting for the slowest code to execute. </p>
 
-          <h3>2.2 Limitations of HTTP</h3>
-          <p>
-            Our early prototype sent code to our server in an HTTP POST request containing the user code as its payload. As the script was executed server-side, relevant data (`stdout`, `stderr`, and return value) was stored in a Javascript object, which was serialized and returned to the client in the HTTP response.  On the client side, the browser then rendered information under the correct cell by using the response object containing data for the code cells executed.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/network_architecture/execution_over_http.png"
-              alt="using http requests"
-            />
-          </div>          
-          <p>
-            This approach worked well in basic examples, but there were a few drawbacks to using a standard HTTP request/response cycle. When writing asynchronous code, the user had to wait for the server to evaluate all code before seeing any response from the server.
-          </p>
+          <p>We considered several other alternatives. We could continually ping the server to check for execution results
+            (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient.
+            Server-sent events would allow our server to issue multiple responses, but do not accommodate true bi-directional
+            communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case. </p>
 
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/network_architecture/async_execution_over_http.png"
-              alt="limitations of http for asynchronous user code"
-            />
-          </div>
+       
+        <h3>2.3 Websockets</h3>
 
-          <p>
-            In the above example using HTTP,  the user had to wait ten seconds before receiving any response. In order to improve the responsiveness of our application,  we needed a connection that would permit the server to issue many responses to a single client request. That way, a user could receive real-time feedback as each cell of code was run by our server, rather than waiting for the slowest code to execute.  Server-sent events would allow our server to issue multiple responses, but not accommodate true bi-directional communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case. 
-
-          </p>
-          <h3>2.3 Solution : Websockets</h3>
-
-          <p>
-            Our solution was to create a WebSocket connection to the code processing server upon the initial page load. The client first sends an HTTP GET request with an <code>Upgrade</code> header signaling the client’s intent to establish a WebSocket connection. The server then issues a response with a 101 status code to accept the client’s request and switch the connection to the WebSocket protocol.  After the initial handshake over HTTP, the client and server communicate over a single, persistent TCP connection which allows full duplex communication. 
-          </p>
-
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/network_architecture/async_execution_over_websockets.png"
-              alt="websockets for asynchronous user code"
-            />
-          </div>
-
-          <h3>2.4 Encryption and Certificates</h3>
-          <p>
-            Regular HTTP and WS internet traffic use port 80 and send data as plain-text across the internet which is vulnerable to interception. In order to increase security, we support traffic using the HTTPS and WSS protocol and allow traffic to our server through port 443. This means that all messages exchanged between the client and server are encrypted before being transported using the Secure Sockets Layer and Transport Layer Security. To achieve this encryption, we use a certification generated by a Certificate Authority (CA) to generate a domain-validated certificate for our server. 
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/network_architecture/tls_diagram.png"
-              alt="TLS diagram"
-            />
-          </div>         
-          <p>
-            The CA verifies that we are in control of our domain, and issues us a certificate and a private key. When a client accesses our server, they are supplied the CA issued public key via the DNS TXT record which they use to encrypt all data sent to our servers. Because only our server has the private key required to decrypt the data, this provides a layer of security for all transmission of data across the open network.
-          </p>
-        </div>
-
-        <div class="chapter">
-          <h2 id="user-experience">3 User Experience</h2>
-
-          <h4>3.1 Cells Share Scope</h4>
-          <p>
-            In order to process user code server-side, that code must be collected and serialized for network transport on the client side. The user code, language type, and ID of a given cell are stored as strings in a JavaScript object.   Each of these code cell objects is stored in an array of cells, where its index is determined by the cell’s vertical position in the notebook. 
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/processing_user_code/sample_code_state.png"
-              alt="sample code state"
-            />
-          </div>
+        <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the initial page
+          load. The main advantage of WebSockets is that it enables true bi-directional communication between client and server.
+          The client initiates the process by sending an HTTP GET request with an `Upgrade` header signaling an intent to
+          establish a WebSocket connection. The server issues a response with a 101 status code to accept the request and switch
+          the connection to the WebSocket protocol.</p> 
           
-          <p>
-            One of our design goals was to provide an experience of state and scope that is consistent with a typical development environment.  To make sure that code cells share state from top to bottom, we don’t allow running a single cell in isolation.  Instead,  when a given cell is executed, all preceding cells of the same language up to and including the executed cell are assembled and sent to the server for processing. 
-          </p>
-          <p>
-            By building scripts sequentially instead of allowing arbitrary cell execution order, confusion over notebook state and scope is avoided. In the following example, the three cells of Ruby code are concatenated into a single script on the server. When the third cell is run, variables declared in previous cells are still in scope.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/processing_user_code/shared_cell_scope.png"
-              alt="shared cell scope"
-            />
-          </div>
+          <p>After this initial handshake over HTTP, the client and server communicate
+          over a single, persistent TCP connection which allows full duplex communication. The reduced message size due to lack
+          of HTTP headers means that WebSocket messages incur less latency.</p>
 
-          <h4>3.2 Code Execution</h4>
-          <h5>3.2.1 REPL Execution</h5>
-          <p>
-            Once the serialized user code arrives at the server, we need a way to execute it and capture the output, return value and errors generated by the code.  Our first thought was to take the approach of Jupyter notebooks and run the array of user code strings against a kind of kernel. 
-          </p>
-          <p>
-            Each of our supported languages has a REPL (Read-Evaluate-Print-Loop) program, which can serve as the computational engine that backs our notebook.  To create them, we used the <a href="https://github.com/microsoft/node-pty" target="_blank"><code>node-pty</code></a> library, which allows us to spawn a REPL child process for each of our supported languages. Keeping a persistent REPL process alive on our server across code executions would mean simpler server-side code and better computational efficiency. 
-          </p>
-          <p>
-            However, using persistent REPL means that the current state of a notebook is effectively invisible to the user.  This doesn’t fit our use case of making notebook state easy to reason about for programmers.  Our solution was to spawn a new REPL process each time user code is run,  creating a blank slate of state for each execution. 
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/processing_user_code/repl_stack_state.png"
-              alt="problem with persistent REPL"
-            />
-          </div>
-          <p>
-            This would seem to be a good way to capture the information that we care about (outputs, return values and errors) from user code execution. However, the difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as prompts.  
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/processing_user_code/sample_repl_outputs.png"
-              alt="sample repl outputs"
-            />
-          </div>           
-          <p>
-            For our note-taking use case, we don’t want to present unfiltered REPL <code>stdout</code>, which would unnecessarily clutter our notebook’s UI.  Cleaning up the stdout would require significant parsing unique to each language, and this would compound as we add support for each new language.
-          </p>
-          <p>
-            Furthermore, errors in the user code don’t trigger an error event or halt REPL execution, which can produce unexpected results. On the other hand, extracting the return value of the last-executed cell is comparatively trivial with this approach, as it is always the last line of the REPL stdout.
-          </p>
-         
-          <h5>3.2.2 Script Execution</h5>
-          <p>
-            The other option for executing user code is to write it to a temporary script file, then execute the script using the Node <code>child_process.exec</code> method. By setting event listeners on the `stdout` and `stderr` streams of the child process, we can capture output and errors while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a persistent WebSocket connection, as soon as output or errors are produced, they are serialized as JSON and sent back to the front end to be displayed for the waiting user. 
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/processing_user_code/script_execution.png"
-              alt="script execution"
-            />
-          </div>
-          <p>
-            The drawback to this approach is that executing a script doesn’t generate a return value.  By combining the results generated by both the REPL and temporary script, we have a consistent strategy for capturing return values, output, and errors from code execution.            
-          </p>
-          <h5>3.2.3 Script <i>then</i> REPL Execution</h5>
-
-          <h5></h5>
-          <h4>3.3 Rendering Output</h4>
-          <h4>3.4 Execute All Cells With Multiple Languages</h4>
-
-          <h3>3.5 Persistence</h3>
-          <p>
-            At tempor commodo ullamcorper a. Pellentesque diam volutpat commodo
-            sed egestas. Risus nullam eget felis eget nunc. Tincidunt tortor
-            aliquam nulla facilisi cras fermentum odio eu feugiat. Posuere urna
-            nec tincidunt praesent semper feugiat nibh. Auctor elit sed
-            vulputate mi sit. Rutrum tellus pellentesque eu tincidunt tortor.
-          </p>
-
-          <p>
-            Nam libero justo laoreet sit amet. Ut lectus arcu bibendum at varius
-            vel pharetra vel turpis. Pharetra convallis posuere morbi leo urna
-            molestie at.
-          </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/network_architecture/async_execution_over_websockets.png"
+            alt="websockets for asynchronous user code" />
         </div>
 
-        <div class="chapter">
-          <h2 id="security">4 Security</h2>
+        <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to the
+          client in response to a single code execution request. The first log statement is displayed to the user as soon as it
+          is executed, then the delayed log statement inside the `setTimeout` callback is sent later in a separate message. </p>
+        
+        <p>Another advantage of WebSockets is that it allows us to determine when a user has ended a session. The WebSocket
+          connection remains open until a client or server disconnects, causing a ‘close’ message to be fired. By listening for
+          this ‘close’ message, we are able to <u>tear down containers </u>(link to teardown section) and conserve our host
+          system resources. The trade-off is that using WebSockets introduces some additional complexity to our codebase.</p>
+        
 
-          <p>
-            Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
-            tincidunt tortor.
-          </p>
+        <h3>2.4 Encryption and Certificates</h3>
+        <p>
+          Regular HTTP and WS internet traffic use port 80 and send data as plain-text across the internet which is
+          vulnerable to interception. In order to increase security, we support traffic using the HTTPS and WSS protocol
+          and allow traffic to our server through port 443. This means that all messages exchanged between the client
+          and server are encrypted before being transported using the Secure Sockets Layer and Transport Layer Security.
+          To achieve this encryption, we use a certification generated by a Certificate Authority (CA) to generate a
+          domain-validated certificate for our server.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/network_architecture/tls_diagram.png" alt="TLS diagram" />
+        </div>
+        <p>
+          The CA verifies that we are in control of our domain, and issues us a certificate and a private key. When a
+          client accesses our server, they are supplied the CA issued public key via the DNS TXT record which they use
+          to encrypt all data sent to our servers. Because only our server has the private key required to decrypt the
+          data, this provides a layer of security for all transmission of data across the open network.
+        </p>
+      </div>
 
-          <h3>4.1 Containerization with Docker</h3>
+      <div class="chapter">
+        <h2 id="user-experience">3 User Experience</h2>
 
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/docker_containers.png"
-              alt="containerized applications"
-            />
-          </div>
-
-          <p>
-            At tempor commodo ullamcorper a. Pellentesque diam volutpat commodo
-            sed egestas. Risus nullam eget felis eget nunc. Tincidunt tortor
-            aliquam nulla facilisi cras fermentum odio eu feugiat.
-          </p>
-
-          <h3>
-            4.2 Restricted User Privileges
-          </h3>
-
-          <p>
-            Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
-            tincidunt tortor. Nam libero justo laoreet sit amet. Ut lectus arcu
-            bibendum at varius vel pharetra vel turpis. Pharetra convallis
-            posuere morbi leo urna molestie at.
-          </p>
-
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/user_privileges.png"
-              alt="containerized applications"
-            />
-          </div>
-
-          <p>
-            Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus.
-            Et netus et malesuada fames ac turpis egestas integer. Viverra orci
-            sagittis eu volutpat. Congue nisi vitae suscipit tellus. Pretium
-            vulputate sapien nec sagittis aliquam malesuada bibendum. Nisl
-            pretium fusce id velit ut tortor. Quisque id diam vel quam elementum
-            pulvinar etiam non quam. At tempor commodo ullamcorper a lacus
-            vestibulum. Ultricies lacus sed turpis tincidunt.
-          </p>
-
-          <h3>4.3 Insulation from Host With gVisor Sandboxing</h3>
-
-          <p>
-            Vitae tempus quam pellentesque nec nam. Nisi quis eleifend quam
-            adipiscing vitae proin sagittis nisl. Et egestas quis ipsum
-            suspendisse. Aliquet nec ullamcorper sit amet risus nullam eget
-            felis eget. Tincidunt augue interdum velit euismod in. Porttitor
-            lacus luctus accumsan tortor posuere ac ut.
-          </p>
-
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/gVisor.png"
-              alt="containerized applications"
-            />
-          </div>
-
-          <p>
-            Et egestas quis ipsum suspendisse. Aliquet nec ullamcorper sit amet
-            risus nullam eget felis eget.
-          </p>
+        <h4>3.1 Cells Share Scope</h4>
+        <p>
+          In order to process user code server-side, that code must be collected and serialized for network transport on
+          the client side. The user code, language type, and ID of a given cell are stored as strings in a JavaScript
+          object. Each of these code cell objects is stored in an array of cells, where its index is determined by the
+          cell’s vertical position in the notebook.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/processing_user_code/sample_code_state.png" alt="sample code state" />
         </div>
 
-        <div class="chapter">
-          <h2 id="dispatch-server">5 Dispatch Server</h2>
-          <h3>5.1 Session and Container Management</h3>
+        <p>
+          One of our design goals was to provide an experience of state and scope that is consistent with a typical
+          development environment. To make sure that code cells share state from top to bottom, we don’t allow running a
+          single cell in isolation. Instead, when a given cell is executed, all preceding cells of the same language up
+          to and including the executed cell are assembled and sent to the server for processing.
+        </p>
+        <p>
+          By building scripts sequentially instead of allowing arbitrary cell execution order, confusion over notebook
+          state and scope is avoided. In the following example, the three cells of Ruby code are concatenated into a
+          single script on the server. When the third cell is run, variables declared in previous cells are still in
+          scope.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/processing_user_code/shared_cell_scope.png" alt="shared cell scope" />
+        </div>
+
+        <h4>3.2 Code Execution</h4>
+        <h5>3.2.1 REPL Execution</h5>
+        <p>
+          Once the serialized user code arrives at the server, we need a way to execute it and capture the output,
+          return value and errors generated by the code. Our first thought was to take the approach of Jupyter notebooks
+          and run the array of user code strings against a kind of kernel.
+        </p>
+        <p>
+          Each of our supported languages has a REPL (Read-Evaluate-Print-Loop) program, which can serve as the
+          computational engine that backs our notebook. To create them, we used the <a
+            href="https://github.com/microsoft/node-pty" target="_blank"><code>node-pty</code></a> library, which allows
+          us to spawn a REPL child process for each of our supported languages. Keeping a persistent REPL process alive
+          on our server across code executions would mean simpler server-side code and better computational efficiency.
+        </p>
+        <p>
+          However, using persistent REPL means that the current state of a notebook is effectively invisible to the
+          user. This doesn’t fit our use case of making notebook state easy to reason about for programmers. Our
+          solution was to spawn a new REPL process each time user code is run, creating a blank slate of state for each
+          execution.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/processing_user_code/repl_stack_state.png" alt="problem with persistent REPL" />
+        </div>
+        <p>
+          This would seem to be a good way to capture the information that we care about (outputs, return values and
+          errors) from user code execution. However, the difficulty with this approach is that the REPL also generates
+          unwanted command-line UI artifacts, such as prompts.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/processing_user_code/sample_repl_outputs.png" alt="sample repl outputs" />
+        </div>
+        <p>
+          For our note-taking use case, we don’t want to present unfiltered REPL <code>stdout</code>, which would
+          unnecessarily clutter our notebook’s UI. Cleaning up the stdout would require significant parsing unique to
+          each language, and this would compound as we add support for each new language.
+        </p>
+        <p>
+          Furthermore, errors in the user code don’t trigger an error event or halt REPL execution, which can produce
+          unexpected results. On the other hand, extracting the return value of the last-executed cell is comparatively
+          trivial with this approach, as it is always the last line of the REPL stdout.
+        </p>
+
+        <h5>3.2.2 Script Execution</h5>
+        <p>
+          The other option for executing user code is to write it to a temporary script file, then execute the script
+          using the Node <code>child_process.exec</code> method. By setting event listeners on the `stdout` and `stderr`
+          streams of the child process, we can capture output and errors while avoiding all of the unwanted command-line
+          UI artifacts that a REPL produces. By using a persistent WebSocket connection, as soon as output or errors are
+          produced, they are serialized as JSON and sent back to the front end to be displayed for the waiting user.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/processing_user_code/script_execution.png" alt="script execution" />
+        </div>
+        <p>
+          The drawback to this approach is that executing a script doesn’t generate a return value. By combining the
+          results generated by both the REPL and temporary script, we have a consistent strategy for capturing return
+          values, output, and errors from code execution.
+        </p>
+        <h5>3.2.3 Script <i>then</i> REPL Execution</h5>
+
+        <h5></h5>
+        <h4>3.3 Rendering Output</h4>
+        <h4>3.4 Execute All Cells With Multiple Languages</h4>
+
+        <h3>3.5 Persistence</h3>
+        <p>
+          At tempor commodo ullamcorper a. Pellentesque diam volutpat commodo
+          sed egestas. Risus nullam eget felis eget nunc. Tincidunt tortor
+          aliquam nulla facilisi cras fermentum odio eu feugiat. Posuere urna
+          nec tincidunt praesent semper feugiat nibh. Auctor elit sed
+          vulputate mi sit. Rutrum tellus pellentesque eu tincidunt tortor.
+        </p>
+
+        <p>
+          Nam libero justo laoreet sit amet. Ut lectus arcu bibendum at varius
+          vel pharetra vel turpis. Pharetra convallis posuere morbi leo urna
+          molestie at.
+        </p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="security">4 Security</h2>
+
+        <p>
+          Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
+          tincidunt tortor.
+        </p>
+
+        <h3>4.1 Containerization with Docker</h3>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/docker_containers.png" alt="containerized applications" />
+        </div>
+
+        <p>
+          At tempor commodo ullamcorper a. Pellentesque diam volutpat commodo
+          sed egestas. Risus nullam eget felis eget nunc. Tincidunt tortor
+          aliquam nulla facilisi cras fermentum odio eu feugiat.
+        </p>
+
+        <h3>
+          4.2 Restricted User Privileges
+        </h3>
+
+        <p>
+          Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
+          tincidunt tortor. Nam libero justo laoreet sit amet. Ut lectus arcu
+          bibendum at varius vel pharetra vel turpis. Pharetra convallis
+          posuere morbi leo urna molestie at.
+        </p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/user_privileges.png" alt="containerized applications" />
+        </div>
+
+        <p>
+          Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus.
+          Et netus et malesuada fames ac turpis egestas integer. Viverra orci
+          sagittis eu volutpat. Congue nisi vitae suscipit tellus. Pretium
+          vulputate sapien nec sagittis aliquam malesuada bibendum. Nisl
+          pretium fusce id velit ut tortor. Quisque id diam vel quam elementum
+          pulvinar etiam non quam. At tempor commodo ullamcorper a lacus
+          vestibulum. Ultricies lacus sed turpis tincidunt.
+        </p>
+
+        <h3>4.3 Insulation from Host With gVisor Sandboxing</h3>
+
+        <p>
+          Vitae tempus quam pellentesque nec nam. Nisi quis eleifend quam
+          adipiscing vitae proin sagittis nisl. Et egestas quis ipsum
+          suspendisse. Aliquet nec ullamcorper sit amet risus nullam eget
+          felis eget. Tincidunt augue interdum velit euismod in. Porttitor
+          lacus luctus accumsan tortor posuere ac ut.
+        </p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/gVisor.png" alt="containerized applications" />
+        </div>
+
+        <p>
+          Et egestas quis ipsum suspendisse. Aliquet nec ullamcorper sit amet
+          risus nullam eget felis eget.
+        </p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="dispatch-server">5 Dispatch Server</h2>
+        <h3>5.1 Session and Container Management</h3>
+        <p>
+          Purus viverra accumsan in nisl nisi scelerisque eu. Diam
+          sollicitudin tempor id eu nisl nunc mi ipsum. Diam vel quam
+          elementum pulvinar etiam. Dui vivamus arcu felis bibendum ut
+          tristique. Diam sit amet nisl suscipit adipiscing bibendum est
+          ultricies.
+        </p>
+        <div class="img-wrapper">
+          <img src="" alt="" />
+        </div>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/slides/demo/slideshow_1.png" id="table-state" data-id="1" alt="Table State1" />
+
           <p>
-            Purus viverra accumsan in nisl nisi scelerisque eu. Diam
-            sollicitudin tempor id eu nisl nunc mi ipsum. Diam vel quam
-            elementum pulvinar etiam. Dui vivamus arcu felis bibendum ut
-            tristique. Diam sit amet nisl suscipit adipiscing bibendum est
-            ultricies.
+            This is a demo slideshow!
           </p>
-          <div class="img-wrapper">
-            <img src="" alt="" />
-          </div>
+          <div class="buttons">
+            <button id="resetButton" class="redpointButton">Reset</button>
 
-          <div class="img-wrapper">
-            <img
-              src="images/diagrams/slides/demo/slideshow_1.png"
-              id="table-state"
-              data-id="1"
-              alt="Table State1"
-            />
-
-            <p>
-              This is a demo slideshow!
-            </p>
-            <div class="buttons">
-              <button id="resetButton" class="redpointButton">Reset</button>
-  
-              <button id="nextButton" class="redpointButton">&rarr;</button>
-            </div>
+            <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
-          <h3>5.2 Reverse Proxy</h3>
-          <h3>5.3 Database Middleware</h3>
+        </div>
+        <h3>5.2 Reverse Proxy</h3>
+        <h3>5.3 Database Middleware</h3>
+      </div>
+
+      <div class="chapter">
+        <h2 id="deployment">6 Deployment</h2>
+        <h3>6.1 Webhooks</h3>
+        <h3>6.2 Rate-Limiting Webhook Traffic</h3>
+
+        <p>
+        </p>
+
+        <div class="img-wrapper">
+          <img src="images/" alt="" />
         </div>
 
-        <div class="chapter">
-          <h2 id="deployment">6 Deployment</h2>
-          <h3>6.1 Webhooks</h3>
-          <h3>6.2 Rate-Limiting Webhook Traffic</h3>
+        <blockquote>
+          <p>This is a quote</p>
+        </blockquote>
+      </div>
 
-          <p>
-          </p>
+      <div class="chapter">
+        <h2 id="future-work">7 Future Work</h2>
 
-          <div class="img-wrapper">
-            <img src="images/" alt="" />
-          </div>
+        <ul>
+          <li>User Accounts</li>
+          <li>
+            Additional Languages
+            <ul>
+              <li>option for LAN</li>
+              <li>client-server communication with TLS</li>
+            </ul>
+          </li>
+          <li>More tests, especially integration tests</li>
+        </ul>
+      </div>
 
-          <blockquote>
-            <p>This is a quote</p>
-          </blockquote>
-        </div>
+      <section id="footnotes">
+        <h2 id="references">8 References</h2>
 
-        <div class="chapter">
-          <h2 id="future-work">7 Future Work</h2>
+        <h5>8.1 Footnotes</h5>
 
-          <ul>
-            <li>User Accounts</li>
-            <li>
-              Additional Languages
-              <ul>
-                <li>option for LAN</li>
-                <li>client-server communication with TLS</li>
-              </ul>
-            </li>
-            <li>More tests, especially integration tests</li>
-          </ul>
-        </div>
-
-        <section id="footnotes">
-          <h2 id="references">8 References</h2>
-
-          <h5>8.1 Footnotes</h5>
-
-          <ol>
-            <li id="footnote-1">
-              <a href="" target="_blank">https://en.wikipedia.org</a>
-            </li>
-            <li id="footnote-2">
-              <a href="" target="_blank"></a>
-            </li>
-            <li id="footnote-3">
-              <a href="" target="_blank"></a>
-            </li>
-            <li id="footnote-4">
-              <a href="" target="_blank"></a>
-            </li>
-          </ol>
-          <!--
+        <ol>
+          <li id="footnote-1">
+            <a href="" target="_blank">https://en.wikipedia.org</a>
+          </li>
+          <li id="footnote-2">
+            <a href="" target="_blank"></a>
+          </li>
+          <li id="footnote-3">
+            <a href="" target="_blank"></a>
+          </li>
+          <li id="footnote-4">
+            <a href="" target="_blank"></a>
+          </li>
+        </ol>
+        <!--
 
           <h5>9.2 Resources</h5>
 
@@ -628,102 +675,104 @@
           </ul>
 
 -->
-        </section>
       </section>
-    </main>
-
-    <section id="our-team">
-      <h1>Our Team</h1>
-
-      <p>
-        We are all looking forward to new opportunities. Please contact us if this project interested you, or if you have any questions! 
-      </p>
-
-      <ul>
-        <li class="individual">
-          <img src="images/avatars/charles.png" alt="Charles Ging" />
-
-          <h3>Charles Ging</h3>
-
-          <p>Denver, CO</p>
-
-          <ul class="social-icons">
-            <li>
-              <a href="mailto:charles.ging@gmail.com" target="">
-                <img src="images/icons/email_icon.png" alt="email" />
-              </a>
-            </li>
-
-            <li>
-              <a href="https://charlesging.com" target="_blank">
-                <img src="images/icons/website_icon.png" alt="website" />
-              </a>
-            </li>
-
-            <li>
-              <a href="" target="_blank">
-                <img src="images/icons/linked_in_icon.png" alt="linkedin" />
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="individual">
-          <img src="images/avatars/ben.png" alt="Ben Harvey" />
-
-          <h3>Ben Harvey</h3>
-
-          <p>Portland, ME</p>
-
-          <ul class="social-icons">
-            <li>
-              <a href="mailto:" target="">
-                <img src="images/icons/email_icon.png" alt="email" />
-              </a>
-            </li>
-
-            <li>
-              <a href="http://" target="_blank">
-                <img src="images/icons/website_icon.png" alt="website" />
-              </a>
-            </li>
-
-            <li>
-              <a href="" target="_blank">
-                <img src="images/icons/linked_in_icon.png" alt="linkedin" />
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="individual">
-          <img src="images/avatars/will.png" alt="William Mills" />
-
-          <h3>William Mills</h3>
-
-          <p>Toronto, Canada</p>
-
-          <ul class="social-icons">
-            <li>
-              <a href="mailto:" target="">
-                <img src="images/icons/email_icon.png" alt="email" />
-              </a>
-            </li>
-
-            <li>
-              <a href="https://" target="_blank">
-                <img src="images/icons/website_icon.png" alt="website" />
-              </a>
-            </li>
-
-            <li>
-              <a href="" target="_blank">
-                <img src="images/icons/linked_in_icon.png" alt="linkedin" />
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
     </section>
-  </body>
+  </main>
+
+  <section id="our-team">
+    <h1>Our Team</h1>
+
+    <p>
+      We are all looking forward to new opportunities. Please contact us if this project interested you, or if you have
+      any questions!
+    </p>
+
+    <ul>
+      <li class="individual">
+        <img src="images/avatars/charles.png" alt="Charles Ging" />
+
+        <h3>Charles Ging</h3>
+
+        <p>Denver, CO</p>
+
+        <ul class="social-icons">
+          <li>
+            <a href="mailto:charles.ging@gmail.com" target="">
+              <img src="images/icons/email_icon.png" alt="email" />
+            </a>
+          </li>
+
+          <li>
+            <a href="https://charlesging.com" target="_blank">
+              <img src="images/icons/website_icon.png" alt="website" />
+            </a>
+          </li>
+
+          <li>
+            <a href="" target="_blank">
+              <img src="images/icons/linked_in_icon.png" alt="linkedin" />
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="individual">
+        <img src="images/avatars/ben.png" alt="Ben Harvey" />
+
+        <h3>Ben Harvey</h3>
+
+        <p>Portland, ME</p>
+
+        <ul class="social-icons">
+          <li>
+            <a href="mailto:" target="">
+              <img src="images/icons/email_icon.png" alt="email" />
+            </a>
+          </li>
+
+          <li>
+            <a href="http://" target="_blank">
+              <img src="images/icons/website_icon.png" alt="website" />
+            </a>
+          </li>
+
+          <li>
+            <a href="" target="_blank">
+              <img src="images/icons/linked_in_icon.png" alt="linkedin" />
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="individual">
+        <img src="images/avatars/will.png" alt="William Mills" />
+
+        <h3>William Mills</h3>
+
+        <p>Toronto, Canada</p>
+
+        <ul class="social-icons">
+          <li>
+            <a href="mailto:" target="">
+              <img src="images/icons/email_icon.png" alt="email" />
+            </a>
+          </li>
+
+          <li>
+            <a href="https://" target="_blank">
+              <img src="images/icons/website_icon.png" alt="website" />
+            </a>
+          </li>
+
+          <li>
+            <a href="" target="_blank">
+              <img src="images/icons/linked_in_icon.png" alt="linkedin" />
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</body>
+
 </html>
