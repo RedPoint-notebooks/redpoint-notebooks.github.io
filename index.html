@@ -191,7 +191,6 @@
           <p>
             - Fernando Perez, co-creator of Jupyter Notebooks
           </p>
-          </p>
         </blockquote>
         <p>Image: Sample computational narrative</p>
         <h3>1.3 Uses of Computational Notebooks</h3>
@@ -484,27 +483,27 @@
           <p>
             The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
           </p>
-          <p>
-            Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
-          </p>
           <div class="img-wrapper">
             <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution" />
           </div>          
+          <p>
+            Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
+          </p>
 <hr/>
 
         <h4>3.3 Slotting Strategy for Code Results</h4>
+        <p>
+          Now that we have our code execution results, the next challenge is to distribute these results correctly to
+          the cells that generated them. 
+        </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/slotting_challenge.png" alt="challenge slotting code results" />
         </div>
-        <p>
-          Now that we have our code execution results, the next challenge is to distribute these results correctly to
-          the cells that generated them. Our naive solution was to build a new script for each cell that was executed,
-          meaning 3 scripts for 3 cells, 5 scripts for 5 cells, and so on. This approach works, but is very inefficient.
-          A better solution is to inject delimiters into the code before executing it.
-        </p>
 
         <p>
-          When the application server receives serialized user code, we use the language type of the code to generate a language-specific delimiter log statement. First, we generate a UUID4 to use as the delimiter, then create a log statement in the given language type. For example, for JavaScript, the statement would be <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>.</p>
+          Our naive solution was to build a new script for each cell that was executed,
+          meaning 3 scripts for 3 cells, 5 scripts for 5 cells, and so on. This approach works, but is very inefficient.
+          A better solution is to inject delimiters into the code before executing it. When the application server receives serialized user code, we use the language type of the code to generate a language-specific delimiter log statement. First, we generate a UUID4 to use as the delimiter, then create a log statement in the given language type. For example, for JavaScript, the statement would be <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>.</p>
 
 
         <div class="img-wrapper">
@@ -642,7 +641,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/security_and_resources/Docker Image and Containers.png"
-            alt="docker image and containers" />
+            alt="docker image and containers" class="big"/>
             <p>A docker image acts as a blueprint to create self-contained copies of an application</p>
         </div>
 
@@ -660,7 +659,7 @@
 
 
         <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container"/>
+          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container" class="big"/>
           <p>If a malicious user manages to crash one session, concurrent sessions aren't impacted</p>
         </div>
 
@@ -682,7 +681,7 @@
         </ol>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions" />
+          <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions" class="big"/>
           <p>Restricting user permissions and access to harmful commands</p>
         </div>
 
@@ -691,7 +690,7 @@
           user permissions.</p>
 
 
-        <h4>4.1.5 Sandboxing Containers</h3>
+          <h4>4.1.5 Sandboxing Containers</h4>
           <p>Although Docker containers provide a loosely isolated environment for our application, they are not a truly
             isolated
             sandbox. We considered another option, virtual machines. VMs use hypervisor virtualization to create a guest
@@ -709,7 +708,7 @@
             vulnerable to exploits such as privilege-escalation attacks.</p>
 
           <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" />
+            <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" class="big"/>
             <p>The default Docker runtime provides a weak level of isolation from the host kernel</p>
           </div>
 
@@ -735,7 +734,7 @@
             altering an ephemeral in-memory overlay, not the actual host.</p>
 
           <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" />
+            <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" class="big"/>
             <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
           </div>
 
@@ -752,7 +751,7 @@
             the number of concurrent container a given host would support by roughly 25 percent:</p>
 
           <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table" />
+            <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table" class="big"/>
             <p>Using gVisor means fewer containers per host system</p>
           </div>
 
@@ -775,7 +774,7 @@
             doesn't
             have an adverse impact on other concurrent sessions in other containers. </p>
           <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" />
+            <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big"/>
             <p>CPU-intensive code in one container could starve another container of resources</p>
           </div>
           <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
@@ -797,7 +796,7 @@
 
 
           <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" />
+            <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big"/>
             <p>Control groups provide a way to balance resources between containers</p>
           </div>
 
@@ -851,7 +850,7 @@
           map that port directly to a container.</p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" />
+          <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" class="big"/>
           <p>Port forwarding is a naive way to connect users with containers</p>
         </div>
 
@@ -899,7 +898,7 @@
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data" />
+          <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data" id="session-data-screenshot"/>
           <p>Our session data maps a unique URL to the important internal information for a session</p>
         </div>
 
@@ -913,7 +912,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/Redis vs Server for session storage.png"
-            alt="Dispatch vs Redis" />
+            alt="Dispatch vs Redis" class="big"/>
             <p>Storing session data in Redis makes our dispatch server stateless</p>
         </div>
 
@@ -962,7 +961,7 @@
           running Docker container, and deletes the current session’s data from Redis. </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown" />
+          <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown" id="container-teardown"/>
           <p>Tearing down a container and session when a client disconnects</p>
         </div>
 
@@ -1043,7 +1042,7 @@
           supporting the current design, while avoiding the time-consuming step of carefully anticipating future growth
           directions, as we would if using a traditional SQL database.</p>
 
-        <h4>5.3.2 Saving, Cloning and Loading Notebooks</strong></h4>
+        <h4>5.3.2 Saving, Cloning and Loading Notebooks</h4>
 
         <p>One of our core design goals was to make it easy to share notebooks with a minimal barrier to entry.. We
           decided that
@@ -1066,7 +1065,7 @@
           user using the SendGrid API.</p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook" />
+          <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook" id="save-clone"/>
           <p>The dispatch server coordinates the interactions involved in a save request</p>
         </div>
 
