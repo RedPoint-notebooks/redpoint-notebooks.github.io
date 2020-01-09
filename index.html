@@ -76,7 +76,7 @@
       <li>
         <a href="#our-team" id="our-team-link">OUR TEAM</a>
       </li>
-      
+
       <li>
         <a href="https://www.redpointnotebooks.com" id="notebooks-link">NOTEBOOKS</a>
       </li>
@@ -313,70 +313,90 @@
       <div class="chapter">
         <h2 id="network-architecture">2 Network Architecture</h2>
         <h3>2.1 Where to execute code?</h3>
-        <p>Our first major decision was deciding whether to execute user code on the client or server side. The main advantage
-          of client-side code execution is that there is no network latency incurred by a round-trip to a server. However,
-          browsers only have native support for JavaScript, and any other languages would have to be compiled into JavaScript to
+        <p>Our first major decision was deciding whether to execute user code on the client or server side. The main
+          advantage
+          of client-side code execution is that there is no network latency incurred by a round-trip to a server.
+          However,
+          browsers only have native support for JavaScript, and any other languages would have to be compiled into
+          JavaScript to
           be run. </p>
 
-          <p>DIAGRAM: pros and cons of client vs server execution </p>
-        
-        <p>Our experiments with in-browser compilers for other languages showed them to be slow and unreliable. Each additional
-          supported language for our notebook would require another in-browser compiler, which would quickly escalate client
+        <p>DIAGRAM: pros and cons of client vs server execution </p>
+
+        <p>Our experiments with in-browser compilers for other languages showed them to be slow and unreliable. Each
+          additional
+          supported language for our notebook would require another in-browser compiler, which would quickly escalate
+          client
           memory usage to unacceptable levels.</p>
-        <p>Client-side execution would also rely on the client’s computing resources, and would lead to a poor user experience
-          on slower (mobile) devices. Overall, we decided that server-side execution was the best solution. However, executing arbitrary user code on our server presents security and network latency concerns. We devised several
+        <p>Client-side execution would also rely on the client’s computing resources, and would lead to a poor user
+          experience
+          on slower (mobile) devices. Overall, we decided that server-side execution was the best solution. However,
+          executing arbitrary user code on our server presents security and network latency concerns. We devised several
           strategies (link) to mitigate them.</p>
-        
-        
-        
-        
-       
-        
+
+
+
+
+
+
         <p>https://drive.google.com/file/d/1ta1tIjZgluzL4DhSYe5ItKrR3GXzSjnE/view?usp=sharing</p>
         <div class="img-wrapper">
           <img src="images/diagrams/client_vs_server_execution.png" alt="client vs server execution" />
         </div>
 
         <h3>2.2 Limitations of HTTP</h3>
-        <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was executed
-          server-side, relevant data (output, errors, and return value) was stored in a single JavaScript object, which was
-          serialized and returned to the client in the HTTP response. 
+        <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was
+          executed
+          server-side, relevant data (output, errors, and return value) was stored in a single JavaScript object, which
+          was
+          serialized and returned to the client in the HTTP response.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/execution_over_http.png"
             alt="interacting w/ server over simple HTTP" />
-        </div>        
+        </div>
         <p>
           This approach worked fine in basic examples, but had
           drawbacks with more complex code.</p>
         </p>
-        
-          <div class="img-wrapper"> <!-- ASYNC CODE ON HTTP -->
-            <img src="images/diagrams/network_architecture/async_execution_over_http.png"
-              alt="limitations of http for asynchronous user code" />
-          </div>
-        <p>In the above example using a single HTTP request/response cycle, even though the server processes the first log
+
+        <div class="img-wrapper">
+          <!-- ASYNC CODE ON HTTP -->
+          <img src="images/diagrams/network_architecture/async_execution_over_http.png"
+            alt="limitations of http for asynchronous user code" />
+        </div>
+        <p>In the above example using a single HTTP request/response cycle, even though the server processes the first
+          log
           statement immediately, the user has to wait ten seconds for the asynchronous code to execute before seeing any
-          results. In order to improve the responsiveness of our application, we needed a connection that would permit the
-          server to issue many responses to a single client request. That way, a user could receive real-time feedback as each
+          results. In order to improve the responsiveness of our application, we needed a connection that would permit
+          the
+          server to issue many responses to a single client request. That way, a user could receive real-time feedback
+          as each
           cell of code was run by our server, rather than waiting for the slowest code to execute. </p>
 
-          <p>We considered several other alternatives. We could continually ping the server to check for execution results
-            (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient.
-            Server-sent events would allow our server to issue multiple responses, but do not accommodate true bi-directional
-            communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case. </p>
+        <p>We considered several other alternatives. We could continually ping the server to check for execution results
+          (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient.
+          Server-sent events would allow our server to issue multiple responses, but do not accommodate true
+          bi-directional
+          communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case.
+        </p>
 
-       
+
         <h3>2.3 Websockets</h3>
 
-        <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the initial page
-          load. The main advantage of WebSockets is that it enables true bi-directional communication between client and server.
-          The client initiates the process by sending an HTTP GET request with an `Upgrade` header signaling an intent to
-          establish a WebSocket connection. The server issues a response with a 101 status code to accept the request and switch
-          the connection to the WebSocket protocol.</p> 
-          
-          <p>After this initial handshake over HTTP, the client and server communicate
-          over a single, persistent TCP connection which allows full duplex communication. The reduced message size due to lack
+        <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the
+          initial page
+          load. The main advantage of WebSockets is that it enables true bi-directional communication between client and
+          server.
+          The client initiates the process by sending an HTTP GET request with an `Upgrade` header signaling an intent
+          to
+          establish a WebSocket connection. The server issues a response with a 101 status code to accept the request
+          and switch
+          the connection to the WebSocket protocol.</p>
+
+        <p>After this initial handshake over HTTP, the client and server communicate
+          over a single, persistent TCP connection which allows full duplex communication. The reduced message size due
+          to lack
           of HTTP headers means that WebSocket messages incur less latency.</p>
 
         <div class="img-wrapper">
@@ -384,40 +404,58 @@
             alt="websockets for asynchronous user code" />
         </div>
 
-        <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to the
-          client in response to a single code execution request. The first log statement is displayed to the user as soon as it
-          is executed, then the delayed log statement inside the <code>setTimeout</code> callback is sent later in a separate message. </p>
-        
-        <p>Another advantage of WebSockets is that it allows us to determine when a user has ended a session. The WebSocket
-          connection remains open until a client or server disconnects, causing a <code>close</code> message to be fired. By listening for
-          this <code>close</code> message, we are able to <u>tear down containers </u>(link to teardown section) and conserve our host
-          system resources. The trade-off is that using WebSockets introduces some additional complexity to our codebase.</p>
+        <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to
+          the
+          client in response to a single code execution request. The first log statement is displayed to the user as
+          soon as it
+          is executed, then the delayed log statement inside the <code>setTimeout</code> callback is sent later in a
+          separate message. </p>
+
+        <p>Another advantage of WebSockets is that it allows us to determine when a user has ended a session. The
+          WebSocket
+          connection remains open until a client or server disconnects, causing a <code>close</code> message to be
+          fired. By listening for
+          this <code>close</code> message, we are able to <u>tear down containers </u>(link to teardown section) and
+          conserve our host
+          system resources. The trade-off is that using WebSockets introduces some additional complexity to our
+          codebase.</p>
 
       </div>
 
       <div class="chapter">
         <h2 id="user-experience">3 User Experience</h2>
 
-        <p>Our design goals for user experience had a big influence on our code execution strategy. Our three major design goals were to provide predictable scope and state, to render execution results cleanly and clearly and to render results correctly under the cells that produced them. 
+        <p>Our design goals for user experience had a big influence on our code execution strategy. Our three major
+          design goals were to provide predictable scope and state, to render execution results cleanly and clearly and
+          to render results correctly under the cells that produced them.
         </p>
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/clean_output.png" alt="clean UI" />
         </div>
         <p>
-          Within our React client, the code, language type, and ID of a given cell are stored as strings in a JavaScript object. Each of these code cell objects is stored in an array of cells in the state of the top-level notebook component, where its index determines the cell’s vertical position in the notebook. This state changes dynamically as the user edits code and markdown cells. 
+          Within our React client, the code, language type, and ID of a given cell are stored as strings in a JavaScript
+          object. Each of these code cell objects is stored in an array of cells in the state of the top-level notebook
+          component, where its index determines the cell’s vertical position in the notebook. This state changes
+          dynamically as the user edits code and markdown cells.
         </p>
-        
+
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" />
         </div>
-        
+
         <h4>3.1 Cells Share Scope</h4>
         <p>
-          To us, a predictable scope and state means behaving like a typical development environment.  To make sure that code cells build state from top to bottom, we don’t allow running a single cell in isolation. Instead, when a single cell is executed, all preceding cells of the same language up to and including the executed cell are assembled and sent to the server for processing. 
+          To us, a predictable scope and state means behaving like a typical development environment. To make sure that
+          code cells build state from top to bottom, we don’t allow running a single cell in isolation. Instead, when a
+          single cell is executed, all preceding cells of the same language up to and including the executed cell are
+          assembled and sent to the server for processing.
         </p>
         <p>
-          By building program state sequentially instead of allowing arbitrary cell execution order, confusion over notebook state and scope is avoided. In the following example, three cells of Ruby code are concatenated into a single script on the server. When the third cell is run, variables declared in the cells above it are in scope.
+          By building program state sequentially instead of allowing arbitrary cell execution order, confusion over
+          notebook state and scope is avoided. In the following example, three cells of Ruby code are concatenated into
+          a single script on the server. When the third cell is run, variables declared in the cells above it are in
+          scope.
         </p>
 
         <div class="img-wrapper">
@@ -427,25 +465,41 @@
         <h4>3.2 Code Execution</h4>
         <h5>3.2.1 REPL Execution</h5>
         <p>
-          Once the serialized user code arrives at the server, we need a way to execute it and capture any output, return value and errors generated by the code. Our first thought was to take an approach like Jupyter notebook and run the array of stringified user code against a Read-Evaluate-Print-Loop (REPL). The <a
-          href="https://github.com/microsoft/node-pty" target="_blank"><code>node-pty</code></a> library allows us to spawn REPLs as Node.js child processes for each of our supported languages, which can then serve as the computational engines for our notebook. Keeping a persistent REPL process alive on our server across code executions would mean simpler server-side code.
+          Once the serialized user code arrives at the server, we need a way to execute it and capture any output,
+          return value and errors generated by the code. Our first thought was to take an approach like Jupyter notebook
+          and run the array of stringified user code against a Read-Evaluate-Print-Loop (REPL). The <a
+            href="https://github.com/microsoft/node-pty" target="_blank"><code>node-pty</code></a> library allows us to
+          spawn REPLs as Node.js child processes for each of our supported languages, which can then serve as the
+          computational engines for our notebook. Keeping a persistent REPL process alive on our server across code
+          executions would mean simpler server-side code.
         </p>
 
         <p>
-          However, using a persistent REPL would mean that the current program state of a notebook at any given point would be effectively invisible to the user. This doesn’t fit our use case of making notebook state easy to reason about for users.  Our solution was to spawn a new REPL process each time user code is run, ensuring a blank slate of state for each execution. The inefficiency of re-computing previous work is acceptable as a tradeoff for reinforcing one of our core design goals.
+          However, using a persistent REPL would mean that the current program state of a notebook at any given point
+          would be effectively invisible to the user. This doesn’t fit our use case of making notebook state easy to
+          reason about for users. Our solution was to spawn a new REPL process each time user code is run, ensuring a
+          blank slate of state for each execution. The inefficiency of re-computing previous work is acceptable as a
+          tradeoff for reinforcing one of our core design goals.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/repl_stack_state.png" alt="problem with persistent REPL" />
         </div>
-        <hr/>
+        <hr />
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/stacked_state.png" alt="problem with persistent REPL" />
-        </div>        
+        </div>
         <p>
-          One difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as prompts. Given our note-taking use case, we don’t want to present unfiltered REPL stdout, which would unnecessarily clutter our notebook’s UI. Cleaning up the stdout would require significant parsing unique to each language, and would compound as we add support for more languages.
+          One difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as
+          prompts. Given our note-taking use case, we don’t want to present unfiltered REPL stdout, which would
+          unnecessarily clutter our notebook’s UI. Cleaning up the stdout would require significant parsing unique to
+          each language, and would compound as we add support for more languages.
         </p>
         <p>
-          Furthermore, errors in the user code don’t trigger an error event or halt REPL execution, which would produce unusual execution results. A programmer would generally expect code with an error to halt execution, but a REPL would allow that line to fail silently and then continue processing the rest of the code. On the other hand, extracting the return value of the last-executed cell is comparatively trivial with this approach, seeing as it is always the last line of the REPL stdout.          
+          Furthermore, errors in the user code don’t trigger an error event or halt REPL execution, which would produce
+          unusual execution results. A programmer would generally expect code with an error to halt execution, but a
+          REPL would allow that line to fail silently and then continue processing the rest of the code. On the other
+          hand, extracting the return value of the last-executed cell is comparatively trivial with this approach,
+          seeing as it is always the last line of the REPL stdout.
         </p>
 
         <div class="img-wrapper">
@@ -455,183 +509,620 @@
 
         <h5>3.2.2 Script Execution</h5>
         <p>
-          The other option for executing user code server-side is to write it to a temporary script file, then execute the script using the Node <code>child_process.exec</code> method. By setting event listeners on the <code>stdou</code> and <code>stderr</code> streams of the child process, we can cleanly capture output and errors, while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a persistent WebSocket connection, as soon as output or errors are produced we can serialize them as JSON and send them back to the client to provide a dynamic user experience.
+          The other option for executing user code server-side is to write it to a temporary script file, then execute
+          the script using the Node <code>child_process.exec</code> method. By setting event listeners on the
+          <code>stdou</code> and <code>stderr</code> streams of the child process, we can cleanly capture output and
+          errors, while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a
+          persistent WebSocket connection, as soon as output or errors are produced we can serialize them as JSON and
+          send them back to the client to provide a dynamic user experience.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/script_execution.png" alt="script execution" />
         </div>
         <p>
-          The drawback to this approach is that executing a script doesn’t generate a return value. By combining the results generated by both the REPL and temporary script, we have a consistent strategy for capturing return values, output, and errors from code execution.
+          The drawback to this approach is that executing a script doesn’t generate a return value. By combining the
+          results generated by both the REPL and temporary script, we have a consistent strategy for capturing return
+          values, output, and errors from code execution.
         </p>
         <h5>3.2.3 Script Execution <i>then</i> REPL Execution</h5>
-          <p>
-            The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
-          </p>
-          <p>
-            Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
-          </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution" />
-          </div>          
+        <p>
+          The order of execution for these two approaches is important. In the case of errors in the user code, the REPL
+          will continue to run code, rather than halting execution and outputting only the error message as expected.
+          This can result in the REPL producing the wrong return value for code which contains errors.
+        </p>
+        <p>
+          Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always
+          executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if
+          no errors are thrown, or rejects in the event of an error. In the event that the script execution promise
+          rejects, the error is returned to the client, and the REPL is not executed.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/user_experience/server_promise_chain.png"
+            alt="promise chain for script then repl execution" />
+        </div>
 
         <h4>3.3 Slotting Strategy for Code Results</h4>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/slotting_challenge.png" alt="challenge slotting code results" />
-        </div>  
+        </div>
         <p>
-          Now that we have our code execution results, the next challenge is to distribute these results correctly to the cells that generated them. Our naive solution was to build a new script for each cell that was executed, meaning 3 scripts for 3 cells, 5 scripts for 5 cells, and so on.  This approach works, but is very inefficient. A better solution is to inject delimiters into the code before executing it.
+          Now that we have our code execution results, the next challenge is to distribute these results correctly to
+          the cells that generated them. Our naive solution was to build a new script for each cell that was executed,
+          meaning 3 scripts for 3 cells, 5 scripts for 5 cells, and so on. This approach works, but is very inefficient.
+          A better solution is to inject delimiters into the code before executing it.
         </p>
 
         <p>
-          When the application server receives serialized user code, we use the language type of the code to generate a language-specific delimiter log statement. First, we generate a <code>UUID4</code> to use as the delimiter, then create a log statement in the given language type. For example, for JavaScript, the statement would be <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>. With 2^128 possibilities, it is next to impossible that this delimiter will match any actual user log statement. 
+          When the application server receives serialized user code, we use the language type of the code to generate a
+          language-specific delimiter log statement. First, we generate a <code>UUID4</code> to use as the delimiter,
+          then create a log statement in the given language type. For example, for JavaScript, the statement would be
+          <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>. With 2^128 possibilities, it is next to
+          impossible that this delimiter will match any actual user log statement.
         </p>
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/delimiter_strategy.png" alt="injected delimiters" />
-        </div> 
+        </div>
 
         <p>
-          Next, we generate a script by joining the array of each cell’s code with the delimiter statement. When this script is executed, the delimiter statements become part of the stdout generated by the script. Any non-delimiter stdout  is sent to the client as a <code>stdout</code> message type. However, when the server recognizes a delimiter,  it sends a “delimiter” WebSocket message to the client instead.
+          Next, we generate a script by joining the array of each cell’s code with the delimiter statement. When this
+          script is executed, the delimiter statements become part of the stdout generated by the script. Any
+          non-delimiter stdout is sent to the client as a <code>stdout</code> message type. However, when the server
+          recognizes a delimiter, it sends a “delimiter” WebSocket message to the client instead.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/delimiter_strategy_2.png" alt="websocket msg for delimiters" />
         </div>
 
         <p>
-          Each time the user executes code, our React client uses an array to keep track of every cell involved in execution. It also sets a counter, which serves as a pointer to the first executed cell. Any <code>stdout</code>, <code>stderr</code>, or <code>return</code> messages from the server are initially attributed to that cell. When the client receives a “delimiter” WebSocket message from the server, it means that the first cell’s execution has finished, so the counter is incremented. Any subsequent messages from the server are now attributed to the next cell, until the next delimiter message, and so on. 
+          Each time the user executes code, our React client uses an array to keep track of every cell involved in
+          execution. It also sets a counter, which serves as a pointer to the first executed cell. Any
+          <code>stdout</code>, <code>stderr</code>, or <code>return</code> messages from the server are initially
+          attributed to that cell. When the client receives a “delimiter” WebSocket message from the server, it means
+          that the first cell’s execution has finished, so the counter is incremented. Any subsequent messages from the
+          server are now attributed to the next cell, until the next delimiter message, and so on.
         </p>
 
         <h5>3.3.1 Slotting Asynchronous Code</h5>
 
         <p>
-          When processing asynchronous user code, rendering output beneath the cell that produces the output presents a challenge. If a separate script were generated for each individual code cell, it would be much easier to slot asynchronous output under the corresponding cell. However, since we are interested in a shared state across all cells of the same language, that strategy won’t work. 
+          When processing asynchronous user code, rendering output beneath the cell that produces the output presents a
+          challenge. If a separate script were generated for each individual code cell, it would be much easier to slot
+          asynchronous output under the corresponding cell. However, since we are interested in a shared state across
+          all cells of the same language, that strategy won’t work.
         </p>
         <p>
-          Asynchronous output has to be displayed in the context of all of the cells that are executed. This means that such output may not be slotted under the cell that produced it, but instead might appear under the last cell of the language that is executed. Using JavaScript’s <code>setTimeout</code> method as an example, we can observe the behavior of a delayed log statement. Since JavaScript is single-threaded, functions are not concurrently executed, and asynchronous functions like the callback to <code>setTimeout</code> are pushed to the runtime’s callback queue. 
+          Asynchronous output has to be displayed in the context of all of the cells that are executed. This means that
+          such output may not be slotted under the cell that produced it, but instead might appear under the last cell
+          of the language that is executed. Using JavaScript’s <code>setTimeout</code> method as an example, we can
+          observe the behavior of a delayed log statement. Since JavaScript is single-threaded, functions are not
+          concurrently executed, and asynchronous functions like the callback to <code>setTimeout</code> are pushed to
+          the runtime’s callback queue.
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/async_slotting.png" alt="slotting asynchronous data from code execution" />
-        </div>        
+          <img src="images/diagrams/user_experience/async_slotting.png"
+            alt="slotting asynchronous data from code execution" />
+        </div>
 
         <p>
-          When the main call stack is empty, the event loop pushes a callback function from the callback queue to the call stack and executes it. Thus, asynchronous <code>stdout</code> in user-code will not appear next to the cell responsible for the log statement, but instead, will be evaluated and rendered after the call stack is empty, and its callback has been dequeued to the main call stack. This slotting behavior is consistent with other web-based notebooks like Runkit and Jupyter Notebook. 
+          When the main call stack is empty, the event loop pushes a callback function from the callback queue to the
+          call stack and executes it. Thus, asynchronous <code>stdout</code> in user-code will not appear next to the
+          cell responsible for the log statement, but instead, will be evaluated and rendered after the call stack is
+          empty, and its callback has been dequeued to the main call stack. This slotting behavior is consistent with
+          other web-based notebooks like Runkit and Jupyter Notebook.
         </p>
 
         <h5>3.3.2 Slotting Errors</h5>
 
         <p>
-          In most cases, error slotting works exactly the same way as output slotting does.  Using delimiter messages sent by the server to attribute data to the correct cell, both output and errors will be slotted by the client under the cell that generated them.          
+          In most cases, error slotting works exactly the same way as output slotting does. Using delimiter messages
+          sent by the server to attribute data to the correct cell, both output and errors will be slotted by the client
+          under the cell that generated them.
         </p>
 
         <p>
-          There’s an important edge case, however, that hinges on the difference between runtime and syntax errors. For runtime errors, code is executed and stdout, including delimiter statements, is generated. Syntax errors are thrown before any code is executed, so no stdout is ever generated. Without <code>stdout</code>, the server never generates any delimiter messages, meaning that syntax errors will be slotted incorrectly and confuse our users. We need a different strategy for syntax error slotting, one that doesn’t rely on <code>stdout</code>.           
+          There’s an important edge case, however, that hinges on the difference between runtime and syntax errors. For
+          runtime errors, code is executed and stdout, including delimiter statements, is generated. Syntax errors are
+          thrown before any code is executed, so no stdout is ever generated. Without <code>stdout</code>, the server
+          never generates any delimiter messages, meaning that syntax errors will be slotted incorrectly and confuse our
+          users. We need a different strategy for syntax error slotting, one that doesn’t rely on <code>stdout</code>.
         </p>
 
         <p>
-          Our solution is to first use the content of the syntax error itself to determine which line number of our generated script was responsible for the error. Although the script isn’t executed due to the nature of the error, we have already injected delimiters into the script that separate each individual cell’s code.  Using the content of the script, we count the number of delimiters before the line that generated the syntax error.  This gives us the correct index of the cell that generated the syntax error, which is sent along to the client, producing the correct slotting behavior.
+          Our solution is to first use the content of the syntax error itself to determine which line number of our
+          generated script was responsible for the error. Although the script isn’t executed due to the nature of the
+          error, we have already injected delimiters into the script that separate each individual cell’s code. Using
+          the content of the script, we count the number of delimiters before the line that generated the syntax error.
+          This gives us the correct index of the cell that generated the syntax error, which is sent along to the
+          client, producing the correct slotting behavior.
         </p>
 
 
         <h4>3.4 Executing Multiple Languages</h4>
 
         <p>
-          In a RedPoint notebook, the user has the option to add and execute code cells in several programming languages.  We need to make sure that each language is executed by the correct REPL and script processes, without crossing wires and generating cross-language errors. Our solution was to implement queue on our Node.js code execution server to correctly handle simultaneous execution of multiple languages.           
+          In a RedPoint notebook, the user has the option to add and execute code cells in several programming
+          languages. We need to make sure that each language is executed by the correct REPL and script processes,
+          without crossing wires and generating cross-language errors. Our solution was to implement queue on our
+          Node.js code execution server to correctly handle simultaneous execution of multiple languages.
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/multiple_language_execution.png" alt="languages queued for execution" />
-        </div>        
-
-        <p>
-          First, a code execution message for each language is packaged up and sent to our server. On the server side, each language’s request for execution is placed in a queue. At the end of the code execution promise chain for a single language, we dequeue its execution message, and check the new length of the queue. If it is non-zero, the same process is repeated on the next queued code execution message, until there are no more messages in the queue.
-        </p>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/multiple_language_execution_2.png" alt="execute additional langs in queue" />
-        </div>   
-
-      </div>
-      
-          <!-- ---------------------------------------- -->
-          <!-- Writeup paragraphs are ported over up to here -->
-          <!-- ---------------------------------------- -->
-
-      <div class="chapter">
-        <h2 id="security">4 Security</h2>
-
-        <p>
-          Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
-          tincidunt tortor.
-        </p>
-
-        <h3>4.1 Containerization with Docker</h3>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/docker_containers.png" alt="containerized applications" />
+          <img src="images/diagrams/user_experience/multiple_language_execution.png"
+            alt="languages queued for execution" />
         </div>
 
         <p>
-          At tempor commodo ullamcorper a. Pellentesque diam volutpat commodo
-          sed egestas. Risus nullam eget felis eget nunc. Tincidunt tortor
-          aliquam nulla facilisi cras fermentum odio eu feugiat.
-        </p>
-
-        <h3>
-          4.2 Restricted User Privileges
-        </h3>
-
-        <p>
-          Auctor elit sed vulputate mi sit. Rutrum tellus pellentesque eu
-          tincidunt tortor. Nam libero justo laoreet sit amet. Ut lectus arcu
-          bibendum at varius vel pharetra vel turpis. Pharetra convallis
-          posuere morbi leo urna molestie at.
+          First, a code execution message for each language is packaged up and sent to our server. On the server side,
+          each language’s request for execution is placed in a queue. At the end of the code execution promise chain for
+          a single language, we dequeue its execution message, and check the new length of the queue. If it is non-zero,
+          the same process is repeated on the next queued code execution message, until there are no more messages in
+          the queue.
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_privileges.png" alt="containerized applications" />
+          <img src="images/diagrams/user_experience/multiple_language_execution_2.png"
+            alt="execute additional langs in queue" />
         </div>
 
-        <p>
-          Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus.
-          Et netus et malesuada fames ac turpis egestas integer. Viverra orci
-          sagittis eu volutpat. Congue nisi vitae suscipit tellus. Pretium
-          vulputate sapien nec sagittis aliquam malesuada bibendum. Nisl
-          pretium fusce id velit ut tortor. Quisque id diam vel quam elementum
-          pulvinar etiam non quam. At tempor commodo ullamcorper a lacus
-          vestibulum. Ultricies lacus sed turpis tincidunt.
-        </p>
-
-        <h3>4.3 Insulation from Host With gVisor Sandboxing</h3>
-
-        <p>
-          Vitae tempus quam pellentesque nec nam. Nisi quis eleifend quam
-          adipiscing vitae proin sagittis nisl. Et egestas quis ipsum
-          suspendisse. Aliquet nec ullamcorper sit amet risus nullam eget
-          felis eget. Tincidunt augue interdum velit euismod in. Porttitor
-          lacus luctus accumsan tortor posuere ac ut.
-        </p>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/gVisor.png" alt="containerized applications" />
-        </div>
-
-        <p>
-          Et egestas quis ipsum suspendisse. Aliquet nec ullamcorper sit amet
-          risus nullam eget felis eget.
-        </p>
       </div>
 
       <div class="chapter">
-        <h2 id="dispatch-server">5 Dispatch Server</h2>
-        <h3>5.1 Session and Container Management</h3>
-        <p>
-          Purus viverra accumsan in nisl nisi scelerisque eu. Diam
-          sollicitudin tempor id eu nisl nunc mi ipsum. Diam vel quam
-          elementum pulvinar etiam. Dui vivamus arcu felis bibendum ut
-          tristique. Diam sit amet nisl suscipit adipiscing bibendum est
-          ultricies.
+        <h2 id="security">4 Security and Resources</h2>
+        <p>IMG: malicious code screenshot</p>
+
+        <h3>4.1 Security</h3>
+        <h4>4.1.1 Risks</h4>
+
+        <p>Allowing users to run arbitrary code on our server presents a significant security challenge. Specific
+          examples of security concerns include unauthorized access to database data, interference with the sessions of
+          other users and
+          malicious server file manipulation. To address these concerns, we implemented multiple layers of protection
+          against
+          malicious code on our servers. </p>
+
+        <h4>4.1.2 Blacklisting</h4>
+        <p>Our initial, naive idea was to try a blacklisting approach to sanitizing user code. If we parsed code for a
+          blacklist
+          of harmful commands before submitting it to our back-end, we could catch destructive code before it was
+          executed. This
+          solution proved unworkable for several reasons. First, there is the difficulty of identifying and anticipating
+          all
+          possible harmful commands. Doing this in one language is difficult enough, but to tailor it to multiple
+          languages
+          quickly becomes unworkable. This strategy also introduces the risk of misidentifying and blocking
+          non-malicious code
+          from execution, which would diminish the quality of our user experience for regular users. </p>
+
+        <h4>4.1.3 Docker Containers</h4>
+        <p>A better solution to meet our security needs was to isolate the execution of each user’s code. We accomplish
+          this by
+          spinning up a new Docker container for each notebook being used for code execution. Docker containers are a
+          form of
+          OS-level virtualization created from a blueprint image that defines all of the configuration and dependencies
+          relied
+          on by an application. They provide a way of producing identical but isolated environments within a single host
+          system.
         </p>
+
+
+        <p>IMG: Docker Image and Containers</p>
+
+        <p>Containerized deployment means that we can be sure that our application runs in a consistent environment with
+          all
+          necessary dependencies, regardless of the underlying host system that runs the containers. It also provides a
+          degree
+          of isolation between the concurrent sessions of users. Docker makes use of kernel namespaces for each
+          container,
+          meaning that one Docker process cannot see or interfere with the processes in another container. If one user
+          attempts
+          to run malicious code that crashes the container, that user's session will be terminated, but the sessions of
+          other
+          users will not be impacted. </p>
+
+
+        <p>IMG: Crashing container with malicious code </p>
+
+        <h4>4.1.4 Restricted User Privileges</h4>
+
+        <p>Our next layer of security involves restricting user privileges inside our containers. The default user in a
+          Docker container is a root user, unless explicitly specified otherwise. Although root users in a
+          Docker
+          container have access to fewer privileges than a system-level root user, we need restrict privileges further.
+          To do so, we take
+          several steps: </p>
+
+        <ol>
+          <li>We create a non-root user for each instance of our containerized application</li>
+          <li>This user is given a custom `bin` folder, which defines a whitelist of approved commands. This enables us
+            to
+            exclude the user's access to potentially harmful commands such as `rm` and `touch`. </li>
+          <li>Permission to alter the `.bash_profile` and `.bashrc` of the user is revoked</li>
+        </ol>
+
+        <p>IMG: Restricted User</p>
+
+        <p>These restrictions enhance our security profile by making it more difficult to execute destructive commands
+          or loosen
+          user permissions.</p>
+
+
+        <h4>4.1.5 Sandboxing Containers</h3>
+          <p>Although Docker containers provide a loosely isolated environment for our application, they are not a truly
+            isolated
+            sandbox. We considered another option, virtual machines. VMs use hypervisor virtualization to create a guest
+            kernel
+            for each instance, which has strong isolation from the host kernel. The trade-off is that VMs require more
+            resources
+            than containers, and have a significantly slower start-up time. For our use-case, where we need to create a
+            session
+            for a new user within a matter of seconds, they aren't a good fit. </p>
+
+          <p>Containers are lightweight and fast to spin up compared to virtual machines. However, the default container
+            runtime
+            `runc` provides a weak level of isolation between the container and the host kernel, which can leave the
+            kernel
+            vulnerable to exploits such as privilege-escalation attacks.</p>
+
+          <p>IMG: Without gVisor</p>
+
+          <p>To mitigate this risk, we added an additional level of isolation between the container and the host kernel,
+            using the
+            `runsc` runtime from Google's gVisor. gVisor is a lightweight user-space kernel, which acts as the guest
+            kernel for a
+            container and provides strong isolation from the host kernel, without the overhead of virtualization. It
+            does
+            so by
+            implementing a substantial portion of the Linux call system.</p>
+
+          <p>Rather than accessing the host system directly, all system calls are intercepted and implemented by the
+            guest
+            kernel,
+            which has access to a safer, restricted subset of the system API. We use an additional gVisor configuration
+            option to
+            create a sandbox overlay for our host's filesystem. All created and modified files are stored in memory
+            inside
+            the
+            sandbox, which means that if a malicious user manages to break out of a container and alter files, they are
+            only
+            altering an ephemeral in-memory overlay, not the actual host.</p>
+
+          <p>IMG: With gVisor</p>
+
+          <p>The trade-off is that the runsc runtime consumes more memory than runc, meaning that a given host system
+            can
+            support
+            fewer containers when using runsc. Using Artillery, a load testing library, we tested how many
+            concurrent
+            container instances could be run on hosts with varying amounts of memory. The results showed that using
+            gVisor
+            reduced
+            the number of concurrent container a given host would support by roughly 25 percent:</p>
+
+          <p>IMG: Load testing table</p>
+
+          <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
+            acceptable
+            to provide a stronger security profile for our application. </p>
+
+          <h3>4.2 Resource Management</h3>
+          <h4>4.2.1 Control Groups</h4>
+
+          <p>IMG: Resource hog screenshot</p>
+          <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
+            monopolize our
+            system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
+            of
+            these
+            resources as the host kernel allows. In our system architecture, where each user has their own containerized
+            notebook
+            session, we want to make sure that running computationally expensive or memory-intensive code in one
+            container
+            doesn't
+            have an adverse impact on other concurrent sessions in other containers. </p>
+          <p>DIAGRAM: <u>Without Cgroups </u></p>
+          <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
+            the
+            user's
+            container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
+            containers.
+            Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
+            of
+            runtime
+            configuration flags. </p>
+
+          <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
+            Linux
+            kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
+            that the
+            container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
+            container. </p>
+
+
+          <p>DIAGRAM: <u>With Cgroups</u></p>
+
+          <p>We also set a boundary for memory usage for each container. By choosing cgroup limits that still keep our
+            application
+            performant, we have effectively dealt with the problem of controlling runaway container resource use.</p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="system-architecture">5 System Architecture</h2>
+        <p>Connecting each user with their own containerized application greatly improves our security profile, but
+          introduces
+          considerable engineering complexity. We needed to address these challenges:</p>
+
+        <ul>
+          <li>How to spin up a container for each user’s session?</li>
+        </ul>
+        <li>How to expose an external address for a container while masking any internal information about the
+          container’s IP
+          address? </li>
+        <li>How to initially connect the user to their container, and route all of that user’s subsequent traffic to the
+          correct
+          container? </li>
+        <li>How to invalidate inactive sessions and tear down the associated container?</li>
+        <li>How to safely communicate queries between client and database?</li>
+        </ul>
+
+        <p> </p>
+        <p>Each of these challenges is addressed by our dispatch server, an integral component of our system
+          architecture which
+          is responsible for interactions between our clients, application servers, and database. The dispatch server
+          has three
+          broad categories of responsibility which we address in the following sections: </p>
+
+        <ol>
+          <li>Reverse Proxy</li>
+          <li>Session And Container Management</li>
+          <li>Database Middleware</li>
+        </ol>
+
+        <p>IMG: RedPoint System</p>
+
+        <h3>5.1 Reverse Proxy</h3>
+
+        <p>Each Docker container running on our host system has its own internal IP address and port. We need a way to
+          connect
+          an external address to this internal one. A simple but naive solution would be to expose a port on our host
+          system and
+          map that port directly to a container.</p>
+
+        <p>DIAGRAM <u>Port Forwarding</u></p>
+
+        <p>This approach, known as port forwarding, would leave our application vulnerable to a port scanning attack,
+          which
+          would compromise the privacy of our user sessions. We'd like to keep only the ports exposed by our firewall
+          (80 for
+          HTTP and 443 for HTTPS) open to external traffic. </p>
+
+        <p>Instead, the dispatch server can receive all HTTP requests and WebSocket messages from our clients, and use
+          the
+          session data to proxy these messages to the internal network address of the correct Docker container.
+          Responses from
+          the containerized application are then proxied to the client in a similar fashion. </p>
+
+        <p>DIAGRAM: <u>Reverse proxy</u></p>
+
+        <p>We considered existing reverse proxy solutions, such as NGINX or HAProxy. However, given the significant
+          amount of
+          custom logic that our application requires, we decided to implement our own reverse proxy server using
+          Node.js, and
+          node-http-proxy. This customized approach allows the dispatch server to do the work of proxying requests while
+          also
+          handling other important functions, such as managing sessions and containers.</p>
+
+        <h3>5.2 Session and Container Management</h3>
+        <h4>5.2.1 Session Data</h4>
+
+        <p>When a user visits our root URL to start a notebook session, we need a way to associate that user’s session
+          with the
+          appropriate data on our back end. To do so, we assign each user a unique URL that they use for the duration of
+          their
+          session. </p>
+
+        <p>This URL serves two functions. First, by being sufficiently random as to be unguessable, the URL provides
+          privacy for
+          the user’s session. We use a UUID generator to generate a 6-digit combination of letters and numbers. With
+          16,777,216
+          possible combinations, this meets our needs. Second, the URL serves as the key to our session object, which
+          the
+          dispatch server uses to map important information such as container and notebook IDs to the correct session.
+        </p>
+
+        <p>IMG: Example Session Object</p>
+
+        <p>Our original, naive implementation stored the session as an in-memory JavaScript object in our dispatch
+          server. This
+          had the advantage of simplifying interactions with the session data, but presented a big disadvantage: if the
+          dispatch
+          server ever crashed or was restarted, all current session information would be lost. A disk-based database is
+          unsuitable, since latency incurred by reading and writing session data would be added to each proxy
+          interaction.</p>
+
+        <p>IMG: Redis vs Dispatch</p>
+
+        <p>Our solution was to use Redis to store our session data. As an in-memory data store, Redis is fast enough to
+          meet our
+          needs, and it has native support for the hash map data structure, which allows fast constant time reads. Since
+          it
+          primarily stores data in-memory rather than on disk, the durability guarantee for Redis is not as strong as a
+          database, though it does store snapshots of its dataset at specified intervals. Redis wouldn’t be a good
+          choice for
+          general notebook data persistence, but to store session data it is a good fit. As a bonus, we were also able
+          to use
+          Redis to implement a buffer for our webhook traffic</p>
+
+          <h4>5.2.2 Session and Container Creation</h4>
+
+        <p>Once the session data is stored, the session URL is inserted into a redirect page which is served to the
+          client.
+          While the client waits to be redirected, we use Dockerode, a Node.js wrapper for the Docker Remote API, to
+          start a new
+          Docker container on the host. When redirection occurs, the client’s browser sends a request to the unique
+          subdomain
+          session URL. The dispatch server then maps the session URL to the correlated Docker container, and proxies all
+          subsequent HTTP and WebSocket traffic between client and container.</p>
+
+        <p>Slideshow: </p>
+        <p>Create Session 1</p>
+        <p>Create Session 2</p>
+        <p>Create Session 3</p>
+
+        <h4>5.2.3 Session and Container Teardown</h4>
+
+        <p>When a user has left a session, we need to free up system resources by tearing down the corresponding Docker
+          container. The alternative would be to recycle the container by keeping it alive and connecting it to a new
+          session,
+          but that would mean that new users might encounter artifacts from previous users’ sessions. </p>
+
+        <p>When a user closes a tab or browser after establishing a WebSocket connection, that action triggers the
+          firing of a
+          ‘close’ WebSocket event. Our application server listens for this close message to be proxied by the dispatch
+          server.
+          Upon receiving it, the containerized application server issues an HTTP DELETE request to the dispatch server,
+          passing
+          along the current session information. In response to the server’s DELETE request, the dispatch server stops
+          the
+          running Docker container, and deletes the current session’s data from Redis. </p>
+
+        <p>DIAGRAM: <u>teardown</u></p>
+
+        <p>This strategy works well for most teardown scenarios, but there are a few edge cases to consider. The first
+          is that
+          the WebSocket ‘close’ event also fires upon page refresh. When a user refreshes, it’s not their intention to
+          end a
+          session. We need a strategy to detect this case and prevent premature teardown and termination of the session.
+        </p>
+
+        <p>Our solution uses a timestamp on the session object that is re-written with every proxied request between
+          client and
+          server. When a teardown request is received, the dispatch server sets a timeout. If the timestamp doesn’t
+          change by
+          the end of the timeout period, this means that the user has not revisited their session, and it’s safe to
+          continue
+          teardown. If the timestamps differ, it means the user has revisited the container, and the session is kept
+          alive.</p>
+
+        <p>DIAGRAM: <u>premature teardownulation</u> </p>
+
+        <p>The second edge case is that if a user navigates away or closes their tab while waiting to be redirected, a
+          container
+          will still be created. Since no WebSocket connection is ever created to this container, no ‘close’ event will
+          ever
+          fire to initiate teardown, and the container will needlessly consume the host’s resources while permanently
+          idle. We
+          need a different teardown strategy for this kind of ‘zombie’ container.</p>
+
+        <p>IMG: Zombie Container</p>
+
+        <p>To solve this problem, our application server sets a flag which marks the creation of a successful WebSocket
+          connection with the client. After initiating the creation of a container, the dispatch server pings the
+          containerized
+          application server to check this connection flag. If the application server reports the lack of a WebSocket
+          connection, the container has been abandoned, and the dispatch server immediately tears it down.</p>
+
+        <h3>5.3 Database Middleware</h3>
+
+        <p>The final major responsibility of the dispatch server is to serve as middleware for our database. Having
+          application
+          servers which process arbitrary user code communicate directly with the database is not ideal. Centralizing
+          all
+          database interactions in the dispatch server enhances our database security, and provides a single place to
+          handle
+          client save/clone/load requests as well as an endpoint for external webhook traffic.</p>
+
+        <h4>5.3.1 Persistence with MongoDB</h4>
+
+        <p>We made an early decision to use the React.js framework to write the front end of our application. React
+          allows all
+          of a notebook’s data to exist in one location on the client: within the state object of a top-level component.
+          Given
+          this architecture, all of the data that shapes a specific notebook can be easily extracted for durable
+          storage.</p>
+
+        <p>A non-relational<strong> </strong>(NoSQL)<strong> </strong>database such as MongoDB uses a key/value system
+          to store
+          data with native support for JSON. Since a notebook’s data is self-contained and unrelated to the data within
+          other
+          notebooks, we chose not to use a relational storage model. By creating an index on the UUID which identifies a
+          set of
+          notebook data, we achieve logarithmic runtime complexity on database reads - an improvement over the linear
+          time of a
+          full table scan. MongoDB naturally fits our use case for data persistence by due to the minimal object
+          relational
+          mapping (ORM) layer required when converting between a JavaScript object and a JSON object.</p>
+
+        <p>The main trade-off with using a document-oriented database is the weak guarantee on the schema of the data
+          stored
+          within, but for our use case this tradeoff is acceptable. This flexibility allows us to focus our efforts on
+          supporting the current design, while avoiding the time-consuming step of carefully anticipating future growth
+          directions, as we would if using a traditional SQL database.</p>
+
+        <h4>5.3.2 Saving, Cloning and Loading Notebooks</strong></h4>
+
+        <p>One of our core design goals was to make it easy to share notebooks with a minimal barrier to entry.. We
+          decided that
+          requiring signup and user authentication before creating a notebook would be a barrier to use. Instead, we
+          adopted a
+          URL-based strategy for saving and sharing notebooks, backed by MongoDB and using the transactional email
+          provider
+          SendGrid. </p>
+
+        <p>Since the state of all notebook cells lives as a JavaScript object in a top-level React component, it’s
+          relatively
+          simple to serialize this state for a persistence operation. When the user saves or clones a notebook, an HTTP
+          POST
+          request is sent to the dispatch server. The payload of the request includes the serialized notebook data and a
+          unique
+          notebook ID, which is used as a key for the notebook’s data in MongoDB. If the user chooses to receive an
+          email record of the URL, another HTTP POST request is sent to the dispatch server,
+          where an email template is populated with the notebook URL. An email with a link to the notebook is then sent
+          to the
+          user using the SendGrid API.</p>
+
+        <p>IMG: Save/Clone Notebook</p>
+
+        <p>After a successful write to the database, the user is presented with a URL in the format
+          <code>www.yourdomain.com/notebooks/$notebookID</code>. When a user navigates to this URL to load the notebook,
+          the
+          dispatch server updates the session data in Redis to associate the notebook ID from the URL with the unique
+          subdomain
+          of the session. On subsequent requests for notebook data, the dispatch server fetches the notebook ID from
+          Redis using the subdomain
+          as the key, pulling the notebook data from the database using the notebook ID, and then sending that data to
+          the
+          client to hydrate the notebook state. </p>
+
+        <p>IMG: Load Notebook</p>
+
+
+
+        <p>Saving a notebook is meant for personal use, while cloning a notebook is designed for sharing. Changes made
+          to a
+          cloned notebook shouldn’t alter the state of the original notebook. This allows users to share a consistent
+          public copy of
+          their notebook, without fear that changes by other users will affect the original cloned notebook. Subsequent
+          saves of the same ID overwrite the same MongoDB document. Therefore, when cloning a notebook, a new Mongo
+          document
+          with identical data to its parent is created and associated with a new notebook ID. </p>
+        <p>Save UUID vs Clone UUID</p>
+        <p>There’s still a problem, however: if multiple users are given the cloned notebook URL (such as a publicly
+          posted
+          notebook), any subsequent saves will mutate all copies of the clone. Our solution to this problem is to give
+          every
+          notebook document in our database a boolean flag that marks whether or not the notebook is a clone. If an
+          attempt to
+          save a clone is made, a new ID is assigned to the notebook, and the ‘clone’ flag is set to false. This ensures
+          that
+          the newly saved notebook doesn’t mutate other clones.</p>
+
+        <p>Slideshow: </p>
+        <p>Mutating a cloned notebook</p>
+        <p>Not Mutating a cloned notebook</p>
+
+
         <div class="img-wrapper">
           <img src="" alt="" />
         </div>
@@ -648,47 +1139,83 @@
             <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
         </div>
-        <h3>5.2 Reverse Proxy</h3>
-        <h3>5.3 Database Middleware</h3>
       </div>
 
       <div class="chapter">
-        <h2 id="deployment">6 Deployment</h2>
-        <h3>6.1 Webhooks</h3>
-        <h3>6.2 Rate-Limiting Webhook Traffic</h3>
-
-        <p>
-        </p>
-
-        <div class="img-wrapper">
-          <img src="images/" alt="" />
-        </div>
-
-        <blockquote>
-          <p>This is a quote</p>
-        </blockquote>
-      </div>
-
-      <div class="chapter">
-        <h2 id="future-work">7 Future Work</h2>
-
+        <h2 id="future-work">6 Future Work</h2>
         <ul>
-          <li>User Accounts</li>
+          <li>Implement optional user authentication in order to more easily organize notebooks</li>
           <li>
-            Additional Languages
-            <ul>
-              <li>option for LAN</li>
-              <li>client-server communication with TLS</li>
-            </ul>
+            Add support for additional languages
           </li>
-          <li>More tests, especially integration tests</li>
+          <li>Add a feature to code upload and download code</li>
+          <li>Augment our existing testing suite</li>
         </ul>
       </div>
 
       <section id="footnotes">
-        <h2 id="references">8 References</h2>
+        <h2 id="references">7 References</h2>
+        <p>Here are some references that were valuable to us during our journey to create RedPoint: </p>
 
-        <h5>8.1 Footnotes</h5>
+        <h3>Computational Notebooks</h3>
+        <p>Time Traveling in Node.js Notebooks</p>
+        <p><u>Open-Sourcing </u><u>Polynote</u></p>
+        <p>Observable's Not Javascript</p>
+        <p>nteract: building on top of Jupyter</p>
+        <p>Notebook Wars</p>
+        <p>Literate programming</p>
+        <p>Jupyter Lab: Evolution of the Jupyter Notebook</p>
+        <p>The Scientific Paper is Obsolete</p>
+        <p>Devops with Juypter</p>
+        <p>Notebook Innovation at Netflix </p>
+        <p>nteract: Revolutionizing the Notebook Experience</p>
+        <p>I Don't Like Notebooks - Joel Grus - #JupyterCon 2018</p>
+        <p>Advanced Jupyter Notebook Tutorial</p>
+        <p>WebSockets</p>
+
+        <p>WebSockets - A Conceptual Deep-Dive</p>
+        <p>Performance comparison of XHR polling, Long polling, Server sent events and Websockets</p>
+        <p>HTTP vs Websockets: A performance comparison</p>
+
+        <p>Node Child Processes and Streams</p>
+
+        <p>How to Exit in Node.js</p>
+        <p>Understanding execFile, spawn, exec, and fork in Node.js</p>
+        <p>Running Shell Script Using Node.js</p>
+        <p>Child Process Docs</p>
+        <p>Unix / Linux - Shell Input/Output Redirections</p>
+        <p>Node JS Streams</p>
+
+        <p>Docker</p>
+        <p>Containers, VMs and Docker</p>
+        <p>Dockerfile Best Practices</p>
+        <p><u>Containerizing an applicatio</u>n</p>
+        <p>Docker Curriculum</p>
+        <p>An Updated Performance Comparison of Virtual Machines and Linux Containers</p>
+        <p>When and Why to Use Docker</p>
+        <p>When Not to Use Docker: Understanding the Limitations of Containers</p>
+        <p>Containers vs Virtual Machines (VMs): Critical Differences to Understand</p>
+        <p>Docker Misconceptions</p>
+        <p>Docker in the Real World at Yelp</p>
+        <p>Docker Log Management</p>
+
+        <p>gVisor, security, and cgroups: </p>
+
+        <p>How To Limit User's Access To The Linux System</p>
+        <p>Docker security</p>
+        <p>gVisor Security Model</p>
+        <p>How to Implement Secure Containers Using Google's gVisor</p>
+        <p>cgroups</p>
+        <p>Runtime options with Memory, CPUs, and GPUs</p>
+        <p>Container Processes shouldn't run as root</p>
+
+        <p>MongoDB and Redis:</p>
+        <p><u>Using Redis with Node.j</u><u>s</u></p>
+        <p>First-in, first-out queues in Redis</p>
+        <p>The MongoDB Manual</p>
+        <p>Optimize MongoDB Query Performance</p>
+
+
 
         <ol>
           <li id="footnote-1">
@@ -704,23 +1231,6 @@
             <a href="" target="_blank"></a>
           </li>
         </ol>
-        <!--
-
-          <h5>9.2 Resources</h5>
-
-          <ol>
-
-            <li><a
-
-                href="https://www.manning.com/books/serverless-architectures-on-aws"
-
-                target="_blank">Serverless Architecture on AWS</a>
-
-            </li>
-
-          </ul>
-
--->
       </section>
     </section>
   </main>
