@@ -29,12 +29,14 @@ h3,
 h4,
 h5 {
   font-family: "Roboto", sans-serif;
-  color: #ed7164;
+  /* color: #ed7164; */
+  color: white;
 }
 
 h1 {
   font-size: 4.5rem;
-  text-shadow: 0.5px 0.5px 1px #fff;
+  padding-bottom: 15px;
+  /* text-shadow: 0.5px 0.5px 1px #fff; */
 }
 
 h2 {
@@ -55,14 +57,15 @@ h4 {
 }
 
 .integration:first-of-type {
-  background: #8dbc9d;
+  /* background: #a0efb0; */
+  background: #6897bb;
   padding-top: 20px;
   padding-bottom: 40px;
 }
 
 .integration:nth-of-type(2) {
-  background: #a0aab5;
-  border-bottom: 2px solid #dfe0e2;
+  background: #ed7164;
+  /* border-bottom: 2px solid #a0aab5; */
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -76,8 +79,8 @@ h4 {
 
 .text-box h1 {
   font-size: 3rem;
-
-  text-shadow: 0.5px 0.5px 1px black;
+  padding: 0 0 10px 0;
+  /* text-shadow: 0.5px 0.5px 1px #a0aab5; */
 }
 
 .text-box p {
@@ -161,7 +164,7 @@ sup a {
 }
 
 sup a:hover {
-  color: #ed6a40;
+  color: #ed7164;
 }
 
 /* ---------------------------------
@@ -201,7 +204,11 @@ img {
 }
 
 #github-logo:hover {
-  filter: invert(20%);
+  filter: invert(100%);
+}
+
+#redpoint-logo:hover {
+  filter: contrast(125%) brightness(75%);
 }
 
 #toTop-logo {
@@ -268,7 +275,7 @@ pre code {
 }
 
 code {
-  color: #ed6a40;
+  color: #ed7164;
   font-family: "Fira Code", monospace;
   font-size: 1rem;
 }
@@ -300,7 +307,7 @@ nav#site-navigation ul {
 }
 
 nav#site-navigation ul li {
-  margin: 25px 20px 25px 40px;
+  margin: 13px 20px 13px 40px;
   float: left;
 }
 
@@ -343,14 +350,14 @@ header p {
 }
 
 header span {
-  color: #ed6a40;
+  color: #ed7164;
 }
 
 header h1 img {
   display: block;
-  width: 30%;
+  width: 100%;
   max-width: 850px;
-  margin: 0 auto;
+  margin: 15% auto 0;
   padding: 80px 0;
 }
 
@@ -362,9 +369,9 @@ header h1 img {
 #side-nav {
   display: none;
 
-  left: 2rem;
+  left: 2%;
   position: fixed;
-  top: 17%;
+  top: 5%;
   transform: translateY(-50%);
 }
 
@@ -378,7 +385,7 @@ header h1 img {
   display: none;
   left: 2rem;
   position: fixed;
-  top: 70%;
+  top: 40%;
   transform: translateY(-60%);
 }
 
@@ -402,7 +409,7 @@ header h1 img {
 }
 
 #case-study nav a:hover {
-  color: #e38a5f;
+  color: #ed7164;
 }
 
 #case-study h3,
@@ -449,7 +456,7 @@ h3 {
 
 .chapter {
   background-color: white;
-  padding: 25px;
+  padding: 50px;
   border-radius: 10px;
   margin-bottom: 15px;
 }
@@ -602,7 +609,7 @@ h2#references {
 }
 
 #footnotes a:hover {
-  color: #ef431b;
+  color: #ed7164;
 }
 
 /* ---------------------------------
@@ -612,7 +619,7 @@ h2#references {
 ------------------------------------ */
 
 #our-team {
-  background-color: #edf5e1;
+  background-color: #a0aab5;
   color: #1e4470;
   margin-top: 100px;
   padding-bottom: 25px;

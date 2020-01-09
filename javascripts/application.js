@@ -17,7 +17,7 @@ $(function() {
     } else if (image.src.match("slide_4")) {
       image.src = "images/diagrams/slides/hidden_state/slide_5.png";
     } else if (image.src.match("slide_5")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_6.png";   
+      image.src = "images/diagrams/slides/hidden_state/slide_6.png";
     } else if (image.src.match("slide_6")) {
       $nextButton.prop("disabled", true);
     }
@@ -114,18 +114,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const selector = `#${snakeCaseify(h2Str)}`;
       const h2 = document.querySelector(selector);
 
-      // debugger;
       const position = getScrollPosition() + h2.getBoundingClientRect().top;
       obj[`${selector}-nav`] = position;
       return obj;
     }, {});
 
   const highlightSection = (li, a) => {
-    // debugger;
     li.style.listStyle = "disc";
 
-    li.style.color = "#ed6a40";
-    a.style.color = "#ed6a40";
+    li.style.color = "#ed7164";
+    a.style.color = "#ed7164";
   };
 
   const mobileCaseStudyLinks = [];
@@ -293,15 +291,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isWideScreen && !onMain && topNavVisible) {
       // BG, text, hover
-      // styleNavColors("#1e4470", "#edf5e1", "#ed6a40");
-      styleNavColors("#353a40", "#a0aab5", "#dcf6d1");
+      // styleNavColors("#1e4470", "#edf5e1", "#ed7164");
+      styleNavColors("#353a40", "#a0aab5", "#ed7164");
       changeImgSrc(
         "redpoint-logo",
         "images/logos/redpoint-brand-logo_plane-only.png"
       ); // black
     } else {
-      // styleNavColors("#1e4470", "#edf5e1", "#ed6a40");
-      styleNavColors("#353a40", "#a0aab5", "#dcf6d1");
+      // styleNavColors("#1e4470", "#edf5e1", "#ed7164");
+      styleNavColors("#353a40", "#a0aab5", "#ed7164");
       changeImgSrc(
         "redpoint-logo",
         "images/logos/redpoint-brand-logo_plane-only.png"
@@ -310,7 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showNav = () => {
-    // debugger;
     const position = getScrollPosition();
     const narrowScreen = isNarrowScreen();
     topNavVisible = true;
