@@ -154,6 +154,7 @@
 
         </div>
       </article>
+
     </div>
   </section>
 
@@ -178,9 +179,12 @@
           support and web connectivity. RedPoint notebooks run in the browser, and allow you to write and execute
           JavaScript, Ruby, and Python code within the same document. This case study will explain the uses of
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
+
           technical challenges in building a web-native computational notebook as well as the solutions to address them.
         </p>
-
+          technical challenges we faced in building a web-native computational notebook and the solutions we devised to
+          address them.</p>
+        <hr />
         <h3>1.2 What is a computational notebook?</h3>
         <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
           up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
@@ -225,6 +229,7 @@
             alt="example two of a computational narrative" class="softened" />
           <p>Excerpt from a computational narrative</p>
         </div>
+        <hr />
 
         <h3>1.3 Uses of Computational Notebooks</h3>
         <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
@@ -248,17 +253,20 @@
           <p>
             Cell is executed with a typo
           </p>
+
           <div class="buttons">
             <button id="resetButton" class="redpointButton">Reset</button>
 
             <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            Cell is executed with a typo
+          </p>
         </div>
 
         <p>Caption: Hidden state in Jupyter notebooks can lead to confusing results </p>
         <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
-          declared. This
-          hidden notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It
+          declared. This hidden notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It
           also limits sharing notebooks to people who have experience with the intricacies of Jupyter notebook state.
         </p>
 
@@ -267,7 +275,6 @@
           are not suitable for people interested in documenting and sharing vanilla code.</p>
 
         <hr />
-
         <h3>1.4 Note Taking Apps for Programmers</h3>
         <p>Most programmers looking to document code choose more traditional note-taking applications to present their
           notes. A subset of note-taking apps are focused on programmers, such as Quiver, MedleyText, and Boostnote.
@@ -345,8 +352,8 @@
           Client-side execution would also rely on the client’s computing resources, and would lead to a poor user
           experience on slower (mobile) devices.
         </p>
-        <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised
-          several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
+        <p>Executing arbitrary user code on our server presents security concerns. We devised
+          several strategies to mitigate them, which we discuss in our <a href="#security-and-resources">section on security</a>.</p>
         <hr />
         <h3>2.2 Limitations of HTTP</h3>
         <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was
@@ -408,7 +415,7 @@
           system resources. The trade-off is that using WebSockets introduces some additional complexity to our
           codebase.</p>
 
-
+        <hr />
         <h3>2.4 Webhooks and APIs</h3>
         <p>Having established our network architecture, we can now outline some of the features we were able to
           implement as a web-native tool. Adding API support turned out to be relatively simple. We initiate a GET
@@ -843,6 +850,29 @@
           only
           altering an ephemeral in-memory overlay, not the actual host.</p>
 
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" class="big" />
+          <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
+        </div>
+
+        <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
+          that a given host system
+          can
+          support
+          fewer containers when using the more secure runtime. Using Artillery, a load testing library, we tested how
+          many
+          concurrent
+          container instances could be run on hosts with varying amounts of memory. The results showed that using
+          gVisor
+          reduced
+          the number of concurrent container a given host would support by roughly 25 percent:</p>
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table"
+            class="big" />
+          <p>Using gVisor means fewer containers per host system</p>
+        </div>
+
         <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
           acceptable
           to provide a stronger security profile for our application. </p>
@@ -881,45 +911,6 @@
           that the
           container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
           container. </p>
-
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big" />
-          <p>Control groups provide a way to balance resources between containers</p>
-        </div>
-
-        <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
-          monopolize our
-          system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
-          of
-          these
-          resources as the host kernel allows. In our system architecture, where each user has their own containerized
-          notebook
-          session, we want to make sure that running computationally expensive or memory-intensive code in one
-          container
-          doesn't
-          have an adverse impact on other concurrent sessions in other containers. </p>
-        <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big" />
-          <p>CPU-intensive code in one container could starve another container of resources</p>
-        </div>
-        <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
-          the
-          user's
-          container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
-          containers.
-          Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
-          of
-          runtime
-          configuration flags. </p>
-
-        <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
-          Linux
-          kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
-          that the
-          container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
-          container. </p>
-
 
         <div class="img-wrapper">
           <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big" />
@@ -1071,15 +1062,15 @@
         <div class="img-wrapper slideshow">
           <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
             alt="create session" />
-          <p>
-            First, a unique URL is created and stored in session data. The client will be redirected to this URL once a
-            container is ready
-          </p>
           <div class="buttons">
             <button id="resetButton3" class="redpointButton">Reset</button>
 
             <button id="nextButton3" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            First, a unique URL is created and stored in session data. The client will be redirected to this URL once a
+            container is ready
+          </p>
         </div>
         <h4>5.2.3 Session and Container Teardown</h4>
 
@@ -1254,14 +1245,15 @@
         <div class="img-wrapper">
           <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
             alt="mutating a cloned notebook" />
-          <p>
-            Without a way to flag a cloned notebook, subsequent saves will mutate the original
-          </p>
+
           <div class="buttons">
             <button id="resetButton2" class="redpointButton">Reset</button>
 
             <button id="nextButton2" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            Without a way to flag a cloned notebook, subsequent saves will mutate the original
+          </p>
         </div>
       </div>
 

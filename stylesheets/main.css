@@ -19,8 +19,15 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-body p {
+body p,
+ul,
+ol {
   font-family: "Lato", sans-serif;
+}
+
+body ul,
+ol {
+  margin-left: 15px;
 }
 
 main {
@@ -483,6 +490,11 @@ h3 {
   color: #ed7164;
 }
 
+/* #case-study ul,
+ol {
+  margin-left: 50px;
+} */
+
 #case-study p {
   font-size: 1.2rem;
   line-height: 1.8rem;
@@ -608,12 +620,13 @@ hr {
 }
 
 .redpointButton {
-  background: #494c54;
+  background: #a0aab5;
   width: 25%;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
+
   color: #8dbc9d;
   font-weight: 600;
   padding: 7px;
