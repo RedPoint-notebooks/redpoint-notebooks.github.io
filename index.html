@@ -178,15 +178,9 @@
           support and web connectivity. RedPoint notebooks run in the browser, and allow you to write and execute
           JavaScript, Ruby, and Python code within the same document. This case study will explain the uses of
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
-<<<<<<< HEAD
-          technical challenges we faced in building a web-native computational notebook and the solutions we devised to
-          address them.</p>
-<hr/>
-=======
           technical challenges in building a web-native computational notebook as well as the solutions to address them.
         </p>
 
->>>>>>> update-text
         <h3>1.2 What is a computational notebook?</h3>
         <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
           up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
@@ -223,10 +217,6 @@
             - Fernando Perez, co-creator of Jupyter Notebooks
           </p>
         </blockquote>
-<<<<<<< HEAD
-        <p>Image: Sample computational narrative</p>
-        <hr/>
-=======
 
         <div class="img-wrapper">
           <!-- <img src="images/diagrams/intro/computational-notebook-example-1.png"
@@ -236,7 +226,6 @@
           <p>Excerpt from a computational narrative</p>
         </div>
 
->>>>>>> update-text
         <h3>1.3 Uses of Computational Notebooks</h3>
         <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
           enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
@@ -248,18 +237,14 @@
 
         <p>These design decisions support a data science workflow, but the way they handle code state creates
           complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become out
-          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain <code>const</code>
+          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain
+          <code>const</code>
           declarations will produce errors if the same cell is run more than once.</p>
 
         <div class="img-wrapper">
-<<<<<<< HEAD
-          <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1"
-            alt="Hidden State1" />
-=======
           <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1" alt="Hidden State1"
             class="softened" />
 
->>>>>>> update-text
           <p>
             Cell is executed with a typo
           </p>
@@ -269,33 +254,20 @@
             <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
         </div>
-<<<<<<< HEAD
-        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been declared. This
-          hidden
-          notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It also
-          limits
-          sharing notebooks to people who have experience with the intricacies of Jupyter notebook state. </p>
-
-        <p>Other notebook products such as ObservableHQ use a custom system to link state between cells, and a
-          non-standard
-          dialect of JavaScript. Although they can enable powerful features, non-standard language dialects are not
-          suitable for
-          people interested in documenting and sharing vanilla code. </p>
-
-        <hr/>
-=======
 
         <p>Caption: Hidden state in Jupyter notebooks can lead to confusing results </p>
-        <p>As far as the underlying program state is concerned, the variable ‘foo’ has already been declared. This
+        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
+          declared. This
           hidden notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It
           also limits sharing notebooks to people who have experience with the intricacies of Jupyter notebook state.
         </p>
 
-        <p>Other notebook products such as ObservableHQ use a custom system to link state between cells, and a
+        <p>Other notebook products such as Observable use a custom system to link state between cells, and a
           non-standard dialect of JavaScript. Although they can enable powerful features, non-standard language dialects
           are not suitable for people interested in documenting and sharing vanilla code.</p>
 
->>>>>>> update-text
+        <hr />
+
         <h3>1.4 Note Taking Apps for Programmers</h3>
         <p>Most programmers looking to document code choose more traditional note-taking applications to present their
           notes. A subset of note-taking apps are focused on programmers, such as Quiver, MedleyText, and Boostnote.
@@ -312,16 +284,7 @@
           <img src="images/diagrams/intro/Note-taking flow.png" alt="note taking workflow" />
           <p>Note-taking apps require context switching to execute code</p>
         </div>
-<<<<<<< HEAD
-        <p>The other limitation with note-taking apps is that none of the major ones are web-native. For example, in
-          order to
-          access your Boostnote coding notes on a mobile device you must pay a fee. Quiver is also a paid application
-          that only
-          supports the MacOS platform. </p>
-        <hr/>
-=======
-
->>>>>>> update-text
+        <hr />
         <h3>1.5 RedPoint</h3>
 
         <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
@@ -375,14 +338,6 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/client_vs_server.png" alt="client vs server execution" />
-<<<<<<< HEAD
-        </div>        
-        <p>Our experiments with in-browser transpilers for other languages showed them to be slow and unreliable. Each additional supported language for our notebook would require another in-browser transpiler, which would quickly escalate client memory usage to unacceptable levels.
-          Client-side execution would also rely on the client’s computing resources, and would lead to a poor user experience on slower (mobile) devices. 
-          </p>
-        <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
-        <hr/>
-=======
         </div>
         <p>Our experiments with in-browser transpilers for other languages showed them to be slow and unreliable. Each
           additional supported language for our notebook would require another in-browser transpiler, which would
@@ -392,8 +347,7 @@
         </p>
         <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised
           several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
-
->>>>>>> update-text
+        <hr />
         <h3>2.2 Limitations of HTTP</h3>
         <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was
           executed server-side, relevant data (output, errors, and return value) was stored in a single JavaScript
@@ -422,7 +376,7 @@
           bi-directional communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for
           our use case.</p>
 
-        <hr/>
+        <hr />
         <h3>2.3 Websockets</h3>
 
         <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the
@@ -454,33 +408,6 @@
           system resources. The trade-off is that using WebSockets introduces some additional complexity to our
           codebase.</p>
 
-<<<<<<< HEAD
-          <hr/>
-          <h3>2.4 Webhooks and APIs</h3>
-          <p>Having established our network architecture, we can now outline some of the features we were able to implement as a web-native tool. Adding API support turned out to be relatively simple.  We initiate a GET request to an API endpoint from the client, then convert the JSON response into a Javascript object and insert it directly into the state of our notebook. Although the technologies are similar, implementing webhooks presented more of an engineering challenge. 
-          </p>
-          <p>Webhooks are a method of real-time, event-driven notification using HTTP requests. They provide an efficient way for a server to respond to events on another server through a subscription model. Webhooks are an alternative to less-efficient methods of server-to-server notification such as continuous polling. </p>
-          <p>The challenge with testing webhooks is that they are a server-to-server communication and require an existing URL endpoint to receive webhook data. We provide each notebook with a unique URL endpoint to receive webhook data. 
-          </p>
-          <p>Due to their event-driven nature, the volume of incoming webhook traffic to a given endpoint is inconsistent. Webhook consumers have no control over the rate of incoming traffic. Providers that generate a high level of outgoing webhooks could flood our system and tie up our server resources. </p>          
-         
-          <h4>2.4.1 Decoupling Webhook Traffic</h4>
-          <p>
-            We implemented a messaging queue to address this problem, effectively decoupling the incoming rate of webhook traffic from the rate at which we process them internally. We used the RSMQ library to handle the queue interactions with Redis.
-          </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/network_architecture/rate_limiting_webhooks.png"
-              alt="rate limiting incoming webhook data" />
-              <p>A message queue decouples the incoming webhook rate from the internal processing rate</p>
-          </div>
-          <p>When an incoming webhook request reaches our <a href="#system-architecture">dispatch server</a>, a response with a 200 status code is immediately issued. Then, the notebook ID associated with the webhook is parsed from the Host header of the request, and this ID, along with the JSON body of the request, are added to the Redis message queue. Asynchronously, a background process picks messages from the queue and inserts the webhook data into the correct notebook in MongoDB.</p>
-          <p>Webhook data is stored in a separate array in the MongoDB document associated with the notebook. When the notebook is loaded and hydrated on the front end in our React client, each webhook entry is inserted into its own JavaScript cell at the top of the notebook, where the user can then interact programmatically with the resulting JavaScript object.</p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/network_architecture/webhook_data.png"
-              alt="webhook data in a notebook" />
-              <p>An example of GitHub webhook data</p>
-          </div>
-=======
 
         <h3>2.4 Webhooks and APIs</h3>
         <p>Having established our network architecture, we can now outline some of the features we were able to
@@ -523,7 +450,6 @@
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/webhook_data.png" alt="webhook data in a notebook" />
           <p>An example of GitHub webhook data</p>
->>>>>>> update-text
         </div>
       </div>
 
@@ -547,7 +473,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" class="big"/>
         </div> -->
-        <hr/>
+        <hr />
         <h3>3.1 Cells Share Scope</h3>
         <p>
           To us, a predictable scope and state means behaving like a typical development environment. To make sure that
@@ -566,15 +492,9 @@
           <img src="images/diagrams/user_experience/shared_cell_scope.png" alt="shared cell scope" />
           <p>The code in cell 3 shares scope with the code in the cells above</p>
         </div>
-<<<<<<< HEAD
-        <hr/>
+        <hr />
         <h3>3.2 Code Execution</h3>
         <h4>3.2.1 REPL Execution</h4>
-=======
-        <hr />
-        <h4>3.2 Code Execution</h4>
-        <h5>3.2.1 REPL Execution</h5>
->>>>>>> update-text
         <p>
           Once the serialized user code arrives at the server, we need a way to execute it and capture any output,
           return value and errors generated by the code. Our first thought was to take an approach like Jupyter notebook
@@ -638,22 +558,7 @@
           results generated by both the REPL and temporary script, we have a consistent strategy for capturing return
           values, output, and errors from code execution.
         </p>
-<<<<<<< HEAD
         <h4>3.2.3 Script Execution <i>then</i> REPL Execution</h4>
-          <p>
-            The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
-          </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution"/>
-          </div>          
-          <p>
-            Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
-          </p>
-        
-        <hr/>
-        <h3>3.3 Slotting Strategy for Code Results</h3>
-=======
-        <h5>3.2.3 Script Execution <i>then</i> REPL Execution</h5>
         <p>
           The order of execution for these two approaches is important. In the case of errors in the user code, the REPL
           will continue to run code, rather than halting execution and outputting only the error message as expected.
@@ -669,16 +574,9 @@
           no errors are thrown, or rejects in the event of an error. In the event that the script execution promise
           rejects, the error is returned to the client, and the REPL is not executed.
         </p>
-        <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/server_promise_chain.png"
-            alt="promise chain for script then repl execution" />
-          <p>Using Promises to combine our REPL and script execution strategies</p>
-        </div>
+
         <hr />
-
-
-        <h4>3.3 Slotting Strategy for Code Results</h4>
->>>>>>> update-text
+        <h3>3.3 Slotting Strategy for Code Results</h3>
 
         <p>
           Now that we have our code execution results, the next challenge is to distribute these results correctly to
@@ -945,82 +843,50 @@
           only
           altering an ephemeral in-memory overlay, not the actual host.</p>
 
-<<<<<<< HEAD
-          <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
-            acceptable
-            to provide a stronger security profile for our application. </p>
-          <hr/>
-          <h3>4.2 Resource Management</h3>
-          <h4>4.2.1 Control Groups</h4>
-
-          <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
-            monopolize our
-            system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
-            of
-            these
-            resources as the host kernel allows. In our system architecture, where each user has their own containerized
-            notebook
-            session, we want to make sure that running computationally expensive or memory-intensive code in one
-            container
-            doesn't
-            have an adverse impact on other concurrent sessions in other containers. </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big"/>
-            <p>CPU-intensive code in one container could starve another container of resources</p>
-          </div>
-          <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
-            the
-            user's
-            container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
-            containers.
-            Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
-            of
-            runtime
-            configuration flags. </p>
-
-          <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
-            Linux
-            kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
-            that the
-            container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
-            container. </p>
-
-
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big"/>
-            <p>Control groups provide a way to balance resources between containers</p>
-          </div>
-=======
-        <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" class="big" />
-          <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
-        </div>
-
-        <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
-          that a given host system
-          can
-          support
-          fewer containers when using the more secure runtime. Using Artillery, a load testing library, we tested how
-          many
-          concurrent
-          container instances could be run on hosts with varying amounts of memory. The results showed that using
-          gVisor
-          reduced
-          the number of concurrent container a given host would support by roughly 25 percent:</p>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table"
-            class="big" />
-          <p>Using gVisor means fewer containers per host system</p>
-        </div>
-
         <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
           acceptable
           to provide a stronger security profile for our application. </p>
-
+        <hr />
         <h3>4.2 Resource Management</h3>
         <h4>4.2.1 Control Groups</h4>
->>>>>>> update-text
+
+        <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
+          monopolize our
+          system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
+          of
+          these
+          resources as the host kernel allows. In our system architecture, where each user has their own containerized
+          notebook
+          session, we want to make sure that running computationally expensive or memory-intensive code in one
+          container
+          doesn't
+          have an adverse impact on other concurrent sessions in other containers. </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big" />
+          <p>CPU-intensive code in one container could starve another container of resources</p>
+        </div>
+        <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
+          the
+          user's
+          container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
+          containers.
+          Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
+          of
+          runtime
+          configuration flags. </p>
+
+        <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
+          Linux
+          kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
+          that the
+          container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
+          container. </p>
+
+
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big" />
+          <p>Control groups provide a way to balance resources between containers</p>
+        </div>
 
         <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
           monopolize our
@@ -1139,7 +1005,7 @@
           node-http-proxy. This customized approach allows the dispatch server to do the work of proxying requests while
           also
           handling other important functions, such as managing sessions and containers.</p>
-        <hr/>
+        <hr />
         <h3>5.2 Session and Container Management</h3>
         <h4>5.2.1 Session Data</h4>
 
@@ -1203,17 +1069,18 @@
 
 
         <div class="img-wrapper slideshow">
-            <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
-              alt="create session" />
-            <p>
-              First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready
-            </p>
-            <div class="buttons">
-              <button id="resetButton3" class="redpointButton">Reset</button>
-  
-              <button id="nextButton3" class="redpointButton">&rarr;</button>
-            </div>
+          <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
+            alt="create session" />
+          <p>
+            First, a unique URL is created and stored in session data. The client will be redirected to this URL once a
+            container is ready
+          </p>
+          <div class="buttons">
+            <button id="resetButton3" class="redpointButton">Reset</button>
+
+            <button id="nextButton3" class="redpointButton">&rarr;</button>
           </div>
+        </div>
         <h4>5.2.3 Session and Container Teardown</h4>
 
         <p>When a user has left a session, we need to free up system resources by tearing down the corresponding Docker
@@ -1276,7 +1143,7 @@
           <img src="images/diagrams/system_architecture/Orphaned container.png" alt="zombie container" />
           <p>Pinging newly created containers to detect and tear down abandoned sessions</p>
         </div>
-        <hr/>
+        <hr />
         <h3>5.3 Database Middleware</h3>
 
         <p>The final major responsibility of the dispatch server is to serve as middleware for our database. Having
@@ -1385,17 +1252,17 @@
           the newly saved notebook doesn’t mutate other clones.</p>
 
         <div class="img-wrapper">
-            <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
-              alt="mutating a cloned notebook" />
-            <p>
-              Without a way to flag a cloned notebook, subsequent saves will mutate the original
-            </p>
-            <div class="buttons">
-              <button id="resetButton2" class="redpointButton">Reset</button>
-  
-              <button id="nextButton2" class="redpointButton">&rarr;</button>
-            </div>
+          <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
+            alt="mutating a cloned notebook" />
+          <p>
+            Without a way to flag a cloned notebook, subsequent saves will mutate the original
+          </p>
+          <div class="buttons">
+            <button id="resetButton2" class="redpointButton">Reset</button>
+
+            <button id="nextButton2" class="redpointButton">&rarr;</button>
           </div>
+        </div>
       </div>
 
       <div class="chapter">
