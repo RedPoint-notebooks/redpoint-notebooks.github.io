@@ -39,20 +39,61 @@ $(function() {
     $image
       .next("p")
       .text(
-        "Using a flag on a cloned notebook, we can create a new ID on a subsequent save"
+        "Using a flag on a cloned notebook, we can create a new ID so the original is not overwritten"
       );
     $nextButton.css("visibility", "hidden");
   });
 
   $resetButton.on("click", function(e) {
     e.preventDefault();
-    $nextButton.prop("disabled", false);
+
     $nextButton.css("visibility", "visible");
     image.src = "images/diagrams/system_architecture/mutating_clone.png";
     $image
       .next("p")
       .text(
         "Without a way to flag a cloned notebook, subsequent saves will mutate the original"
+      );
+  });
+});
+
+$(function() {
+  const $nextButton = $("#nextButton3");
+  const $resetButton = $("#resetButton3");
+
+  const image = document.getElementById("create-session");
+  const $image = $("#create-session");
+
+  $nextButton.on("click", function(e) {
+    e.preventDefault();
+
+    if (image.src.match("1")) {
+      image.src = "images/diagrams/system_architecture/create_session_2.png";
+      $image
+        .next("p")
+        .text(
+          "Next, the dispatch server creates a container and associates the container's ID with the session"
+        );
+    } else if (image.src.match("2")) {
+      image.src = "images/diagrams/system_architecture/create_session_3.png";
+      $image
+        .next("p")
+        .text(
+          "Finally, when the client sends a request to their unique URL, the dispatch server proxies the request to the correct container using the session data"
+        );
+      $nextButton.css("visibility", "hidden");
+    }
+  });
+
+  $resetButton.on("click", function(e) {
+    e.preventDefault();
+
+    $nextButton.css("visibility", "visible");
+    image.src = "images/diagrams/system_architecture/create_session_1.png";
+    $image
+      .next("p")
+      .text(
+        "First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready"
       );
   });
 });

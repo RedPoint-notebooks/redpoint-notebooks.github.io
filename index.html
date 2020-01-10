@@ -947,11 +947,20 @@
           session URL. The dispatch server then maps the session URL to the correlated Docker container, and proxies all
           subsequent HTTP and WebSocket traffic between client and container.</p>
 
-        <p>Slideshow: </p>
-        <p>Create Session 1</p>
-        <p>Create Session 2</p>
-        <p>Create Session 3</p>
 
+
+        <div class="img-wrapper slideshow">
+            <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
+              alt="create session" />
+            <p>
+              First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready
+            </p>
+            <div class="buttons">
+              <button id="resetButton3" class="redpointButton">Reset</button>
+  
+              <button id="nextButton3" class="redpointButton">&rarr;</button>
+            </div>
+          </div>
         <h4>5.2.3 Session and Container Teardown</h4>
 
         <p>When a user has left a session, we need to free up system resources by tearing down the corresponding Docker
