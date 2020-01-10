@@ -9,45 +9,92 @@ $(function() {
   $nextButton.on("click", function(e) {
     e.preventDefault();
 
-    if (image.src.match("slide_1")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_2.png";
+    image.src = "images/diagrams/slides/hidden_state/slide_2.png";
+    $image
+      .next("p")
+      .text("Typo is fixed, and cell is run again resulting in an error");
+    $nextButton.css("visibility", "hidden");
+  });
+
+  $resetButton.on("click", function(e) {
+    e.preventDefault();
+
+    $nextButton.css("visibility", "visible");
+    image.src = "images/diagrams/slides/hidden_state/slide_1.png";
+    $image.next("p").text("Cell is executed with a typo");
+  });
+});
+
+$(function() {
+  const $nextButton = $("#nextButton2");
+  const $resetButton = $("#resetButton2");
+
+  const image = document.getElementById("mutate-clone");
+  const $image = $("#mutate-clone");
+
+  $nextButton.on("click", function(e) {
+    e.preventDefault();
+
+    image.src = "images/diagrams/system_architecture/not_mutating_clone.png";
+    $image
+      .next("p")
+      .text(
+        "Using a flag on a cloned notebook, we can create a new ID so the original is not overwritten"
+      );
+    $nextButton.css("visibility", "hidden");
+  });
+
+  $resetButton.on("click", function(e) {
+    e.preventDefault();
+
+    $nextButton.css("visibility", "visible");
+    image.src = "images/diagrams/system_architecture/mutating_clone.png";
+    $image
+      .next("p")
+      .text(
+        "Without a way to flag a cloned notebook, subsequent saves will mutate the original"
+      );
+  });
+});
+
+$(function() {
+  const $nextButton = $("#nextButton3");
+  const $resetButton = $("#resetButton3");
+
+  const image = document.getElementById("create-session");
+  const $image = $("#create-session");
+
+  $nextButton.on("click", function(e) {
+    e.preventDefault();
+
+    if (image.src.match("1")) {
+      image.src = "images/diagrams/system_architecture/create_session_2.png";
       $image
         .next("p")
-        .text("Typo is fixed, and cell is run again resulting in an error.");
-    } else if (image.src.match("slide_2")) {
-      $nextButton.prop("disabled", true);
+        .text(
+          "Next, the dispatch server creates a container and associates the container's ID with the session"
+        );
+    } else if (image.src.match("2")) {
+      image.src = "images/diagrams/system_architecture/create_session_3.png";
+      $image
+        .next("p")
+        .text(
+          "Finally, when the client sends a request to their unique URL, the dispatch server proxies the request to the correct container using the session data"
+        );
+      $nextButton.css("visibility", "hidden");
     }
   });
 
   $resetButton.on("click", function(e) {
     e.preventDefault();
-    $nextButton.prop("disabled", false);
-    image.src = "images/diagrams/slides/hidden_state/slide_1.png";
-    $image.next("p").text("Cell is executed with a typo.");
-  });
-});
 
-$(function() {
-  const $nextButton2 = $("#nextSystemBtn");
-  const $resetButton2 = $("#resetSystemBtn");
-  const image = document.getElementById("log-collection");
-
-  $nextButton2.on("click", function(e) {
-    e.preventDefault();
-
-    if (image.src.match("log_collection.png")) {
-      image.src = "images/diagrams/log_collection/log_collection_rsyslog.png";
-    } else if (image.src.match("log_collection_rsyslog")) {
-      image.src = "images/diagrams/log_collection/log_collection_syslogng.png";
-    } else if (image.src.match("log_collection_syslogng")) {
-      $nextButton.prop("disabled", true);
-    }
-  });
-
-  $resetButton2.on("click", function(e) {
-    e.preventDefault();
-    $nextButton2.prop("disabled", false);
-    image.src = "images/diagrams/log_collection/log_collection.png";
+    $nextButton.css("visibility", "visible");
+    image.src = "images/diagrams/system_architecture/create_session_1.png";
+    $image
+      .next("p")
+      .text(
+        "First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready"
+      );
   });
 });
 

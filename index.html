@@ -220,7 +220,7 @@
           <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1"
             alt="Hidden State1" />
           <p>
-            Cell is executed with a typo.
+            Cell is executed with a typo
           </p>
           <div class="buttons">
             <button id="resetButton" class="redpointButton">Reset</button>
@@ -949,11 +949,20 @@
           session URL. The dispatch server then maps the session URL to the correlated Docker container, and proxies all
           subsequent HTTP and WebSocket traffic between client and container.</p>
 
-        <p>Slideshow: </p>
-        <p>Create Session 1</p>
-        <p>Create Session 2</p>
-        <p>Create Session 3</p>
 
+
+        <div class="img-wrapper slideshow">
+            <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
+              alt="create session" />
+            <p>
+              First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready
+            </p>
+            <div class="buttons">
+              <button id="resetButton3" class="redpointButton">Reset</button>
+  
+              <button id="nextButton3" class="redpointButton">&rarr;</button>
+            </div>
+          </div>
         <h4>5.2.3 Session and Container Teardown</h4>
 
         <p>When a user has left a session, we need to free up system resources by tearing down the corresponding Docker
@@ -1122,27 +1131,18 @@
           that
           the newly saved notebook doesn’t mutate other clones.</p>
 
-        <p>Slideshow: </p>
-        <p>Mutating a cloned notebook</p>
-        <p>Not Mutating a cloned notebook</p>
-
-
         <div class="img-wrapper">
-          <img src="" alt="" />
-        </div>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/slides/demo/slideshow_1.png" id="table-state" data-id="1" alt="Table State1" />
-
-          <p>
-            This is a demo slideshow!
-          </p>
-          <div class="buttons">
-            <button id="resetButton" class="redpointButton">Reset</button>
-
-            <button id="nextButton" class="redpointButton">&rarr;</button>
+            <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
+              alt="mutating a cloned notebook" />
+            <p>
+              Without a way to flag a cloned notebook, subsequent saves will mutate the original
+            </p>
+            <div class="buttons">
+              <button id="resetButton2" class="redpointButton">Reset</button>
+  
+              <button id="nextButton2" class="redpointButton">&rarr;</button>
+            </div>
           </div>
-        </div>
       </div>
 
       <div class="chapter">
