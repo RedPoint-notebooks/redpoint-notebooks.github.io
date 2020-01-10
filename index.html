@@ -173,7 +173,7 @@
           visualizations. </p>
         <div class="img-wrapper">
           <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" />
-          <p>Simple example with a rendered Markdown text cell above a code cell.</p>
+          <p>Simple example with a rendered Markdown text cell above a code cell</p>
         </div>
         <h4>1.2.3 Computational Narratives</h4>
         <p>When you combine dynamic code cells with descriptive text cells it provides the building blocks for what’s
@@ -251,7 +251,7 @@
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/intro/note_taking_flow.png" alt="note taking workflow" />
-          <p>Context switching required for notes about programming</p>
+          <p>Note-taking apps require context switching to execute code</p>
         </div>
         <p>The other limitation with note-taking apps is that none of the major ones are web-native. For example, in
           order to
@@ -331,6 +331,7 @@
         <div class="img-wrapper"> <!-- ASYNC CODE ON HTTP -->
           <img src="images/diagrams/network_architecture/async_user_code_http.png"
             alt="limitations of http for asynchronous user code" />
+            <p>HTTP leads to a poor user experience for code with varying execution times</p>
         </div>      
 
         <p>
@@ -350,6 +351,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/async_execution_over_websockets.png"
             alt="websockets for asynchronous user code" />
+            <p>WebSockets enables the server to send multiple responses to a single code execution request</p>
         </div>
 
           <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to the client in response to a single code execution request. The first log statement is displayed to the user as soon as it is executed, then the delayed log statement inside the <code>setTimeout</code> callback is sent later in a separate message. 
@@ -377,12 +379,14 @@
           <div class="img-wrapper">
             <img src="images/diagrams/network_architecture/rate_limiting_webhooks.png"
               alt="rate limiting incoming webhook data" />
+              <p>A message queue decouples the incoming webhook rate from the internal processing rate</p>
           </div>
-          <p>When an incoming webhook request reaches our <a href="#dispatch-server">dispatch server</a>, a response with a 200 status code is immediately issued. Then, the notebook ID associated with the webhook is parsed from the Host header of the request, and this ID, along with the JSON body of the request, are added to the Redis message queue. Asynchronously, a background process picks messages from the queue and inserts the webhook data into the correct notebook in MongoDB.</p>
+          <p>When an incoming webhook request reaches our <a href="#system-architecture">dispatch server</a>, a response with a 200 status code is immediately issued. Then, the notebook ID associated with the webhook is parsed from the Host header of the request, and this ID, along with the JSON body of the request, are added to the Redis message queue. Asynchronously, a background process picks messages from the queue and inserts the webhook data into the correct notebook in MongoDB.</p>
           <p>Webhook data is stored in a separate array in the MongoDB document associated with the notebook. When the notebook is loaded and hydrated on the front end in our React client, each webhook entry is inserted into its own JavaScript cell at the top of the notebook, where the user can then interact programmatically with the resulting JavaScript object.</p>
           <div class="img-wrapper">
             <img src="images/diagrams/network_architecture/webhook_data.png"
               alt="webhook data in a notebook" />
+              <p>An example of GitHub webhook data</p>
           </div>
         </div>
 
@@ -396,15 +400,16 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/clean_output.png" alt="clean UI" />
+          <p>Rendering execution results cleanly and clearly was a major design goal</p>
         </div>
-        <p>
+        <!-- <p>
           Within our React client, the code, language type, and ID of a given cell are stored as strings in a JavaScript object.  Each of these code cell objects is stored in an array, where a given code cell’s index determines its position in the notebook.  This notebook state changes dynamically as the user edits code and markdown cells.  
 
         </p>
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" />
-        </div>
+        </div> -->
 
         <h4>3.1 Cells Share Scope</h4>
         <p>
@@ -422,6 +427,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/shared_cell_scope.png" alt="shared cell scope" />
+          <p>The code in cell 3 shares scope with the code in the cells above</p>
         </div>
         <hr/>
         <h4>3.2 Code Execution</h4>
@@ -449,6 +455,7 @@
         <hr />
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/stacked_state.png" alt="problem with persistent REPL" />
+          <p>By respawning a REPL for each execution, we avoid the problem of confusion over hidden state</p>
         </div>
         <p>
           One difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as prompts. Given our note-taking use case, we don’t want to present unfiltered REPL stdout, which would unnecessarily clutter our notebook’s UI. Cleaning up the <code>stdout</code> would require significant parsing unique to each language, and would compound as we add support for more languages.
@@ -464,6 +471,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_repl_outputs.png" alt="sample repl outputs" />
+          <p>When code generates a return value, it is always the last line of REPL output </p>
         </div>
 
 
@@ -473,7 +481,8 @@
 
         </p>
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/script_execution.png" alt="script execution" />
+          <img src="images/diagrams/network_architecture/Slide_ Script Execution.png" alt="script execution" />
+          <p>Separate <code>stdout</code> and <code>stderr</code> listeners provide clean results from script execution</p>
         </div>
         <p>
           The drawback to this approach is that executing a script doesn’t generate a return value. By combining the
@@ -489,12 +498,14 @@
           </p>
           <div class="img-wrapper">
             <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution" />
+            <p>Using Promises to combine our REPL and script execution strategies</p>
           </div>          
 <hr/>
 
         <h4>3.3 Slotting Strategy for Code Results</h4>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/slotting_challenge.png" alt="challenge slotting code results" />
+          <p>Distributing code results to the correct cells presents an interesting challenge</p>
         </div>
         <p>
           Now that we have our code execution results, the next challenge is to distribute these results correctly to
@@ -509,6 +520,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/delimiter_strategy.png" alt="injected delimiters" />
+          <p>Language-specific delimiter statements are injected into a script as when it is assembled</p>
         </div>
 
         <p>
@@ -516,6 +528,7 @@
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/delimiter_strategy_2.png" alt="websocket msg for delimiters" />
+          <p>A delimiter in the <code>stdout</code> stream triggers a delimiter message to the client which is used to slot results correctly</p>
         </div>
 
         <p>
@@ -539,11 +552,6 @@
           Asynchronous output has to be displayed in the context of all of the cells that are executed. This means that such output may not be slotted under the cell that produced it, but instead might appear under the last cell of the language that is executed. Using JavaScript’s <code>setTimeout</code> method as an example, we can observe the behavior of a delayed log statement. Since JavaScript is single-threaded, functions are not concurrently executed. Asynchronous functions like the callback to the <code>setTimeout</code> method are pushed on to the runtime’s callback queue. 
 
         </p>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/async_slotting.png"
-            alt="slotting asynchronous data from code execution" />
-        </div>
 
         <p>
           When the main call stack is empty, the event loop pushes a callback function from the callback queue to the call stack and executes it. Thus, asynchronous `stdout` in user-code will not appear next to the cell responsible for the log statement, but instead, will be evaluated and rendered after the call stack is empty, and its callback has been dequeued to the main call stack. This slotting behavior is consistent with other web-based notebooks like Runkit and Jupyter Notebook. 
@@ -584,7 +592,7 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/multiple_language_execution.png" alt="languages queued for execution" />
-          <p>code execution messages are queued</p>
+          <p>Code execution messages for each language are enqueued server-side</p>
         </div>        
 
 
@@ -599,6 +607,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/multiple_language_execution_2.png"
             alt="execute additional langs in queue" />
+            <p>A Promise chain ensures that each language is executed correctly as it is dequeued</p>
         </div>
 
       </div>

@@ -478,11 +478,13 @@ h3 {
 }
 
 #case-study .img-wrapper p {
-  font-size: 80%;
+  color: #a0aab5;
+  font-size: 100%;
   text-align: center;
   width: 50%;
   line-height: 1rem;
   margin: 0 auto;
+  margin-top: 30px;
   margin-bottom: 0;
 }
 
