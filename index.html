@@ -210,7 +210,7 @@
 
         <p>These design decisions support a data science workflow, but the way they handle code state creates
           complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become out
-          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain `const`
+          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain <code>const</code>
           declarations will produce errors if the same cell is run more than once.</p>
 
         <div class="img-wrapper">
@@ -225,7 +225,7 @@
             <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
         </div>
-        <p>As far as the underlying program state is concerned, the variable ‘foo’ has already been declared. This
+        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been declared. This
           hidden
           notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It also
           limits
