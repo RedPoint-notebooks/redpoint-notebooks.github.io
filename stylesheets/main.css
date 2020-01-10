@@ -314,13 +314,16 @@ nav#site-navigation {
 }
 
 nav#site-navigation ul {
-  display: inline-block;
+  /* display: inline-block; */
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
+
+  display: flex;
+  justify-content: center;
 }
 
 nav#site-navigation ul li {
-  margin: 13px 20px 13px 40px;
+  margin: 20px 20px 20px 40px;
   float: left;
 }
 
@@ -760,6 +763,11 @@ small {
     display: none;
   }
 
+  #site-navigation ul {
+    display: flex;
+    flex-direction: column;
+  }
+
   nav#case-study-mobile ul {
     margin: 0;
   }
@@ -898,7 +906,6 @@ small {
 
 @media (max-width: 800px) {
   /* General */
-
   h1 {
     font-size: 3.5rem;
   }
@@ -920,7 +927,7 @@ small {
   #redpoint-logo {
     width: 40px;
     top: 18px;
-    right: 5px;
+    right: 15px;
   }
 
   #github-logo {
@@ -928,7 +935,7 @@ small {
     width: 30px;
     position: fixed;
     bottom: 75px;
-    right: 10px;
+    right: 20px;
   }
 
   #toTop-logo {
@@ -1145,8 +1152,8 @@ small {
 
 @media (max-width: 400px) {
   #redpoint-logo {
-    width: 33px;
-    right: 40px;
+    width: 28px;
+    right: 20px;
   }
 
   #github-logo {

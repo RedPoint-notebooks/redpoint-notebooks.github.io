@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         scrollTop: $("#introduction").offset().top
       },
-      2000
+      1000
     );
   });
 
