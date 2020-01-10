@@ -4,21 +4,17 @@ $(function() {
   const $nextButton = $("#nextButton");
   const $resetButton = $("#resetButton");
   const image = document.getElementById("hidden-state");
+  const $image = $("#hidden-state");
 
   $nextButton.on("click", function(e) {
     e.preventDefault();
 
     if (image.src.match("slide_1")) {
       image.src = "images/diagrams/slides/hidden_state/slide_2.png";
+      $image
+        .next("p")
+        .text("Typo is fixed, and cell is run again resulting in an error.");
     } else if (image.src.match("slide_2")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_3.png";
-    } else if (image.src.match("slide_3")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_4.png";
-    } else if (image.src.match("slide_4")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_5.png";
-    } else if (image.src.match("slide_5")) {
-      image.src = "images/diagrams/slides/hidden_state/slide_6.png";
-    } else if (image.src.match("slide_6")) {
       $nextButton.prop("disabled", true);
     }
   });
@@ -27,6 +23,7 @@ $(function() {
     e.preventDefault();
     $nextButton.prop("disabled", false);
     image.src = "images/diagrams/slides/hidden_state/slide_1.png";
+    $image.next("p").text("Cell is executed with a typo.");
   });
 });
 
