@@ -94,9 +94,9 @@
     </h1>
   </header>
 
-  
-    <section class="integration">
-      <div class="integration-wrapper">
+
+  <section class="integration">
+    <div class="integration-wrapper">
       <div class="box">
         <img src="images/gifs/multi_language.gif" class="softened"
           alt="Gif of JS, ruby, and python execution in a notebook" />
@@ -114,31 +114,31 @@
           <!-- <a class="button" href="#case-study">Learn More</a> -->
         </div>
       </article>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="integration">
-      <div class="integration-wrapper">
-        <article class="box">
-          <div class="text-box">
-            <h1>Web Native</h1>
+  <section class="integration">
+    <div class="integration-wrapper">
+      <article class="box">
+        <div class="text-box">
+          <h1>Web Native</h1>
 
-            <p>
-              Interact with API endpoints, or load webhook data into a notebook by
-              providing a custom endpoint to a webhook provider.
-            </p>
+          <p>
+            Interact with API endpoints, or load webhook data into a notebook by
+            providing a custom endpoint to a webhook provider.
+          </p>
 
-            <!-- <a class="button" href="#case-study">Learn More</a> -->
-          </div>
-        </article>
-        <div class="box">
-          <img src="images/screenshots/API data in RedPoint screenshot.png" class="softened screenshot"
-            alt="Screenshot of a notebook with API data" />
-          <!-- <img id="banner-deploy" src="images/diagrams/api_data.gif" class="softened"
-            alt="Gif of notebook retrieving API data" /> -->
+          <!-- <a class="button" href="#case-study">Learn More</a> -->
         </div>
+      </article>
+      <div class="box">
+        <img src="images/screenshots/API data in RedPoint screenshot.png" class="softened screenshot"
+          alt="Screenshot of a notebook with API data" />
+        <!-- <img id="banner-deploy" src="images/diagrams/api_data.gif" class="softened"
+            alt="Gif of notebook retrieving API data" /> -->
       </div>
-    </section>
+    </div>
+  </section>
 
   <main>
     <section id="case-study">
@@ -163,7 +163,7 @@
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
           technical challenges we faced in building a web-native computational notebook and the solutions we devised to
           address them.</p>
-<hr/>
+        <hr />
         <h3>1.2 What is a computational notebook?</h3>
         <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
           up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
@@ -201,7 +201,7 @@
           </p>
         </blockquote>
         <p>Image: Sample computational narrative</p>
-        <hr/>
+        <hr />
         <h3>1.3 Uses of Computational Notebooks</h3>
         <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
           enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
@@ -213,22 +213,24 @@
 
         <p>These design decisions support a data science workflow, but the way they handle code state creates
           complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become out
-          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain <code>const</code>
+          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain
+          <code>const</code>
           declarations will produce errors if the same cell is run more than once.</p>
 
         <div class="img-wrapper">
           <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1"
             alt="Hidden State1" />
-          <p>
-            Cell is executed with a typo
-          </p>
           <div class="buttons">
             <button id="resetButton" class="redpointButton">Reset</button>
 
             <button id="nextButton" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            Cell is executed with a typo
+          </p>
         </div>
-        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been declared. This
+        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
+          declared. This
           hidden
           notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It also
           limits
@@ -240,7 +242,7 @@
           suitable for
           people interested in documenting and sharing vanilla code. </p>
 
-        <hr/>
+        <hr />
         <h3>1.4 Note Taking Apps for Programmers</h3>
         <p>Most programmers looking to document code choose more traditional note-taking applications to present their
           notes. A
@@ -263,7 +265,7 @@
           access your Boostnote coding notes on a mobile device you must pay a fee. Quiver is also a paid application
           that only
           supports the MacOS platform. </p>
-        <hr/>
+        <hr />
         <h3>1.5 RedPoint</h3>
 
         <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
@@ -318,82 +320,129 @@
       <div class="chapter">
         <h2 id="network-architecture">2 Network Architecture</h2>
         <h3>2.1 Where to execute code?</h3>
-        <p>Our first major decision was deciding whether to execute user code on the client or server side. The main advantage of client-side code execution is that there is no network latency incurred by a round-trip to a server. However, browsers only have native support for JavaScript, and any other languages would have to be transpiled into JavaScript to be executed. 
+        <p>Our first major decision was deciding whether to execute user code on the client or server side. The main
+          advantage of client-side code execution is that there is no network latency incurred by a round-trip to a
+          server. However, browsers only have native support for JavaScript, and any other languages would have to be
+          transpiled into JavaScript to be executed.
         </p>
 
 
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/client_vs_server.png" alt="client vs server execution" />
-        </div>        
-        <p>Our experiments with in-browser transpilers for other languages showed them to be slow and unreliable. Each additional supported language for our notebook would require another in-browser transpiler, which would quickly escalate client memory usage to unacceptable levels.
-          Client-side execution would also rely on the client’s computing resources, and would lead to a poor user experience on slower (mobile) devices. 
-          </p>
-        <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
-        <hr/>
-        <h3>2.2 Limitations of HTTP</h3>
-        <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was executed server-side, relevant data (output, errors, and return value) was stored in a single JavaScript object, which was serialized and returned to the client in the HTTP response. This approach worked fine in basic examples, but had drawbacks with more complex code. 
+        </div>
+        <p>Our experiments with in-browser transpilers for other languages showed them to be slow and unreliable. Each
+          additional supported language for our notebook would require another in-browser transpiler, which would
+          quickly escalate client memory usage to unacceptable levels.
+          Client-side execution would also rely on the client’s computing resources, and would lead to a poor user
+          experience on slower (mobile) devices.
         </p>
-        <div class="img-wrapper"> <!-- ASYNC CODE ON HTTP -->
+        <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised
+          several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
+        <hr />
+        <h3>2.2 Limitations of HTTP</h3>
+        <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was
+          executed server-side, relevant data (output, errors, and return value) was stored in a single JavaScript
+          object, which was serialized and returned to the client in the HTTP response. This approach worked fine in
+          basic examples, but had drawbacks with more complex code.
+        </p>
+        <div class="img-wrapper">
+          <!-- ASYNC CODE ON HTTP -->
           <img src="images/diagrams/network_architecture/async_user_code_http.png"
             alt="limitations of http for asynchronous user code" />
-            <p>HTTP leads to a poor user experience for code with varying execution times</p>
-        </div>      
+          <p>HTTP leads to a poor user experience for code with varying execution times</p>
+        </div>
 
         <p>
-          In the above example using a single HTTP request/response cycle, even though the server processes the first log statement immediately, the user has to wait ten seconds for the asynchronous code to execute before seeing any results. In order to improve the responsiveness of our application, we needed a connection that would permit the server to issue many responses to a single client request. That way, a user could receive real-time feedback as each cell of code was run by our server, rather than waiting for the slowest code to execute.
+          In the above example using a single HTTP request/response cycle, even though the server processes the first
+          log statement immediately, the user has to wait ten seconds for the asynchronous code to execute before seeing
+          any results. In order to improve the responsiveness of our application, we needed a connection that would
+          permit the server to issue many responses to a single client request. That way, a user could receive real-time
+          feedback as each cell of code was run by our server, rather than waiting for the slowest code to execute.
         </p>
-      
 
-        <p>There are also other alternatives. We could continually ping the server to check for execution results (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient. Server-sent events would allow our server to issue multiple responses, but do not accommodate true bi-directional communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case.</p>
 
-        <hr/>
+        <p>There are also other alternatives. We could continually ping the server to check for execution results
+          (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient.
+          Server-sent events would allow our server to issue multiple responses, but do not accommodate true
+          bi-directional communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for
+          our use case.</p>
+
+        <hr />
         <h3>2.3 Websockets</h3>
 
-        <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the initial page load. The main advantage of WebSockets is that it enables true bi-directional communication between client and server. After an initial handshake over HTTP, the client and server communicate over a single, persistent TCP connection which allows full duplex communication. The reduced message size due to lack of HTTP headers means that WebSocket messages incur less latency.
-        </p> 
-          
+        <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the
+          initial page load. The main advantage of WebSockets is that it enables true bi-directional communication
+          between client and server. After an initial handshake over HTTP, the client and server communicate over a
+          single, persistent TCP connection which allows full duplex communication. The reduced message size due to lack
+          of HTTP headers means that WebSocket messages incur less latency.
+        </p>
+
 
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/async_execution_over_websockets.png"
             alt="websockets for asynchronous user code" />
-            <p>WebSockets enables the server to send multiple responses to a single code execution request</p>
+          <p>WebSockets enables the server to send multiple responses to a single code execution request</p>
         </div>
 
-          <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to the client in response to a single code execution request. The first log statement is displayed to the user as soon as it is executed, then the delayed log statement inside the <code>setTimeout</code> callback is sent later in a separate message. 
-</p>
+        <p>Using the same code example as above, we see the benefit of enabling the server to send multiple messages to
+          the client in response to a single code execution request. The first log statement is displayed to the user as
+          soon as it is executed, then the delayed log statement inside the <code>setTimeout</code> callback is sent
+          later in a separate message.
+        </p>
 
-        
-        <p>Another advantage of WebSockets is that it allows us to determine when a user has ended a session. The WebSocket
-          connection remains open until a client or server disconnects, causing a <code>close</code> message to be fired. By listening for
+
+        <p>Another advantage of WebSockets is that it allows us to determine when a user has ended a session. The
+          WebSocket
+          connection remains open until a client or server disconnects, causing a <code>close</code> message to be
+          fired. By listening for
           this <code>close</code> message, we are able to tear down containers and conserve our host
-          system resources. The trade-off is that using WebSockets introduces some additional complexity to our codebase.</p>
+          system resources. The trade-off is that using WebSockets introduces some additional complexity to our
+          codebase.</p>
 
-          <hr/>
-          <h3>2.4 Webhooks and APIs</h3>
-          <p>Having established our network architecture, we can now outline some of the features we were able to implement as a web-native tool. Adding API support turned out to be relatively simple.  We initiate a GET request to an API endpoint from the client, then convert the JSON response into a Javascript object and insert it directly into the state of our notebook. Although the technologies are similar, implementing webhooks presented more of an engineering challenge. 
-          </p>
-          <p>Webhooks are a method of real-time, event-driven notification using HTTP requests. They provide an efficient way for a server to respond to events on another server through a subscription model. Webhooks are an alternative to less-efficient methods of server-to-server notification such as continuous polling. </p>
-          <p>The challenge with testing webhooks is that they are a server-to-server communication and require an existing URL endpoint to receive webhook data. We provide each notebook with a unique URL endpoint to receive webhook data. 
-          </p>
-          <p>Due to their event-driven nature, the volume of incoming webhook traffic to a given endpoint is inconsistent. Webhook consumers have no control over the rate of incoming traffic. Providers that generate a high level of outgoing webhooks could flood our system and tie up our server resources. </p>          
-         
-          <h4>2.4.1 Decoupling Webhook Traffic</h4>
-          <p>
-            We implemented a messaging queue to address this problem, effectively decoupling the incoming rate of webhook traffic from the rate at which we process them internally. We used the RSMQ library to handle the queue interactions with Redis.
-          </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/network_architecture/rate_limiting_webhooks.png"
-              alt="rate limiting incoming webhook data" />
-              <p>A message queue decouples the incoming webhook rate from the internal processing rate</p>
-          </div>
-          <p>When an incoming webhook request reaches our <a href="#system-architecture">dispatch server</a>, a response with a 200 status code is immediately issued. Then, the notebook ID associated with the webhook is parsed from the Host header of the request, and this ID, along with the JSON body of the request, are added to the Redis message queue. Asynchronously, a background process picks messages from the queue and inserts the webhook data into the correct notebook in MongoDB.</p>
-          <p>Webhook data is stored in a separate array in the MongoDB document associated with the notebook. When the notebook is loaded and hydrated on the front end in our React client, each webhook entry is inserted into its own JavaScript cell at the top of the notebook, where the user can then interact programmatically with the resulting JavaScript object.</p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/network_architecture/webhook_data.png"
-              alt="webhook data in a notebook" />
-              <p>An example of GitHub webhook data</p>
-          </div>
+        <hr />
+        <h3>2.4 Webhooks and APIs</h3>
+        <p>Having established our network architecture, we can now outline some of the features we were able to
+          implement as a web-native tool. Adding API support turned out to be relatively simple. We initiate a GET
+          request to an API endpoint from the client, then convert the JSON response into a Javascript object and insert
+          it directly into the state of our notebook. Although the technologies are similar, implementing webhooks
+          presented more of an engineering challenge.
+        </p>
+        <p>Webhooks are a method of real-time, event-driven notification using HTTP requests. They provide an efficient
+          way for a server to respond to events on another server through a subscription model. Webhooks are an
+          alternative to less-efficient methods of server-to-server notification such as continuous polling. </p>
+        <p>The challenge with testing webhooks is that they are a server-to-server communication and require an existing
+          URL endpoint to receive webhook data. We provide each notebook with a unique URL endpoint to receive webhook
+          data.
+        </p>
+        <p>Due to their event-driven nature, the volume of incoming webhook traffic to a given endpoint is inconsistent.
+          Webhook consumers have no control over the rate of incoming traffic. Providers that generate a high level of
+          outgoing webhooks could flood our system and tie up our server resources. </p>
+
+        <h4>2.4.1 Decoupling Webhook Traffic</h4>
+        <p>
+          We implemented a messaging queue to address this problem, effectively decoupling the incoming rate of webhook
+          traffic from the rate at which we process them internally. We used the RSMQ library to handle the queue
+          interactions with Redis.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/network_architecture/rate_limiting_webhooks.png"
+            alt="rate limiting incoming webhook data" />
+          <p>A message queue decouples the incoming webhook rate from the internal processing rate</p>
         </div>
+        <p>When an incoming webhook request reaches our <a href="#system-architecture">dispatch server</a>, a response
+          with a 200 status code is immediately issued. Then, the notebook ID associated with the webhook is parsed from
+          the Host header of the request, and this ID, along with the JSON body of the request, are added to the Redis
+          message queue. Asynchronously, a background process picks messages from the queue and inserts the webhook data
+          into the correct notebook in MongoDB.</p>
+        <p>Webhook data is stored in a separate array in the MongoDB document associated with the notebook. When the
+          notebook is loaded and hydrated on the front end in our React client, each webhook entry is inserted into its
+          own JavaScript cell at the top of the notebook, where the user can then interact programmatically with the
+          resulting JavaScript object.</p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/network_architecture/webhook_data.png" alt="webhook data in a notebook" />
+          <p>An example of GitHub webhook data</p>
+        </div>
+      </div>
 
       <div class="chapter">
         <h2 id="user-experience">3 User Experience</h2>
@@ -415,7 +464,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" class="big"/>
         </div> -->
-        <hr/>
+        <hr />
         <h3>3.1 Cells Share Scope</h3>
         <p>
           To us, a predictable scope and state means behaving like a typical development environment. To make sure that
@@ -434,7 +483,7 @@
           <img src="images/diagrams/user_experience/shared_cell_scope.png" alt="shared cell scope" />
           <p>The code in cell 3 shares scope with the code in the cells above</p>
         </div>
-        <hr/>
+        <hr />
         <h3>3.2 Code Execution</h3>
         <h4>3.2.1 REPL Execution</h4>
         <p>
@@ -459,7 +508,10 @@
           <p>By respawning a REPL for each execution, we avoid the problem of confusion over hidden state</p>
         </div>
         <p>
-          One difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as prompts. Given our note-taking use case, we don’t want to present unfiltered REPL stdout, which would unnecessarily clutter our notebook’s UI. Cleaning up the <code>stdout</code> would require significant parsing unique to each language, and would compound as we add support for more languages.
+          One difficulty with this approach is that the REPL also generates unwanted command-line UI artifacts, such as
+          prompts. Given our note-taking use case, we don’t want to present unfiltered REPL stdout, which would
+          unnecessarily clutter our notebook’s UI. Cleaning up the <code>stdout</code> would require significant parsing
+          unique to each language, and would compound as we add support for more languages.
 
         </p>
         <p>
@@ -478,12 +530,18 @@
 
         <h4>3.2.2 Script Execution</h4>
         <p>
-          The other option for executing user code server-side is to write it to a temporary script file, then execute the script using the Node <code>child_process.exec</code> method. By setting event listeners on the <code>stdout</code> and <code>stderr</code> streams of the child process, we can cleanly capture output and errors, while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a persistent WebSocket connection, as soon as output or errors are produced we can serialize them as JSON and send them back to the client to provide a dynamic user experience.
+          The other option for executing user code server-side is to write it to a temporary script file, then execute
+          the script using the Node <code>child_process.exec</code> method. By setting event listeners on the
+          <code>stdout</code> and <code>stderr</code> streams of the child process, we can cleanly capture output and
+          errors, while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a
+          persistent WebSocket connection, as soon as output or errors are produced we can serialize them as JSON and
+          send them back to the client to provide a dynamic user experience.
 
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/network_architecture/Slide_ Script Execution.png" alt="script execution" />
-          <p>Separate <code>stdout</code> and <code>stderr</code> listeners provide clean results from script execution</p>
+          <p>Separate <code>stdout</code> and <code>stderr</code> listeners provide clean results from script execution
+          </p>
         </div>
         <p>
           The drawback to this approach is that executing a script doesn’t generate a return value. By combining the
@@ -491,22 +549,28 @@
           values, output, and errors from code execution.
         </p>
         <h4>3.2.3 Script Execution <i>then</i> REPL Execution</h4>
-          <p>
-            The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
-          </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution"/>
-          </div>          
-          <p>
-            Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
-          </p>
-        
-        <hr/>
+        <p>
+          The order of execution for these two approaches is important. In the case of errors in the user code, the REPL
+          will continue to run code, rather than halting execution and outputting only the error message as expected.
+          This can result in the REPL producing the wrong return value for code which contains errors.
+        </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/user_experience/server_promise_chain.png"
+            alt="promise chain for script then repl execution" />
+        </div>
+        <p>
+          Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always
+          executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if
+          no errors are thrown, or rejects in the event of an error. In the event that the script execution promise
+          rejects, the error is returned to the client, and the REPL is not executed.
+        </p>
+
+        <hr />
         <h3>3.3 Slotting Strategy for Code Results</h3>
 
         <p>
           Now that we have our code execution results, the next challenge is to distribute these results correctly to
-          the cells that generated them. 
+          the cells that generated them.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/slotting_challenge.png" alt="challenge slotting code results" />
@@ -516,7 +580,11 @@
         <p>
           Our naive solution was to build a new script for each cell that was executed,
           meaning 3 scripts for 3 cells, 5 scripts for 5 cells, and so on. This approach works, but is very inefficient.
-          A better solution is to inject delimiters into the code before executing it. When the application server receives serialized user code, we use the language type of the code to generate a language-specific delimiter log statement. First, we generate a UUID4 to use as the delimiter, then create a log statement in the given language type. For example, for JavaScript, the statement would be <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>.</p>
+          A better solution is to inject delimiters into the code before executing it. When the application server
+          receives serialized user code, we use the language type of the code to generate a language-specific delimiter
+          log statement. First, we generate a UUID4 to use as the delimiter, then create a log statement in the given
+          language type. For example, for JavaScript, the statement would be
+          <code>console.log(‘dbd8999d-e01d-4ab0-ab68-119f0d0a5d34’)</code>.</p>
 
 
         <div class="img-wrapper">
@@ -525,11 +593,15 @@
         </div>
 
         <p>
-          Next, we generate a script by joining the array of each cell’s code with the delimiter statement. When this script is executed, the delimiter statements become part of the stdout generated by the script. Any non-delimiter <code>stdout</code> is sent to the client as a <code>stdout</code> message type. However, when the server recognizes a delimiter,  it sends a “delimiter” WebSocket message to the client instead.
+          Next, we generate a script by joining the array of each cell’s code with the delimiter statement. When this
+          script is executed, the delimiter statements become part of the stdout generated by the script. Any
+          non-delimiter <code>stdout</code> is sent to the client as a <code>stdout</code> message type. However, when
+          the server recognizes a delimiter, it sends a “delimiter” WebSocket message to the client instead.
         </p>
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/delimiter_strategy_2.png" alt="websocket msg for delimiters" />
-          <p>A delimiter in the <code>stdout</code> stream triggers a delimiter message to the client which is used to slot results correctly</p>
+          <p>A delimiter in the <code>stdout</code> stream triggers a delimiter message to the client which is used to
+            slot results correctly</p>
         </div>
 
         <p>
@@ -550,12 +622,21 @@
           all cells of the same language, that strategy won’t work.
         </p>
         <p>
-          Asynchronous output has to be displayed in the context of all of the cells that are executed. This means that such output may not be slotted under the cell that produced it, but instead might appear under the last cell of the language that is executed. Using JavaScript’s <code>setTimeout</code> method as an example, we can observe the behavior of a delayed log statement. Since JavaScript is single-threaded, functions are not concurrently executed. Asynchronous functions like the callback to the <code>setTimeout</code> method are pushed on to the runtime’s callback queue. 
+          Asynchronous output has to be displayed in the context of all of the cells that are executed. This means that
+          such output may not be slotted under the cell that produced it, but instead might appear under the last cell
+          of the language that is executed. Using JavaScript’s <code>setTimeout</code> method as an example, we can
+          observe the behavior of a delayed log statement. Since JavaScript is single-threaded, functions are not
+          concurrently executed. Asynchronous functions like the callback to the <code>setTimeout</code> method are
+          pushed on to the runtime’s callback queue.
 
         </p>
 
         <p>
-          When the main call stack is empty, the event loop pushes a callback function from the callback queue to the call stack and executes it. Thus, asynchronous `stdout` in user-code will not appear next to the cell responsible for the log statement, but instead, will be evaluated and rendered after the call stack is empty, and its callback has been dequeued to the main call stack. This slotting behavior is consistent with other web-based notebooks like Runkit and Jupyter Notebook. 
+          When the main call stack is empty, the event loop pushes a callback function from the callback queue to the
+          call stack and executes it. Thus, asynchronous `stdout` in user-code will not appear next to the cell
+          responsible for the log statement, but instead, will be evaluated and rendered after the call stack is empty,
+          and its callback has been dequeued to the main call stack. This slotting behavior is consistent with other
+          web-based notebooks like Runkit and Jupyter Notebook.
 
         </p>
 
@@ -568,7 +649,12 @@
         </p>
 
         <p>
-          There’s an important edge case, however, that hinges on the difference between runtime and syntax errors. For runtime errors, code is executed and <code>stdout</code>, including delimiter statements, is generated. Syntax errors are thrown before any code is executed, so no <code>stdout</code> is ever generated. Without <code>stdout</code>, the server never generates any delimiter messages, meaning that syntax errors will be slotted incorrectly and confuse our users. We need a different strategy for syntax error slotting, one that doesn’t rely on <code>stdout</code>.           
+          There’s an important edge case, however, that hinges on the difference between runtime and syntax errors. For
+          runtime errors, code is executed and <code>stdout</code>, including delimiter statements, is generated. Syntax
+          errors are thrown before any code is executed, so no <code>stdout</code> is ever generated. Without
+          <code>stdout</code>, the server never generates any delimiter messages, meaning that syntax errors will be
+          slotted incorrectly and confuse our users. We need a different strategy for syntax error slotting, one that
+          doesn’t rely on <code>stdout</code>.
 
         </p>
 
@@ -592,9 +678,10 @@
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/multiple_language_execution.png" alt="languages queued for execution" />
+          <img src="images/diagrams/user_experience/multiple_language_execution.png"
+            alt="languages queued for execution" />
           <p>Code execution messages for each language are enqueued server-side</p>
-        </div>        
+        </div>
 
 
         <p>
@@ -608,7 +695,7 @@
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/multiple_language_execution_2.png"
             alt="execute additional langs in queue" />
-            <p>A Promise chain ensures that each language is executed correctly as it is dequeued</p>
+          <p>A Promise chain ensures that each language is executed correctly as it is dequeued</p>
         </div>
 
       </div>
@@ -652,8 +739,8 @@
 
         <div class="img-wrapper">
           <img src="images/diagrams/security_and_resources/Docker Image and Containers.png"
-            alt="docker image and containers" class="big"/>
-            <p>A docker image acts as a blueprint to create self-contained copies of an application</p>
+            alt="docker image and containers" class="big" />
+          <p>A docker image acts as a blueprint to create self-contained copies of an application</p>
         </div>
 
         <p>Containerized deployment means that we can be sure that our application runs in a consistent environment with
@@ -670,7 +757,8 @@
 
 
         <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container" class="big"/>
+          <img src="images/diagrams/security_and_resources/Crashing a Container.png" alt="crashing a container"
+            class="big" />
           <p>If a malicious user manages to crash one session, concurrent sessions aren't impacted</p>
         </div>
 
@@ -692,7 +780,8 @@
         </ol>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions" class="big"/>
+          <img src="images/diagrams/security_and_resources/Restricted User.png" alt="restricting user permissions"
+            class="big" />
           <p>Restricting user permissions and access to harmful commands</p>
         </div>
 
@@ -701,119 +790,120 @@
           user permissions.</p>
 
 
-          <h4>4.1.5 Sandboxing Containers</h4>
-          <p>Although Docker containers provide a loosely isolated environment for our application, they are not a truly
-            isolated
-            sandbox. We considered another option, virtual machines. VMs use hypervisor virtualization to create a guest
-            kernel
-            for each instance, which has strong isolation from the host kernel. The trade-off is that VMs require more
-            resources
-            than containers, and have a significantly slower start-up time. For our use-case, where we need to create a
-            session
-            for a new user within a matter of seconds, they aren't a good fit. </p>
+        <h4>4.1.5 Sandboxing Containers</h4>
+        <p>Although Docker containers provide a loosely isolated environment for our application, they are not a truly
+          isolated
+          sandbox. We considered another option, virtual machines. VMs use hypervisor virtualization to create a guest
+          kernel
+          for each instance, which has strong isolation from the host kernel. The trade-off is that VMs require more
+          resources
+          than containers, and have a significantly slower start-up time. For our use-case, where we need to create a
+          session
+          for a new user within a matter of seconds, they aren't a good fit. </p>
 
-          <p>Containers are lightweight and fast to spin up compared to virtual machines. However, the default container
-            runtime, <code>runc</code>, provides a weak level of isolation between the container and the host kernel,
-            which can leave the
-            kernel
-            vulnerable to exploits such as privilege-escalation attacks.</p>
+        <p>Containers are lightweight and fast to spin up compared to virtual machines. However, the default container
+          runtime, <code>runc</code>, provides a weak level of isolation between the container and the host kernel,
+          which can leave the
+          kernel
+          vulnerable to exploits such as privilege-escalation attacks.</p>
 
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" class="big"/>
-            <p>The default Docker runtime provides a weak level of isolation from the host kernel</p>
-          </div>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Without gVisor.png" alt="without gVisor" class="big" />
+          <p>The default Docker runtime provides a weak level of isolation from the host kernel</p>
+        </div>
 
-          <p>To mitigate this risk, we added an additional level of isolation between the container and the host kernel,
-            using the <code>runsc</code> runtime from Google's gVisor. gVisor is a lightweight user-space kernel, which
-            acts as the guest
-            kernel for a
-            container and provides strong isolation from the host kernel, without the overhead of virtualization. It
-            does
-            so by
-            implementing a substantial portion of the Linux call system.</p>
+        <p>To mitigate this risk, we added an additional level of isolation between the container and the host kernel,
+          using the <code>runsc</code> runtime from Google's gVisor. gVisor is a lightweight user-space kernel, which
+          acts as the guest
+          kernel for a
+          container and provides strong isolation from the host kernel, without the overhead of virtualization. It
+          does
+          so by
+          implementing a substantial portion of the Linux call system.</p>
 
-          <p>Rather than accessing the host system directly, all system calls are intercepted and implemented by the
-            guest
-            kernel,
-            which has access to a safer, restricted subset of the system API. We use an additional gVisor configuration
-            option to
-            create a sandbox overlay for our host's filesystem. All created and modified files are stored in memory
-            inside
-            the
-            sandbox, which means that if a malicious user manages to break out of a container and alter files, they are
-            only
-            altering an ephemeral in-memory overlay, not the actual host.</p>
+        <p>Rather than accessing the host system directly, all system calls are intercepted and implemented by the
+          guest
+          kernel,
+          which has access to a safer, restricted subset of the system API. We use an additional gVisor configuration
+          option to
+          create a sandbox overlay for our host's filesystem. All created and modified files are stored in memory
+          inside
+          the
+          sandbox, which means that if a malicious user manages to break out of a container and alter files, they are
+          only
+          altering an ephemeral in-memory overlay, not the actual host.</p>
 
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" class="big"/>
-            <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
-          </div>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/With gVisor.png" alt="with gVisor" class="big" />
+          <p>The gVisor runtime strengthens a container's isolation from the host kernel</p>
+        </div>
 
-          <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
-            that a given host system
-            can
-            support
-            fewer containers when using the more secure runtime. Using Artillery, a load testing library, we tested how
-            many
-            concurrent
-            container instances could be run on hosts with varying amounts of memory. The results showed that using
-            gVisor
-            reduced
-            the number of concurrent container a given host would support by roughly 25 percent:</p>
+        <p>The trade-off is that the <code>runsc</code> runtime consumes more memory than <code>runc</code>, meaning
+          that a given host system
+          can
+          support
+          fewer containers when using the more secure runtime. Using Artillery, a load testing library, we tested how
+          many
+          concurrent
+          container instances could be run on hosts with varying amounts of memory. The results showed that using
+          gVisor
+          reduced
+          the number of concurrent container a given host would support by roughly 25 percent:</p>
 
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table" class="big"/>
-            <p>Using gVisor means fewer containers per host system</p>
-          </div>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Load Testing table.png" alt="load testing table"
+            class="big" />
+          <p>Using gVisor means fewer containers per host system</p>
+        </div>
 
-          <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
-            acceptable
-            to provide a stronger security profile for our application. </p>
-          <hr/>
-          <h3>4.2 Resource Management</h3>
-          <h4>4.2.1 Control Groups</h4>
+        <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
+          acceptable
+          to provide a stronger security profile for our application. </p>
+        <hr />
+        <h3>4.2 Resource Management</h3>
+        <h4>4.2.1 Control Groups</h4>
 
-          <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
-            monopolize our
-            system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
-            of
-            these
-            resources as the host kernel allows. In our system architecture, where each user has their own containerized
-            notebook
-            session, we want to make sure that running computationally expensive or memory-intensive code in one
-            container
-            doesn't
-            have an adverse impact on other concurrent sessions in other containers. </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big"/>
-            <p>CPU-intensive code in one container could starve another container of resources</p>
-          </div>
-          <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
-            the
-            user's
-            container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
-            containers.
-            Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
-            of
-            runtime
-            configuration flags. </p>
+        <p>We also need to be mindful of sharing resources among containers to make sure that one session doesn’t
+          monopolize our
+          system. By default, a Docker container has no constraints on memory or CPU cycles, and will consume as much
+          of
+          these
+          resources as the host kernel allows. In our system architecture, where each user has their own containerized
+          notebook
+          session, we want to make sure that running computationally expensive or memory-intensive code in one
+          container
+          doesn't
+          have an adverse impact on other concurrent sessions in other containers. </p>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/Without Cgroups2.png" alt="without cgroups" class="big" />
+          <p>CPU-intensive code in one container could starve another container of resources</p>
+        </div>
+        <p>For example, one user may run a code cell with an infinite loop. Without constraints on the CPU usage of
+          the
+          user's
+          container, it would consume excessive CPU cycles and slow down or even crash other sessions in other
+          containers.
+          Fortunately, Docker provides a method to set constraints on the resource use of containers, through the use
+          of
+          runtime
+          configuration flags. </p>
 
-          <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
-            Linux
-            kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
-            that the
-            container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
-            container. </p>
+        <p>These configuration flags are used to manipulate the container's cgroup (control group), a feature of the
+          Linux
+          kernel that limits access to system resources. We set a limit on the number of microseconds per CPU period
+          that the
+          container can use before being throttled, effectively setting a ceiling on the CPU usage for a given
+          container. </p>
 
 
-          <div class="img-wrapper">
-            <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big"/>
-            <p>Control groups provide a way to balance resources between containers</p>
-          </div>
+        <div class="img-wrapper">
+          <img src="images/diagrams/security_and_resources/With Cgroups .png" alt="with cgroups" class="big" />
+          <p>Control groups provide a way to balance resources between containers</p>
+        </div>
 
-          <p>We also set a boundary for memory usage for each container. By choosing cgroup limits that still keep our
-            application
-            performant, we have effectively dealt with the problem of controlling runaway container resource use.</p>
+        <p>We also set a boundary for memory usage for each container. By choosing cgroup limits that still keep our
+          application
+          performant, we have effectively dealt with the problem of controlling runaway container resource use.</p>
       </div>
 
       <div class="chapter">
@@ -824,14 +914,15 @@
 
         <ul>
           <li>How to spin up a container for each user’s session?</li>
-        <li>How to expose an external address for a container while masking any internal information about the
-          container’s IP
-          address? </li>
-        <li>How to initially connect the user to their container, and route all of that user’s subsequent traffic to the
-          correct
-          container? </li>
-        <li>How to invalidate inactive sessions and tear down the associated container?</li>
-        <li>How to safely communicate queries between client and database?</li>
+          <li>How to expose an external address for a container while masking any internal information about the
+            container’s IP
+            address? </li>
+          <li>How to initially connect the user to their container, and route all of that user’s subsequent traffic to
+            the
+            correct
+            container? </li>
+          <li>How to invalidate inactive sessions and tear down the associated container?</li>
+          <li>How to safely communicate queries between client and database?</li>
         </ul>
 
         <p> </p>
@@ -861,7 +952,7 @@
           map that port directly to a container.</p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" class="big"/>
+          <img src="images/diagrams/system_architecture/Port Forwarding.png" alt="port forwarding table" class="big" />
           <p>Port forwarding is a naive way to connect users with containers</p>
         </div>
 
@@ -889,7 +980,7 @@
           node-http-proxy. This customized approach allows the dispatch server to do the work of proxying requests while
           also
           handling other important functions, such as managing sessions and containers.</p>
-        <hr/>
+        <hr />
         <h3>5.2 Session and Container Management</h3>
         <h4>5.2.1 Session Data</h4>
 
@@ -909,7 +1000,8 @@
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data" id="session-data-screenshot"/>
+          <img src="images/diagrams/system_architecture/Sample Session State.png" alt="Sample Session Data"
+            id="session-data-screenshot" />
           <p>Our session data maps a unique URL to the important internal information for a session</p>
         </div>
 
@@ -922,9 +1014,9 @@
           interaction.</p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Redis vs Server for session storage.png"
-            alt="Dispatch vs Redis" class="big"/>
-            <p>Storing session data in Redis makes our dispatch server stateless</p>
+          <img src="images/diagrams/system_architecture/Redis vs Server for session storage.png" alt="Dispatch vs Redis"
+            class="big" />
+          <p>Storing session data in Redis makes our dispatch server stateless</p>
         </div>
 
         <p>Our solution was to use Redis to store our session data. As an in-memory data store, Redis is fast enough to
@@ -952,17 +1044,18 @@
 
 
         <div class="img-wrapper slideshow">
-            <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
-              alt="create session" />
-            <p>
-              First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready
-            </p>
-            <div class="buttons">
-              <button id="resetButton3" class="redpointButton">Reset</button>
-  
-              <button id="nextButton3" class="redpointButton">&rarr;</button>
-            </div>
+          <img src="images/diagrams/system_architecture/create_session_1.png" id="create-session" data-id="1"
+            alt="create session" />
+          <div class="buttons">
+            <button id="resetButton3" class="redpointButton">Reset</button>
+
+            <button id="nextButton3" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            First, a unique URL is created and stored in session data. The client will be redirected to this URL once a
+            container is ready
+          </p>
+        </div>
         <h4>5.2.3 Session and Container Teardown</h4>
 
         <p>When a user has left a session, we need to free up system resources by tearing down the corresponding Docker
@@ -981,7 +1074,8 @@
           running Docker container, and deletes the current session’s data from Redis. </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown" id="container-teardown"/>
+          <img src="images/diagrams/system_architecture/Container Teardown.png" alt="container teardown"
+            id="container-teardown" />
           <p>Tearing down a container and session when a client disconnects</p>
         </div>
 
@@ -1024,7 +1118,7 @@
           <img src="images/diagrams/system_architecture/Orphaned container.png" alt="zombie container" />
           <p>Pinging newly created containers to detect and tear down abandoned sessions</p>
         </div>
-        <hr/>
+        <hr />
         <h3>5.3 Database Middleware</h3>
 
         <p>The final major responsibility of the dispatch server is to serve as middleware for our database. Having
@@ -1085,7 +1179,8 @@
           user using the SendGrid API.</p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook" id="save-clone"/>
+          <img src="images/diagrams/system_architecture/Save_Clone Notebook.png" alt="save/clone notebook"
+            id="save-clone" />
           <p>The dispatch server coordinates the interactions involved in a save request</p>
         </div>
 
@@ -1101,7 +1196,7 @@
           client to hydrate the notebook state. </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/system_architecture/Load notebook.png" alt="load notebook" /> 
+          <img src="images/diagrams/system_architecture/Load notebook.png" alt="load notebook" />
           <p>Handling a load notebook request from a client</p>
         </div>
 
@@ -1132,17 +1227,17 @@
           the newly saved notebook doesn’t mutate other clones.</p>
 
         <div class="img-wrapper">
-            <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
-              alt="mutating a cloned notebook" />
-            <p>
-              Without a way to flag a cloned notebook, subsequent saves will mutate the original
-            </p>
-            <div class="buttons">
-              <button id="resetButton2" class="redpointButton">Reset</button>
-  
-              <button id="nextButton2" class="redpointButton">&rarr;</button>
-            </div>
+          <img src="images/diagrams/system_architecture/mutating_clone.png" id="mutate-clone" data-id="1"
+            alt="mutating a cloned notebook" />
+          <div class="buttons">
+            <button id="resetButton2" class="redpointButton">Reset</button>
+
+            <button id="nextButton2" class="redpointButton">&rarr;</button>
           </div>
+          <p>
+            Without a way to flag a cloned notebook, subsequent saves will mutate the original
+          </p>
+        </div>
       </div>
 
       <div class="chapter">
@@ -1161,7 +1256,7 @@
 
       <section id="footnotes">
         <h2 id="references">7 References</h2>
-      
+
         <ol>
           <li id="footnote-1">
             <a href="" target="_blank">https://en.wikipedia.org</a>

@@ -593,13 +593,13 @@ hr {
 }
 
 .redpointButton {
-  background: #494c54;
+  background: #a0aab5;
   width: 25%;
   cursor: pointer;
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  color: #8dbc9d;
+  color: #ffffff;
   padding: 7px;
   margin-right: 2%;
 
