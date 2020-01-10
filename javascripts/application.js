@@ -11,8 +11,8 @@ $(function() {
 
     image.src = "images/diagrams/slides/hidden_state/slide_2.png";
     $image
-      .next("p")
-      .text("Typo is fixed, and cell is run again resulting in an error");
+      .nextAll("p")
+      .text("Typo is fixed, and cell is run again, resulting in an error");
     $nextButton.css("visibility", "hidden");
   });
 
@@ -21,7 +21,7 @@ $(function() {
 
     $nextButton.css("visibility", "visible");
     image.src = "images/diagrams/slides/hidden_state/slide_1.png";
-    $image.next("p").text("Cell is executed with a typo");
+    $image.nextAll("p").text("Cell is executed with a typo");
   });
 });
 
@@ -37,7 +37,7 @@ $(function() {
 
     image.src = "images/diagrams/system_architecture/not_mutating_clone.png";
     $image
-      .next("p")
+      .nextAll("p")
       .text(
         "Using a flag on a cloned notebook, we can create a new ID so the original is not overwritten"
       );
@@ -50,7 +50,7 @@ $(function() {
     $nextButton.css("visibility", "visible");
     image.src = "images/diagrams/system_architecture/mutating_clone.png";
     $image
-      .next("p")
+      .nextAll("p")
       .text(
         "Without a way to flag a cloned notebook, subsequent saves will mutate the original"
       );
@@ -70,14 +70,14 @@ $(function() {
     if (image.src.match("1")) {
       image.src = "images/diagrams/system_architecture/create_session_2.png";
       $image
-        .next("p")
+        .nextAll("p")
         .text(
           "Next, the dispatch server creates a container and associates the container's ID with the session"
         );
     } else if (image.src.match("2")) {
       image.src = "images/diagrams/system_architecture/create_session_3.png";
       $image
-        .next("p")
+        .nextAll("p")
         .text(
           "Finally, when the client sends a request to their unique URL, the dispatch server proxies the request to the correct container using the session data"
         );
@@ -91,7 +91,7 @@ $(function() {
     $nextButton.css("visibility", "visible");
     image.src = "images/diagrams/system_architecture/create_session_1.png";
     $image
-      .next("p")
+      .nextAll("p")
       .text(
         "First, a unique URL is created and stored in session data. The client will be redirected to this URL once a container is ready"
       );
