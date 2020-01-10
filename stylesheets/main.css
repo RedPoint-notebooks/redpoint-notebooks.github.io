@@ -768,6 +768,23 @@ small {
     display: none;
   }
 
+  #case-study ul {
+    margin-top: 60px;
+  }
+
+  #notebooks-link:hover {
+    border: 2px solid #8dbc9d;
+  }
+
+  #site-navigation a {
+    padding: 10px;
+  }
+
+  #notebooks-link {
+    border-radius: 50px;
+    border: 2px solid #ed7164;
+  }
+
   #site-navigation ul {
     display: flex;
     flex-direction: column;
