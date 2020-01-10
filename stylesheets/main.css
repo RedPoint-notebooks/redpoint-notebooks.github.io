@@ -19,8 +19,15 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-body p {
+body p,
+ul,
+ol {
   font-family: "Lato", sans-serif;
+}
+
+body ul,
+ol {
+  margin-left: 15px;
 }
 
 main {
@@ -467,6 +474,11 @@ h3 {
 #case-study h5 {
   color: #ed7164;
 }
+
+/* #case-study ul,
+ol {
+  margin-left: 50px;
+} */
 
 #case-study p {
   font-size: 1.2rem;
