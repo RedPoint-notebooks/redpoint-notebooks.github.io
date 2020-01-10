@@ -27,6 +27,11 @@ main {
   padding: 0 75px 0 350px;
 }
 
+a {
+  color: #6897bb;
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -68,7 +73,7 @@ h4 {
 }
 
 .integration:first-of-type {
-  background: #a0aab5;
+  background: #6897bb;
   padding-top: 20px;
   padding-bottom: 40px;
   /* border-radius: 15px 15px 0 0; */
@@ -443,7 +448,7 @@ header h1 img {
 }
 
 #case-study h2 {
-  color: #a0aab5;
+  color: #6897bb;
   font-family: "Roboto", sans-serif;
   margin: 75px auto 50px auto;
 }
