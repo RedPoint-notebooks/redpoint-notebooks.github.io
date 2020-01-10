@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollPosition = position;
 
     if (narrowScreen) document.body.style.backgroundColor = "#282828";
-    $(nav).slideDown("fast");
+    $(nav).slideDown(75);
   };
 
   const showSite = () => {
