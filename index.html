@@ -161,7 +161,7 @@
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
           technical challenges we faced in building a web-native computational notebook and the solutions we devised to
           address them.</p>
-
+<hr/>
         <h3>1.2 What is a computational notebook?</h3>
         <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
           up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
@@ -199,6 +199,7 @@
           </p>
         </blockquote>
         <p>Image: Sample computational narrative</p>
+        <hr/>
         <h3>1.3 Uses of Computational Notebooks</h3>
         <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
           enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
@@ -237,7 +238,7 @@
           suitable for
           people interested in documenting and sharing vanilla code. </p>
 
-
+        <hr/>
         <h3>1.4 Note Taking Apps for Programmers</h3>
         <p>Most programmers looking to document code choose more traditional note-taking applications to present their
           notes. A
@@ -260,7 +261,7 @@
           access your Boostnote coding notes on a mobile device you must pay a fee. Quiver is also a paid application
           that only
           supports the MacOS platform. </p>
-
+        <hr/>
         <h3>1.5 RedPoint</h3>
 
         <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
@@ -326,7 +327,7 @@
           Client-side execution would also rely on the client’s computing resources, and would lead to a poor user experience on slower (mobile) devices. 
           </p>
         <p>Executing arbitrary user code on the server side presents security and network latency concerns. We devised several strategies to mitigate them (see section below for <a href="#">security</a>).</p>
-
+        <hr/>
         <h3>2.2 Limitations of HTTP</h3>
         <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was executed server-side, relevant data (output, errors, and return value) was stored in a single JavaScript object, which was serialized and returned to the client in the HTTP response. This approach worked fine in basic examples, but had drawbacks with more complex code. 
         </p>
@@ -343,7 +344,7 @@
 
         <p>There are also other alternatives. We could continually ping the server to check for execution results (short-polling), or hold open an HTTP connection (long-polling), but both of these approaches are inefficient. Server-sent events would allow our server to issue multiple responses, but do not accommodate true bi-directional communication. SSEs also have a limitation of ~6 concurrent connections, which is too few for our use case.</p>
 
-
+        <hr/>
         <h3>2.3 Websockets</h3>
 
         <p>A better fit for our needs was to create a WebSocket connection to the code processing server upon the initial page load. The main advantage of WebSockets is that it enables true bi-directional communication between client and server. After an initial handshake over HTTP, the client and server communicate over a single, persistent TCP connection which allows full duplex communication. The reduced message size due to lack of HTTP headers means that WebSocket messages incur less latency.
@@ -365,7 +366,7 @@
           this <code>close</code> message, we are able to tear down containers and conserve our host
           system resources. The trade-off is that using WebSockets introduces some additional complexity to our codebase.</p>
 
-
+          <hr/>
           <h3>2.4 Webhooks and APIs</h3>
           <p>Having established our network architecture, we can now outline some of the features we were able to implement as a web-native tool. Adding API support turned out to be relatively simple.  We initiate a GET request to an API endpoint from the client, then convert the JSON response into a Javascript object and insert it directly into the state of our notebook. Although the technologies are similar, implementing webhooks presented more of an engineering challenge. 
           </p>
@@ -412,8 +413,8 @@
         <div class="img-wrapper">
           <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" class="big"/>
         </div> -->
-
-        <h4>3.1 Cells Share Scope</h4>
+        <hr/>
+        <h3>3.1 Cells Share Scope</h3>
         <p>
           To us, a predictable scope and state means behaving like a typical development environment. To make sure that
           code cells build state from top to bottom, we don’t allow running a single cell in isolation. Instead, when a
@@ -432,8 +433,8 @@
           <p>The code in cell 3 shares scope with the code in the cells above</p>
         </div>
         <hr/>
-        <h4>3.2 Code Execution</h4>
-        <h5>3.2.1 REPL Execution</h5>
+        <h3>3.2 Code Execution</h3>
+        <h4>3.2.1 REPL Execution</h4>
         <p>
           Once the serialized user code arrives at the server, we need a way to execute it and capture any output,
           return value and errors generated by the code. Our first thought was to take an approach like Jupyter notebook
@@ -473,7 +474,7 @@
         </div>
 
 
-        <h5>3.2.2 Script Execution</h5>
+        <h4>3.2.2 Script Execution</h4>
         <p>
           The other option for executing user code server-side is to write it to a temporary script file, then execute the script using the Node <code>child_process.exec</code> method. By setting event listeners on the <code>stdout</code> and <code>stderr</code> streams of the child process, we can cleanly capture output and errors, while avoiding all of the unwanted command-line UI artifacts that a REPL produces. By using a persistent WebSocket connection, as soon as output or errors are produced we can serialize them as JSON and send them back to the client to provide a dynamic user experience.
 
@@ -487,7 +488,7 @@
           results generated by both the REPL and temporary script, we have a consistent strategy for capturing return
           values, output, and errors from code execution.
         </p>
-        <h5>3.2.3 Script Execution <i>then</i> REPL Execution</h5>
+        <h4>3.2.3 Script Execution <i>then</i> REPL Execution</h4>
           <p>
             The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
           </p>
@@ -497,14 +498,9 @@
           <p>
             Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
           </p>
-          <div class="img-wrapper">
-            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution" />
-            <p>Using Promises to combine our REPL and script execution strategies</p>
-          </div>          
-<hr/>
-
-
-        <h4>3.3 Slotting Strategy for Code Results</h4>
+        
+        <hr/>
+        <h3>3.3 Slotting Strategy for Code Results</h3>
 
         <p>
           Now that we have our code execution results, the next challenge is to distribute these results correctly to
@@ -543,7 +539,7 @@
           server are now attributed to the next cell, until the next delimiter message, and so on.
         </p>
 
-        <h5>3.3.1 Slotting Asynchronous Code</h5>
+        <h4>3.3.1 Slotting Asynchronous Code</h4>
 
         <p>
           When processing asynchronous user code, rendering output beneath the cell that produces the output presents a
@@ -561,7 +557,7 @@
 
         </p>
 
-        <h5>3.3.2 Slotting Errors</h5>
+        <h4>3.3.2 Slotting Errors</h4>
 
         <p>
           In most cases, error slotting works exactly the same way as output slotting does. Using delimiter messages
@@ -584,7 +580,7 @@
         </p>
 
         <hr />
-        <h4>3.4 Executing Multiple Languages</h4>
+        <h3>3.4 Executing Multiple Languages</h3>
 
         <p>
           In a RedPoint notebook, the user has the option to add and execute code cells in several programming
@@ -771,7 +767,7 @@
           <p>Although gVisor uses more memory and impacts our notebook performance, we decided that this trade-off was
             acceptable
             to provide a stronger security profile for our application. </p>
-
+          <hr/>
           <h3>4.2 Resource Management</h3>
           <h4>4.2.1 Control Groups</h4>
 
@@ -891,7 +887,7 @@
           node-http-proxy. This customized approach allows the dispatch server to do the work of proxying requests while
           also
           handling other important functions, such as managing sessions and containers.</p>
-
+        <hr/>
         <h3>5.2 Session and Container Management</h3>
         <h4>5.2.1 Session Data</h4>
 
@@ -1017,7 +1013,7 @@
           <img src="images/diagrams/system_architecture/Orphaned container.png" alt="zombie container" />
           <p>Pinging newly created containers to detect and tear down abandoned sessions</p>
         </div>
-
+        <hr/>
         <h3>5.3 Database Middleware</h3>
 
         <p>The final major responsibility of the dispatch server is to serve as middleware for our database. Having
