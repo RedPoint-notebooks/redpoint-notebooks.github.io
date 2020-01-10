@@ -26,6 +26,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
   <!-- <style>reset</style> -->
 
@@ -91,46 +92,51 @@
     </h1>
   </header>
 
-  <section class="integration">
-    <div class="box">
-      <img id="banner-deploy" src="images/gifs/multi_language.gif" class="softened"
-        alt="Gif of JS, ruby, and python execution in a notebook" />
-    </div>
-
-    <article class="box">
-      <div class="text-box">
-        <h1>Multiple languages in the same notebook</h1>
-
-        <p>
-          Execute multiple programming languages within one notebook, and
-          share ideas, notes, or questions with others.
-        </p>
-
-        <!-- <a class="button" href="#case-study">Learn More</a> -->
+  
+    <section class="integration">
+      <div class="integration-wrapper">
+      <div class="box">
+        <img src="images/gifs/multi_language.gif" class="softened"
+          alt="Gif of JS, ruby, and python execution in a notebook" />
       </div>
-    </article>
-  </section>
 
-  <section class="integration">
-    <article class="box">
-      <div class="text-box">
-        <h1>Web Native</h1>
+      <article class="box">
+        <div class="text-box">
+          <h1>Multiple languages in the same notebook</h1>
 
-        <p>
-          Interact with API endpoints, or load webhook data into a notebook by
-          providing a custom endpoint to a webhook provider.
-        </p>
+          <p>
+            Execute multiple programming languages within one notebook, and
+            share ideas, notes, or questions with others.
+          </p>
 
-        <!-- <a class="button" href="#case-study">Learn More</a> -->
+          <!-- <a class="button" href="#case-study">Learn More</a> -->
+        </div>
+      </article>
       </div>
-    </article>
-    <div class="box">
-      <img id="banner-deploy" src="images/screenshots/API data in RedPoint screenshot.png" class="softened"
-        alt="Screenshot of a notebook with API data" />
-      <!-- <img id="banner-deploy" src="images/diagrams/api_data.gif" class="softened"
-        alt="Gif of notebook retrieving API data" /> -->
-    </div>
-  </section>
+    </section>
+
+    <section class="integration">
+      <div class="integration-wrapper">
+        <article class="box">
+          <div class="text-box">
+            <h1>Web Native</h1>
+
+            <p>
+              Interact with API endpoints, or load webhook data into a notebook by
+              providing a custom endpoint to a webhook provider.
+            </p>
+
+            <!-- <a class="button" href="#case-study">Learn More</a> -->
+          </div>
+        </article>
+        <div class="box">
+          <img src="images/screenshots/API data in RedPoint screenshot.png" class="softened screenshot"
+            alt="Screenshot of a notebook with API data" />
+          <!-- <img id="banner-deploy" src="images/diagrams/api_data.gif" class="softened"
+            alt="Gif of notebook retrieving API data" /> -->
+        </div>
+      </div>
+    </section>
 
   <main>
     <section id="case-study">
@@ -172,7 +178,7 @@
           in different notebook products. Notebooks with a data science emphasis often use code cells to render
           visualizations. </p>
         <div class="img-wrapper">
-          <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" />
+          <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" class="softened"/>
           <p>Simple example with a rendered Markdown text cell above a code cell.</p>
         </div>
         <h4>1.2.3 Computational Narratives</h4>
@@ -394,7 +400,7 @@
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/clean_output.png" alt="clean UI" />
+          <img src="images/diagrams/user_experience/clean_output-white-bg.png" alt="clean UI" />
         </div>
         <p>
           Within our React client, the code, language type, and ID of a given cell are stored as strings in a JavaScript object.  Each of these code cell objects is stored in an array, where a given code cell’s index determines its position in the notebook.  This notebook state changes dynamically as the user edits code and markdown cells.  
@@ -402,7 +408,7 @@
         </p>
 
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" />
+          <img src="images/diagrams/user_experience/sample_code_state.png" alt="sample code state" class="big"/>
         </div>
 
         <h4>3.1 Cells Share Scope</h4>
@@ -443,10 +449,6 @@
           tradeoff for reinforcing one of our core design goals.
         </p>
         <div class="img-wrapper">
-          <img src="images/diagrams/user_experience/repl_stack_state.png" alt="problem with persistent REPL" />
-        </div>
-        <hr />
-        <div class="img-wrapper">
           <img src="images/diagrams/user_experience/stacked_state.png" alt="problem with persistent REPL" />
         </div>
         <p>
@@ -484,7 +486,7 @@
             The order of execution for these two approaches is important. In the case of errors in the user code, the REPL will continue to run code, rather than halting execution and outputting only the error message as expected. This can result in the REPL producing the wrong return value for code which contains errors. 
           </p>
           <div class="img-wrapper">
-            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution" />
+            <img src="images/diagrams/user_experience/server_promise_chain.png" alt="promise chain for script then repl execution"/>
           </div>          
           <p>
             Our solution was to use JavaScript <code>Promise</code>s to ensure that the temporary script is always executed before the REPL. The script execution function returns a <code>Promise</code> that either resolves if no errors are thrown, or rejects in the event of an error. In the event that the script execution promise rejects, the error is returned to the client, and the REPL is not executed. 
@@ -1235,7 +1237,7 @@
       </li>
 
       <li class="individual">
-        <img src="images/avatars/will.png" alt="William Mills" />
+        <img src="images/avatars/will.jpg" alt="William Mills" />
 
         <h3>William Mills</h3>
 
