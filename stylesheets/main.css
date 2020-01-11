@@ -682,14 +682,10 @@ h2#references {
   font-size: 1.7rem;
 }
 
-#footnotes ol li {
-  color: #999;
+#footnotes ul li {
+  color: #a0aab5;
   font-size: 1.2rem;
-}
-
-#footnotes ol li {
-  list-style: decimal;
-  color: #999;
+  list-style: disc;
 }
 
 #footnotes a {
