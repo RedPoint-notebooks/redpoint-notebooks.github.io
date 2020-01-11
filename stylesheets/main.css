@@ -511,10 +511,6 @@ ol {
   margin-bottom: 15px;
 }
 
-#footnotes {
-  padding: 50px;
-}
-
 .chapter p {
   max-width: 95%;
   margin: 0 auto;
@@ -682,14 +678,15 @@ h2#references {
   font-size: 1.7rem;
 }
 
-#footnotes ol li {
-  color: #999;
-  font-size: 1.2rem;
+#footnotes {
+  padding: 50px;
 }
 
-#footnotes ol li {
-  list-style: decimal;
-  color: #999;
+#footnotes ul li {
+  color: #a0aab5;
+  font-size: 1.2rem;
+  list-style: disc;
+  line-height: 1.7rem;
 }
 
 #footnotes a {

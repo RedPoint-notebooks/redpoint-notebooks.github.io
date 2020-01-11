@@ -180,145 +180,160 @@
           JavaScript, Ruby, and Python code within the same document. This case study will explain the uses of
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
 
-          technical challenges in building a web-native computational notebook, as well as the solutions to address them.
-        <hr />
-        <h3>1.2 What is a computational notebook?</h3>
-        <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
-          up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
-        <h4>1.2.1 Text Cells</h4>
-        <p>Each text cell is essentially a mini text editor. Many notebook products support the Markdown language for
-          their text cells, which enables many common editor features such as headings, subheadings, lists, and inline
-          images. In a typical notebook, text cells are interspersed with code cells, and used to document and explain
-          the code in those cells.</p>
-        <h4>1.2.2 Code Cells</h4>
-        <p>Code cells act as mini code editors, supporting features such as syntax highlighting and auto-indentation. A
-          key feature of notebooks is that they are backed by a computational engine, and code written in a code cell
-          can be executed in-place. When a cell is executed, information about the execution, such as output or return
-          value, is displayed below the cell. Code cells share state across cells, but the implementation is different
-          in different notebook products. Notebooks with a data science emphasis often use code cells to render
-          visualizations. </p>
-        <div class="img-wrapper">
-          <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" class="softened" />
-          <p>Simple example with a rendered Markdown text cell above two code cells</p>
-        </div>
-        <h4>1.2.3 Computational Narratives</h4>
-        <p>When you combine dynamic code cells with descriptive text cells it provides the building blocks for what’s
-          called a computational narrative. Inline code comments help us make narrative sense of the dense syntax of the
-          surrounding code. Computational notebooks elevate the descriptive text of comments to the same level of
-          importance as the code itself. Fernando Perez, co-creator of the popular Jupyter Notebook, described the goal
-          of computational notebooks as: </p>
-        <blockquote>
-          <p>
-            “the weaving of a narrative directly into a live computation,
-            interleaving text with code and results to construct a complete
-            piece that relies equally on the textual explanations and the
-            computational components."
-          </p>
-          <p>
-            - Fernando Perez, co-creator of Jupyter Notebooks
-          </p>
-        </blockquote>
-
-        <div class="img-wrapper">
-          <!-- <img src="images/diagrams/intro/computational-notebook-example-1.png"
-            alt="example one of a computational narrative" class="softened" /> -->
-          <img src="images/diagrams/intro/computational-notebook-example-redpoint.png"
-            alt="example two of a computational narrative" class="softened medium" />
-          <p>Excerpt from a computational narrative</p>
-        </div>
-        <hr />
-
-        <h3>1.3 Uses of Computational Notebooks</h3>
-        <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
-          enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
-          and iterative way --the same way that scientific discoveries are made.</p>
-
-        <p>Jupyter notebooks allow a given cell to be executed multiple times, independently from other cells, to allow
-          iterative exploration. This style of notebook is backed by a computational kernel that behaves like a REPL,
-          building up program state across multiple cell executions.</p>
-
-        <p>These design decisions support a data science workflow, but the way they handle code state creates
-          complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become out
-          of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain
-          <code>const</code>
-          declarations will produce errors if the same cell is run more than once.</p>
-
-        <div class="img-wrapper">
-          <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1" alt="Hidden State1"
-            class="softened" />
-          <div class="buttons">
-            <button id="resetButton" class="redpointButton">Reset</button>
-
-            <button id="nextButton" class="redpointButton">&rarr;</button>
+          technical challenges in building a web-native computational notebook, as well as the solutions to address
+          them.
+          <hr />
+          <h3>1.2 What is a computational notebook?</h3>
+          <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is
+            made
+            up of modular units called cells. Cells fall into two broad categories: text cells and code cells.</p>
+          <h4>1.2.1 Text Cells</h4>
+          <p>Each text cell is essentially a mini text editor. Many notebook products support the Markdown language for
+            their text cells, which enables many common editor features such as headings, subheadings, lists, and inline
+            images. In a typical notebook, text cells are interspersed with code cells, and used to document and explain
+            the code in those cells.</p>
+          <h4>1.2.2 Code Cells</h4>
+          <p>Code cells act as mini code editors, supporting features such as syntax highlighting and auto-indentation.
+            A
+            key feature of notebooks is that they are backed by a computational engine, and code written in a code cell
+            can be executed in-place. When a cell is executed, information about the execution, such as output or return
+            value, is displayed below the cell. Code cells share state across cells, but the implementation is different
+            in different notebook products. Notebooks with a data science emphasis often use code cells to render
+            visualizations. </p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/intro/cells_example.png" alt="text and code cells example" class="softened" />
+            <p>Simple example with a rendered Markdown text cell above two code cells</p>
           </div>
-          <p>
-            Cell is executed with a typo
+          <h4>1.2.3 Computational Narratives</h4>
+          <p>When you combine dynamic code cells with descriptive text cells it provides the building blocks for what’s
+            called a computational narrative. Inline code comments help us make narrative sense of the dense syntax of
+            the
+            surrounding code. Computational notebooks elevate the descriptive text of comments to the same level of
+            importance as the code itself. Fernando Perez, co-creator of the popular Jupyter Notebook, described the
+            goal
+            of computational notebooks as: </p>
+          <blockquote>
+            <p>
+              “the weaving of a narrative directly into a live computation,
+              interleaving text with code and results to construct a complete
+              piece that relies equally on the textual explanations and the
+              computational components."
+            </p>
+            <p>
+              - Fernando Perez, co-creator of Jupyter Notebooks
+            </p>
+          </blockquote>
+
+          <div class="img-wrapper">
+            <!-- <img src="images/diagrams/intro/computational-notebook-example-1.png"
+            alt="example one of a computational narrative" class="softened" /> -->
+            <img src="images/diagrams/intro/computational-notebook-example-redpoint.png"
+              alt="example two of a computational narrative" class="softened medium" />
+            <p>Excerpt from a computational narrative</p>
+          </div>
+          <hr />
+
+          <h3>1.3 Uses of Computational Notebooks</h3>
+          <p>The traditional use of notebooks is in the field of data science, using computational narratives as an
+            enhanced alternative to static presentations of data sets. They enable the presentation of code in a dynamic
+            and iterative way --the same way that scientific discoveries are made.</p>
+
+          <p>Jupyter notebooks allow a given cell to be executed multiple times, independently from other cells, to
+            allow
+            iterative exploration. This style of notebook is backed by a computational kernel that behaves like a REPL,
+            building up program state across multiple cell executions.</p>
+
+          <p>These design decisions support a data science workflow, but the way they handle code state creates
+            complicated mental overhead. When code cells are re-executed, the visible state of the notebook can become
+            out
+            of phase with the hidden state of the kernel. For example, in JavaScript, cells that contain
+            <code>const</code>
+            declarations will produce errors if the same cell is run more than once.</p>
+
+          <div class="img-wrapper">
+            <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1" alt="Hidden State1"
+              class="softened" />
+            <div class="buttons">
+              <button id="resetButton" class="redpointButton">Reset</button>
+
+              <button id="nextButton" class="redpointButton">&rarr;</button>
+            </div>
+            <p>
+              Cell is executed with a typo
+            </p>
+          </div>
+
+          <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
+            declared. This hidden notebook state can make iterating on code confusing for programmers used to
+            top-to-bottom execution. It
+            also limits sharing notebooks to people who have experience with the intricacies of Jupyter notebook state.
           </p>
-        </div>
 
-        <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
-          declared. This hidden notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It
-          also limits sharing notebooks to people who have experience with the intricacies of Jupyter notebook state.
-        </p>
+          <p>Other notebook products such as Observable use a custom system to link state between cells, and a
+            non-standard dialect of JavaScript. Although they can enable powerful features, non-standard language
+            dialects
+            are not suitable for people interested in documenting and sharing vanilla code.</p>
 
-        <p>Other notebook products such as Observable use a custom system to link state between cells, and a
-          non-standard dialect of JavaScript. Although they can enable powerful features, non-standard language dialects
-          are not suitable for people interested in documenting and sharing vanilla code.</p>
+          <hr />
+          <h3>1.4 Note Taking Apps for Programmers</h3>
+          <p>Most programmers looking to document code choose more traditional note-taking applications to present their
+            notes. A subset of note-taking apps are focused on programmers, such as Quiver, MedleyText, and Boostnote.
+          </p>
 
-        <hr />
-        <h3>1.4 Note Taking Apps for Programmers</h3>
-        <p>Most programmers looking to document code choose more traditional note-taking applications to present their
-          notes. A subset of note-taking apps are focused on programmers, such as Quiver, MedleyText, and Boostnote.
-        </p>
+          <p>Note-taking apps support syntax highlighting and other stylization features, although most don’t include a
+            full-featured code editor. The key limitation is that note taking apps are not backed by a computational
+            engine. Code within note-taking apps exist only in a static form, and must be copy-pasted into code editing
+            software to be run. Another limitation with note-taking apps is that none of the major ones are web-native.
+          </p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/intro/Note-taking flow.png" alt="note taking workflow" />
+            <p>Note-taking apps require context switching to execute code</p>
+          </div>
+          <hr />
+          <h3>1.5 RedPoint</h3>
 
-        <p>Note-taking apps support syntax highlighting and other stylization features, although most don’t include a
-          full-featured code editor. The key limitation is that note taking apps are not backed by a computational
-          engine. Code within note-taking apps exist only in a static form, and must be copy-pasted into code editing
-          software to be run. Another limitation with note-taking apps is that none of the major ones are web-native.
-        </p>
-        <div class="img-wrapper">
-          <img src="images/diagrams/intro/Note-taking flow.png" alt="note taking workflow" />
-          <p>Note-taking apps require context switching to execute code</p>
-        </div>
-        <hr />
-        <h3>1.5 RedPoint</h3>
+          <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
+            applications. Like note-taking apps, we wanted to present a clean and simple UI that emphasizes the note
+            contents. We wanted to avoid the context-switching that traditional approaches require, by letting users run
+            the code they are documenting directly in their notebook. </p>
 
-        <p>We built RedPoint to bridge the gap between data-science oriented notebooks and traditional note-taking
-          applications. Like note-taking apps, we wanted to present a clean and simple UI that emphasizes the note
-          contents. We wanted to avoid the context-switching that traditional approaches require, by letting users run
-          the code they are documenting directly in their notebook. </p>
+          <div class="img-wrapper">
+            <img src="images/diagrams/intro/redpoint_on_spectrum.png"
+              alt="context for redpoint among other notebooks" />
+          </div>
 
-        <div class="img-wrapper">
-          <img src="images/diagrams/intro/redpoint_on_spectrum.png" alt="context for redpoint among other notebooks" />
-        </div>
+          <p>Like other notebook products, we wanted to support the creation of computational narratives, but in an
+            environment optimized for people interested in documenting and sharing the code itself. Our core goals were
+            to
+            create a notebook whose program state is immediately obvious and where the rendering of code execution
+            information is presentable and clear.</p>
 
-        <p>Like other notebook products, we wanted to support the creation of computational narratives, but in an
-          environment optimized for people interested in documenting and sharing the code itself. Our core goals were to
-          create a notebook whose program state is immediately obvious and where the rendering of code execution
-          information is presentable and clear.</p>
+          <p>Although Jupyter notebooks support multiple programming languages, each notebook only supports a single
+            language. Other notebook products such as Observable and Runkit only support a single language (JavaScript).
+            We decided to create a notebook environment where different languages could be run within the same notebook.
+            Being able to run multiple languages with one click in a cell-based environment allows you to compare and
+            contrast different languages without context switching.</p>
 
-        <p>Although Jupyter notebooks support multiple programming languages, each notebook only supports a single
-          language. Other notebook products such as Observable and Runkit only support a single language (JavaScript).
-          We decided to create a notebook environment where different languages could be run within the same notebook.
-          Being able to run multiple languages with one click in a cell-based environment allows you to compare and
-          contrast different languages without context switching.</p>
-
-        <p>We wanted to take full advantage of being web-native by making note sharing easy, and by offering a
-          responsive design that allows use on mobile devices as easily as on desktop computers. Most computational notebooks are designed for data science, but given our different use case, we wanted to
-          support features for web developers. Supporting computational interaction with APIs and webhooks directly from
-          within a notebook are two examples that demonstrate this. RedPoint notebooks convert JSON payloads and insert
-          them into a notebook cell, where it is possible to inspect and interact with the resulting object
-          programatically. </p>
+          <p>We wanted to take full advantage of being web-native by making note sharing easy, and by offering a
+            responsive design that allows use on mobile devices as easily as on desktop computers. Most computational
+            notebooks are designed for data science, but given our different use case, we wanted to
+            support features for web developers. Supporting computational interaction with APIs and webhooks directly
+            from
+            within a notebook are two examples that demonstrate this. RedPoint notebooks convert JSON payloads and
+            insert
+            them into a notebook cell, where it is possible to inspect and interact with the resulting object
+            programatically. </p>
 
           <p>Finally, we wanted to create a tool for other programmers that is totally free and open-source. In the
-            following sections of this case study, we’ll detail some of the problems we encountered in implementing these
+            following sections of this case study, we’ll detail some of the problems we encountered in implementing
+            these
             design goals, and some of the solutions we devised to resolve them.</p>
-            <div class="img-wrapper">
-              <img src="images/gifs/apidemo-slow.gif" class="softened medium"
+          <div class="img-wrapper">
+            <img src="images/gifs/apidemo-slow.gif" class="softened medium"
               alt="Gif of api interaction in a notebook" />
-              <p>Interacting programmatically with API data in a notebook</p>
+            <p>Interacting programmatically with API data in a notebook</p>
 
-            </div>
+          </div>
       </div>
 
       <div class="chapter">
@@ -341,7 +356,8 @@
           experience on slower (mobile) devices.
         </p>
         <p>Executing arbitrary user code on our server presents security concerns. We devised
-          several strategies to mitigate them, which we discuss in our <a href="#security-and-resources">section on security</a>.</p>
+          several strategies to mitigate them, which we discuss in our <a href="#security-and-resources">section on
+            security</a>.</p>
         <hr />
         <h3>2.2 Limitations of HTTP</h3>
         <p>Our early prototype used an HTTP POST request containing the user code as its payload. As the script was
@@ -1193,7 +1209,8 @@
           the
           dispatch server updates the session data in Redis to associate the notebook ID from the URL with the unique
           subdomain
-          of the session. When the client makes a subsequent request for notebook data, the dispatch server fetches the notebook ID from
+          of the session. When the client makes a subsequent request for notebook data, the dispatch server fetches the
+          notebook ID from
           Redis using the subdomain
           as the key, pulls the notebook data from the database using the notebook ID, and then sends that data to
           the
@@ -1259,21 +1276,100 @@
 
       <section id="footnotes">
         <h2 id="references">8 References</h2>
+        <h4>8.1 Computational Notebooks</h4>
+        <ul>
+          <li>
+            <a href="https://towardsdatascience.com/jupyter-lab-evolution-of-the-jupyter-notebook-5297cacde6b"
+              target="_blank">Jupyter Lab: Evolution of the Jupyter Notebook</a>
+          </li>
+          <li>
+            <a href="https://blog.nteract.io/nteract-building-on-top-of-jupyter-9cfbccdd4c1d" target="_blank">nteract:
+              Building on Top of Jupyter</a>
+          </li>
+          <li>
+            <a href="https://moderndata.plot.ly/nteract-revolutionizing-notebook-experience/" target="_blank">nteract:
+              Revolutionizing the Notebook Experience</a>
+          </li>
+          <li>
+            <a href="https://www.theatlantic.com/science/archive/2018/04/the-scientific-paper-is-obsolete/556676/"
+              target="_blank">The Scientific Paper is Obsolete</a>
+          </li>
+          <li>
+            <a href="https://medium.com/netflix-techblog/notebook-innovation-591ee3221233" target="_blank">Notebook
+              Innovation at Netflix</a>
+          </li>
+          <li>
+            <a href="https://hackernoon.com/simplify-devops-with-jupyter-notebook-c700fb6b503c" target="_blank">Devops
+              with Juypter</a>
+          </li>
+          <li>
+            <a href="https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/edit#slide=id.g37ce315c78_0_27"
+              target="_blank">I Don't Like Notebooks</a>
+          </li>
+          <li>
+            <a href="https://yihui.name/en/2018/09/notebook-war/" target="_blank">Notebook Wars</a>
+          </li>
+          <li>
+            <a href="https://blog.runkit.com/2015/09/10/time-traveling-in-node-js-notebooks/" target="_blank">Time
+              Traveling in Node.js Notebooks</a>
+          </li>
+          <li>
+            <a href="https://medium.com/netflix-techblog/open-sourcing-polynote-an-ide-inspired-polyglot-notebook-7f929d3f447"
+              target="_blank">Open-Sourcing Polynote</a>
+          </li>
+          <li>
+            <a href="https://observablehq.com/@observablehq/observables-not-javascript%3E" target="_blank">Observable's
+              Not Javascript</a>
+          </li>
+        </ul>
+        <h4>8.2 WebSockets</h4>
+        <ul>
+          <li>
+            <a href="https://www.ably.io/concepts/websockets" target="_blank">WebSockets - A Conceptual Deep-Dive</a>
+          </li>
+          <li>
+            <a href="http://www.diva-portal.se/smash/get/diva2:1133465/FULLTEXT01.pdf" target="_blank">Performance
+              comparison of XHR polling, Long polling, Server sent events and Websockets</a>
+          </li>
+          <li>
+            <a href="https://blog.feathersjs.com/http-vs-websockets-a-performance-comparison-da2533f13a77"
+              target="_blank">HTTP vs Websockets: A performance comparison</a>
+          </li>
+        </ul>
+        <h4>8.3 Node Child Processes and Streams</h4>
+        <ul>
+          <li>
+            <a href="https://dzone.com/articles/understanding-execfile-spawn-exec-and-fork-in-node"
+              target="_blank">execFile, spawn, exec, and fork in Node.js</a>
+          </li>
+          <li>
+            <a href="https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93/"
+              target="_blank">Node JS Streams</a>
+          </li>
+        </ul>
+        <h4>8.4 Permissions, gVisor, and cgroups</h4>
 
-        <ol>
-          <li id="footnote-1">
-            <a href="" target="_blank">https://en.wikipedia.org</a>
+        <ul>
+          <li>
+            <a href="https://www.ostechnix.com/how-to-limit-users-access-to-the-linux-system/" target="_blank">Limit
+              User's Access To The Linux System</a>
           </li>
-          <li id="footnote-2">
-            <a href="" target="_blank"></a>
+          <li>
+            <a href="https://gvisor.dev/docs/" target="_blank">gVisor Security Model</a>
           </li>
-          <li id="footnote-3">
-            <a href="" target="_blank"></a>
+          <li>
+            <a href="https://thenewstack.io/how-to-implement-secure-containers-using-googles-gvisor/"
+              target="_blank">Implement Secure Containers Using Google's gVisor</a>
           </li>
-          <li id="footnote-4">
-            <a href="" target="_blank"></a>
+          <li>
+            <a href="https://docs.docker.com/config/containers/resource_constraints/" target="_blank">Runtime Options
+              With Memory, CPUs, and GPUs</a>
           </li>
-        </ol>
+          <li>
+            <a href="https://medium.com/@mccode/processes-in-containers-should-not-run-as-root-2feae3f0df3b"
+              target="_blank">Container Processes Shouldn't Run as Root</a>
+          </li>
+        </ul>
       </section>
     </section>
   </main>
