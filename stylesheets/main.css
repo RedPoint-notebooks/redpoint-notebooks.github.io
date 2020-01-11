@@ -79,14 +79,14 @@ h4 {
 #api-webhook-support {
   align-self: center;
   width: 100%;
-
 }
 
 .full-width {
   width: 100% !important;
 }
 
-.integration .screenshot {}
+.integration .screenshot {
+}
 
 .integration:first-of-type {
   background: #6897bb;
@@ -166,7 +166,7 @@ h4 {
   background: #fff;
 }
 
-main>section {
+main > section {
   margin: 80px 0 100px 0;
   /* width: 75%; */
   width: 90%;
@@ -296,7 +296,8 @@ img {
 
 @font-face {
   font-family: "Fira Code";
-  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2) format("truetype");
+  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2)
+    format("truetype");
 }
 
 .container {
@@ -422,6 +423,7 @@ header h1 img {
   width: 100%;
   max-width: 250px;
   height: auto;
+  margin-top: 150px;
 }
 
 #case-study nav {
@@ -472,7 +474,7 @@ header h1 img {
 #case-study h2 {
   color: #6897bb;
   font-family: "Roboto", sans-serif;
-  margin: 75px auto 50px auto;
+  margin: 75px auto 40px auto;
 }
 
 #case-study h2:first-of-type {
@@ -507,6 +509,10 @@ ol {
   padding: 50px;
   border-radius: 10px;
   margin-bottom: 15px;
+}
+
+#footnotes {
+  padding: 50px;
 }
 
 .chapter p {
@@ -551,6 +557,10 @@ hr {
 
 #case-study .img-wrapper img.big {
   max-width: 40%;
+}
+
+#case-study .img-wrapper img.medium {
+  max-width: 55%;
 }
 
 #session-data-screenshot {
@@ -627,7 +637,7 @@ hr {
   text-transform: uppercase;
   text-decoration: none;
 
-  color: #8dbc9d;
+  color: #ffffff;
   font-weight: 600;
   padding: 7px;
   margin-right: 2%;
@@ -668,14 +678,13 @@ hr {
 ------------------------------------ */
 
 h2#references {
-  color: #ef431b;
+  color: #ed7164;
   font-size: 1.7rem;
-  margin-top: 75px;
 }
 
 #footnotes ol li {
   color: #999;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 #footnotes ol li {
@@ -684,13 +693,9 @@ h2#references {
 }
 
 #footnotes a {
-  color: #999;
-  font-size: 0.9rem;
+  color: #6897bb;
+  font-size: 1.2rem;
   text-decoration: none;
-}
-
-#footnotes a:hover {
-  color: #ed7164;
 }
 
 /* ---------------------------------
@@ -714,7 +719,7 @@ h2#references {
   line-height: 4rem;
 }
 
-#our-team>p {
+#our-team > p {
   font-size: 1.2rem;
   line-height: 1.7rem;
   margin-top: 30px;
@@ -723,7 +728,7 @@ h2#references {
   width: 45%;
 }
 
-#our-team>ul {
+#our-team > ul {
   padding: 60px 0 80px;
   text-align: center;
 }
@@ -745,7 +750,7 @@ h2#references {
   text-decoration: none;
 }
 
-#our-team li>img {
+#our-team li > img {
   border-radius: 100%;
   margin: 0 auto 20px;
   width: 15vw;
@@ -875,7 +880,7 @@ small {
     overflow: scroll;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 50px;
     padding-bottom: 50px;
   }
@@ -936,7 +941,7 @@ small {
     margin: 0;
   }
 
-  #our-team>p {
+  #our-team > p {
     width: 60%;
   }
 
@@ -956,7 +961,6 @@ small {
 }
 
 @media (max-width: 800px) {
-
   /* General */
   h1 {
     font-size: 3.5rem;
@@ -1044,7 +1048,7 @@ small {
 
   /* Our Team */
 
-  #our-team>p {
+  #our-team > p {
     width: 70%;
   }
 
@@ -1058,9 +1062,9 @@ small {
 }
 
 @media (max-width: 600px) {
-
   /* General */
-  #case-study .img-wrapper img.big {
+  #case-study .img-wrapper img.big,
+  img.medium {
     width: 70% !important;
   }
 
@@ -1123,12 +1127,12 @@ small {
     padding-top: 60px;
   }
 
-  #our-team>p {
+  #our-team > p {
     font-size: 1rem;
     margin-top: 0;
   }
 
-  #our-team>ul {
+  #our-team > ul {
     margin-top: 0;
     padding: 0;
   }
@@ -1162,7 +1166,7 @@ small {
     padding: 3px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 30vw;
   }
 }
@@ -1190,7 +1194,7 @@ small {
     padding: 2px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 35vw;
   }
 
@@ -1248,7 +1252,7 @@ small {
     font-size: 1.1rem;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 20px;
     padding-bottom: 25px;
   }
@@ -1269,7 +1273,7 @@ small {
     padding-bottom: 18px;
   }
 
-  #our-team>p {
+  #our-team > p {
     width: 57%;
   }
 }

@@ -180,10 +180,7 @@
           JavaScript, Ruby, and Python code within the same document. This case study will explain the uses of
           computational notebooks in general, detail the design goals and features of RedPoint, and highlight the many
 
-          technical challenges in building a web-native computational notebook as well as the solutions to address them.
-        </p>
-          technical challenges we faced in building a web-native computational notebook and the solutions we devised to
-          address them.</p>
+          technical challenges in building a web-native computational notebook, as well as the solutions to address them.
         <hr />
         <h3>1.2 What is a computational notebook?</h3>
         <p>Computational notebooks are dynamic documents that combine styled text with runnable code. A notebook is made
@@ -226,7 +223,7 @@
           <!-- <img src="images/diagrams/intro/computational-notebook-example-1.png"
             alt="example one of a computational narrative" class="softened" /> -->
           <img src="images/diagrams/intro/computational-notebook-example-redpoint.png"
-            alt="example two of a computational narrative" class="softened" />
+            alt="example two of a computational narrative" class="softened medium" />
           <p>Excerpt from a computational narrative</p>
         </div>
         <hr />
@@ -249,11 +246,6 @@
         <div class="img-wrapper">
           <img src="images/diagrams/slides/hidden_state/slide_1.png" id="hidden-state" data-id="1" alt="Hidden State1"
             class="softened" />
-
-          <p>
-            Cell is executed with a typo
-          </p>
-
           <div class="buttons">
             <button id="resetButton" class="redpointButton">Reset</button>
 
@@ -264,7 +256,6 @@
           </p>
         </div>
 
-        <p>Caption: Hidden state in Jupyter notebooks can lead to confusing results </p>
         <p>As far as the underlying program state is concerned, the variable <code>myWord</code> has already been
           declared. This hidden notebook state can make iterating on code confusing for programmers used to top-to-bottom execution. It
           also limits sharing notebooks to people who have experience with the intricacies of Jupyter notebook state.
@@ -279,8 +270,6 @@
         <p>Most programmers looking to document code choose more traditional note-taking applications to present their
           notes. A subset of note-taking apps are focused on programmers, such as Quiver, MedleyText, and Boostnote.
         </p>
-
-        <p>BoostNote screenshot</p>
 
         <p>Note-taking apps support syntax highlighting and other stylization features, although most don’t include a
           full-featured code editor. The key limitation is that note taking apps are not backed by a computational
@@ -314,23 +303,22 @@
           Being able to run multiple languages with one click in a cell-based environment allows you to compare and
           contrast different languages without context switching.</p>
 
-        <p>Multilanguage GIF</p>
-
         <p>We wanted to take full advantage of being web-native by making note sharing easy, and by offering a
-          responsive design that allows use on mobile devices as easily as on desktop computers.</p>
-
-        <p>Most computational notebooks are designed for data science, but given our different use case, we wanted to
+          responsive design that allows use on mobile devices as easily as on desktop computers. Most computational notebooks are designed for data science, but given our different use case, we wanted to
           support features for web developers. Supporting computational interaction with APIs and webhooks directly from
           within a notebook are two examples that demonstrate this. RedPoint notebooks convert JSON payloads and insert
           them into a notebook cell, where it is possible to inspect and interact with the resulting object
           programatically. </p>
 
-        <p>API demo</p>
+          <p>Finally, we wanted to create a tool for other programmers that is totally free and open-source. In the
+            following sections of this case study, we’ll detail some of the problems we encountered in implementing these
+            design goals, and some of the solutions we devised to resolve them.</p>
+            <div class="img-wrapper">
+              <img src="images/gifs/apidemo-slow.gif" class="softened medium"
+              alt="Gif of api interaction in a notebook" />
+              <p>Interacting programmatically with API data in a notebook</p>
 
-        <p>Finally, we wanted to create a tool for other programmers that is totally free and open-source. In the
-          following sections of this case study, we’ll detail some of the problems we encountered in implementing these
-          design goals, and some of the solutions we devised to resolve them.</p>
-
+            </div>
       </div>
 
       <div class="chapter">
@@ -1259,8 +1247,6 @@
 
       <div class="chapter">
         <h2 id="future-work">7 Future Work</h2>
-
-
         <ul>
           <li>Implement optional user authentication in order to more easily organize notebooks</li>
           <li>
@@ -1272,7 +1258,7 @@
       </div>
 
       <section id="footnotes">
-        <h2 id="references">7 References</h2>
+        <h2 id="references">8 References</h2>
 
         <ol>
           <li id="footnote-1">
