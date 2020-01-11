@@ -1193,9 +1193,9 @@
           the
           dispatch server updates the session data in Redis to associate the notebook ID from the URL with the unique
           subdomain
-          of the session. On subsequent requests for notebook data, the dispatch server fetches the notebook ID from
+          of the session. When the client makes a subsequent request for notebook data, the dispatch server fetches the notebook ID from
           Redis using the subdomain
-          as the key, pulling the notebook data from the database using the notebook ID, and then sending that data to
+          as the key, pulls the notebook data from the database using the notebook ID, and then sends that data to
           the
           client to hydrate the notebook state. </p>
 
