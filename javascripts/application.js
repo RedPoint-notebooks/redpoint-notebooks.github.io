@@ -138,8 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // .filter(logo => !/redpoint/.test(logo.id))
     .map(logo => logo.id.split("-")[0]);
 
-  console.log(logos);
-
   const snakeCaseify = text =>
     text
       .toLowerCase()
