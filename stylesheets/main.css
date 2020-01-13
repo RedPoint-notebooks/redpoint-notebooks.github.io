@@ -709,7 +709,8 @@ h2#references {
   padding-bottom: 25px;
 }
 
-#our-team h1 {
+#our-team h2 {
+  font-size: 4.5rem;
   font-weight: 700;
   padding-top: 60px;
   padding-bottom: 60px;

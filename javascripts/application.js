@@ -154,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const getCaseStudyHeadingPositions = () => {
     return h2Text.reduce((obj, h2Str) => {
       const selector = `#${snakeCaseify(h2Str)}`;
+      // debugger;
       const h2 = document.querySelector(selector);
 
       const position = getScrollPosition() + h2.getBoundingClientRect().top;
