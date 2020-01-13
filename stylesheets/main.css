@@ -409,11 +409,29 @@ header h1 img {
   transform: translateY(-50%);
 }
 
+/* #try-redpoint {
+  position: fixed;
+  bottom: 20%;
+  left: 2%;
+  margin-left: 3rem;
+  font-size: 16px;
+  color: #999;
+}
+
+#try-redpoint:hover {
+  color: #ed7164;
+} */
+
 #side-nav img {
   width: 100%;
   max-width: 250px;
   height: auto;
   margin-top: 150px;
+}
+
+#side-nav img:hover {
+  filter: contrast(125%) brightness(75%);
+
 }
 
 #case-study nav {
@@ -709,7 +727,8 @@ h2#references {
   padding-bottom: 25px;
 }
 
-#our-team h1 {
+#our-team h2 {
+  font-size: 4.5rem;
   font-weight: 700;
   padding-top: 60px;
   padding-bottom: 60px;
