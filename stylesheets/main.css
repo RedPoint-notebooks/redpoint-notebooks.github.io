@@ -409,6 +409,19 @@ header h1 img {
   transform: translateY(-50%);
 }
 
+/* #try-redpoint {
+  position: fixed;
+  bottom: 20%;
+  left: 2%;
+  margin-left: 3rem;
+  font-size: 16px;
+  color: #999;
+}
+
+#try-redpoint:hover {
+  color: #ed7164;
+} */
+
 #side-nav img {
   width: 100%;
   max-width: 250px;
