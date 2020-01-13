@@ -429,6 +429,11 @@ header h1 img {
   margin-top: 150px;
 }
 
+#side-nav img:hover {
+  filter: contrast(125%) brightness(75%);
+
+}
+
 #case-study nav {
   display: none;
   left: 2rem;
