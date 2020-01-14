@@ -1225,10 +1225,6 @@ small {
     height: 110vh;
   }
 
-  body {
-    margin-right: -45px;
-  }
-
   header p {
     left: 55%;
   }
@@ -1247,10 +1243,6 @@ small {
 }
 
 @media (max-width: 400px) {
-  body {
-    margin-right: -25px;
-  }
-
   .integration-wrapper {
     flex-wrap: wrap;
   }
