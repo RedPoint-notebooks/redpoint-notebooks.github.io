@@ -175,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
   h2Text.forEach(h2TextStr => {
     const li = document.createElement("li");
     li.id = snakeCaseify(`${h2TextStr.replace("!", "").toLowerCase()}-nav`);
+
     const a = document.createElement("a");
     a.href = snakeCaseify(`#${h2TextStr.replace("!", "")}`);
     a.textContent = h2TextStr.toUpperCase();
@@ -195,6 +196,16 @@ document.addEventListener("DOMContentLoaded", () => {
     li2.appendChild(a2);
     mobileCaseStudyNavUl.appendChild(li2);
   });
+
+  // Add Try RedPoint Link
+  const listItem = document.createElement("li");
+  const tryRedPointLink = document.createElement("a");
+  tryRedPointLink.href = "https://www.redpointnotebooks.com";
+  tryRedPointLink.textContent = "TRY REDPOINT";
+  tryRedPointLink.className = "try-redpoint";
+  tryRedPointLink.setAttribute("target", "_blank");
+  listItem.appendChild(tryRedPointLink);
+  caseStudyNavUl.appendChild(listItem);
 
   // changeImgSrc(`${logo}-logo`, logoUrls[`${logo}Black`]);
   const changeImgSrc = (tag, url) => {
@@ -431,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   caseStudyNav.addEventListener("click", e => {
-    if (e.target.tagName === "A") {
+    if (e.target.tagName === "A" && e.target.className !== "try-redpoint") {
       e.preventDefault();
       const positions = getCaseStudyHeadingPositions();
       const positionKey = `#${e.target.href.split("#")[1]}-nav`;

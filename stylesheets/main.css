@@ -84,8 +84,6 @@ h4 {
   width: 100% !important;
 }
 
-.integration .screenshot {}
-
 .integration:first-of-type {
   background: #6897bb;
   padding-top: 20px;
@@ -160,7 +158,18 @@ h4 {
   background: #fff;
 }
 
-main>section {
+.try-redpoint {
+  border: 1.5px solid #a0aab5;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.try-redpoint:hover {
+  color: #ed7164 !important;
+  border: 1.5px solid #ed7164;
+}
+
+main > section {
   margin: 80px 0 100px 0;
   width: 90%;
   max-width: 1400px;
@@ -289,7 +298,8 @@ img {
 
 @font-face {
   font-family: "Fira Code";
-  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2) format("truetype");
+  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2)
+    format("truetype");
 }
 
 .container {
@@ -409,29 +419,11 @@ header h1 img {
   transform: translateY(-50%);
 }
 
-/* #try-redpoint {
-  position: fixed;
-  bottom: 20%;
-  left: 2%;
-  margin-left: 3rem;
-  font-size: 16px;
-  color: #999;
-}
-
-#try-redpoint:hover {
-  color: #ed7164;
-} */
-
 #side-nav img {
   width: 100%;
   max-width: 250px;
   height: auto;
-  margin-top: 150px;
-}
-
-#side-nav img:hover {
-  filter: contrast(125%) brightness(75%);
-
+  margin-top: 80px;
 }
 
 #case-study nav {
@@ -450,7 +442,8 @@ header h1 img {
 }
 
 #case-study nav li:last-of-type {
-  margin-bottom: 0;
+  margin-top: 75px;
+  list-style: none;
 }
 
 #case-study nav a {
@@ -736,7 +729,7 @@ h2#references {
   line-height: 4rem;
 }
 
-#our-team>p {
+#our-team > p {
   font-size: 1.2rem;
   line-height: 1.7rem;
   margin-top: 30px;
@@ -745,7 +738,7 @@ h2#references {
   width: 45%;
 }
 
-#our-team>ul {
+#our-team > ul {
   padding: 60px 0 80px;
   text-align: center;
 }
@@ -767,7 +760,7 @@ h2#references {
   text-decoration: none;
 }
 
-#our-team li>img {
+#our-team li > img {
   border-radius: 100%;
   margin: 0 auto 20px;
   width: 15vw;
@@ -823,17 +816,12 @@ small {
     margin-top: 60px;
   }
 
-  #notebooks-link:hover {
-    border: 2px solid #8dbc9d;
-  }
-
   #site-navigation a {
     padding: 10px;
   }
 
   #notebooks-link {
-    border-radius: 50px;
-    border: 2px solid #ed7164;
+    color: #ed7164 !important;
   }
 
   #site-navigation ul {
@@ -897,7 +885,7 @@ small {
     overflow: scroll;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 50px;
     padding-bottom: 50px;
   }
@@ -958,7 +946,7 @@ small {
     margin: 0;
   }
 
-  #our-team>p {
+  #our-team > p {
     width: 60%;
   }
 
@@ -978,7 +966,6 @@ small {
 }
 
 @media (max-width: 800px) {
-
   /* General */
   h1 {
     font-size: 3.5rem;
@@ -1066,7 +1053,7 @@ small {
 
   /* Our Team */
 
-  #our-team>p {
+  #our-team > p {
     width: 70%;
   }
 
@@ -1080,7 +1067,6 @@ small {
 }
 
 @media (max-width: 600px) {
-
   /* General */
   #case-study .img-wrapper img.big,
   img.medium {
@@ -1146,12 +1132,12 @@ small {
     padding-top: 60px;
   }
 
-  #our-team>p {
+  #our-team > p {
     font-size: 1rem;
     margin-top: 0;
   }
 
-  #our-team>ul {
+  #our-team > ul {
     margin-top: 0;
     padding: 0;
   }
@@ -1185,14 +1171,18 @@ small {
     padding: 3px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 30vw;
   }
 }
 
 @media (max-width: 500px) {
+  .integration-wrapper {
+    flex-wrap: wrap;
+  }
+
   #home p {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
   }
 
   #case-study img {
@@ -1213,7 +1203,7 @@ small {
     padding: 2px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 35vw;
   }
 
@@ -1226,21 +1216,59 @@ small {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 414px) {
+  main {
+    padding: 0 20px;
+  }
+
+  header {
+    height: 110vh;
+  }
+
+  body {
+    margin-right: -45px;
+  }
+
+  header p {
+    left: 55%;
+  }
+
   #redpoint-logo {
-    width: 28px;
-    right: 20px;
+    right: 5px;
   }
 
   #github-logo {
-    right: 20px;
-    width: 23px;
+    right: 9px;
+  }
+
+  #toTop-logo {
+    right: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    margin-right: -25px;
+  }
+
+  .integration-wrapper {
+    flex-wrap: wrap;
+  }
+
+  #redpoint-logo {
+    width: 28px;
+    right: 12px;
+  }
+
+  #github-logo {
+    width: 28px;
+    right: 8px;
   }
 
   #toTop-logo {
     bottom: 20px;
     width: 23px;
-    right: 20px;
+    right: 12px;
   }
 
   #medium-logo {
@@ -1260,7 +1288,7 @@ small {
   }
 
   main {
-    padding: 0 70px 0 25px;
+    padding: 0 20px 0 18px;
   }
 
   h1 {
@@ -1271,7 +1299,7 @@ small {
     font-size: 1.1rem;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 20px;
     padding-bottom: 25px;
   }
@@ -1292,7 +1320,7 @@ small {
     padding-bottom: 18px;
   }
 
-  #our-team>p {
+  #our-team > p {
     width: 57%;
   }
 }
