@@ -200,8 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add Try RedPoint Link
   const listItem = document.createElement("li");
   const tryRedPointLink = document.createElement("a");
-  tryRedPointLink.href = "https://www.redpointnotebooks.com";
-  tryRedPointLink.textContent = "TRY REDPOINT";
+  tryRedPointLink.href =
+    "https://www.redpointnotebooks.com/notebooks/243e1bce-6d21-48cf-8e39-5583d4af5e26";
+  tryRedPointLink.textContent = "TRY DEMO NOTEBOOK";
   tryRedPointLink.className = "try-redpoint";
   tryRedPointLink.setAttribute("target", "_blank");
   listItem.appendChild(tryRedPointLink);
