@@ -169,7 +169,7 @@ h4 {
   border: 1.5px solid #ed7164;
 }
 
-main>section {
+main > section {
   margin: 80px 0 100px 0;
   width: 90%;
   max-width: 1400px;
@@ -298,7 +298,8 @@ img {
 
 @font-face {
   font-family: "Fira Code";
-  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2) format("truetype");
+  src: url(https://cdn.jsdelivr.net/npm/firacode@1.205.0/distr/woff2/FiraCode-Regular.woff2)
+    format("truetype");
 }
 
 .container {
@@ -384,11 +385,12 @@ header h1 {
 header p {
   color: #ed7164;
   font-size: 3rem;
-  left: 50%;
-  position: absolute;
+  /* left: 50%; */
+  /* position: absolute; */
+  margin: 0 auto;
   text-align: center;
-  transform: translateY(-50%) translateX(-50%);
-  width: 750px;
+  /* transform: translateY(-50%) translateX(-50%); */
+  /* width: 750px; */
   padding-bottom: 20px;
 }
 
@@ -732,7 +734,7 @@ h2#references {
   line-height: 4rem;
 }
 
-#our-team>p {
+#our-team > p {
   font-size: 1.2rem;
   line-height: 1.7rem;
   margin-top: 30px;
@@ -741,7 +743,7 @@ h2#references {
   width: 45%;
 }
 
-#our-team>ul {
+#our-team > ul {
   padding: 60px 0 80px;
   text-align: center;
 }
@@ -763,7 +765,7 @@ h2#references {
   text-decoration: none;
 }
 
-#our-team li>img {
+#our-team li > img {
   border-radius: 100%;
   margin: 0 auto 20px;
   width: 15vw;
@@ -888,7 +890,7 @@ small {
     overflow: scroll;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 50px;
     padding-bottom: 50px;
   }
@@ -904,7 +906,6 @@ small {
   #home p {
     box-sizing: border-box;
     width: 100%;
-    padding: 0 90px;
   }
 }
 
@@ -949,7 +950,7 @@ small {
     margin: 0;
   }
 
-  #our-team>p {
+  #our-team > p {
     width: 60%;
   }
 
@@ -969,7 +970,6 @@ small {
 }
 
 @media (max-width: 800px) {
-
   /* General */
   h1 {
     font-size: 3.5rem;
@@ -1005,14 +1005,6 @@ small {
 
   #toTop-logo {
     width: 28px;
-    right: 27px;
-  }
-
-  #medium-logo {
-    cursor: pointer;
-    width: 28px;
-    position: fixed;
-    bottom: 30px;
     right: 27px;
   }
 
@@ -1057,7 +1049,7 @@ small {
 
   /* Our Team */
 
-  #our-team>p {
+  #our-team > p {
     width: 70%;
   }
 
@@ -1071,16 +1063,11 @@ small {
 }
 
 @media (max-width: 600px) {
-
   /* General */
   #case-study .img-wrapper img.big,
   img.medium {
     width: 70% !important;
   }
-
-  /* #case-study .img-wrapper img.big {
-    min-width: 315px !important;
-  }   */
 
   main {
     padding-right: 45px !important;
@@ -1124,7 +1111,6 @@ small {
 
   #home p {
     font-size: 2.3rem;
-    padding: 0 60px;
   }
 
   section#case-study {
@@ -1137,12 +1123,12 @@ small {
     padding-top: 60px;
   }
 
-  #our-team>p {
+  #our-team > p {
     font-size: 1rem;
     margin-top: 0;
   }
 
-  #our-team>ul {
+  #our-team > ul {
     margin-top: 0;
     padding: 0;
   }
@@ -1176,7 +1162,7 @@ small {
     padding: 3px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 30vw;
   }
 }
@@ -1208,7 +1194,7 @@ small {
     padding: 2px;
   }
 
-  #our-team li>img {
+  #our-team li > img {
     width: 35vw;
   }
 
@@ -1227,7 +1213,7 @@ small {
   }
 
   header {
-    height: 110vh;
+    height: 100vh;
   }
 
   header p {
@@ -1248,6 +1234,10 @@ small {
 }
 
 @media (max-width: 400px) {
+  code {
+    word-break: break-word;
+  }
+
   .integration-wrapper {
     flex-wrap: wrap;
   }
@@ -1266,12 +1256,6 @@ small {
     bottom: 20px;
     width: 23px;
     right: 12px;
-  }
-
-  #medium-logo {
-    bottom: 20px;
-    right: 20px;
-    width: 23px;
   }
 
   /* section */
@@ -1296,7 +1280,7 @@ small {
     font-size: 1.1rem;
   }
 
-  nav#site-navigation>ul {
+  nav#site-navigation > ul {
     margin-top: 20px;
     padding-bottom: 25px;
   }
@@ -1317,7 +1301,80 @@ small {
     padding-bottom: 18px;
   }
 
-  #our-team>p {
+  #our-team > p {
+    width: 57%;
+  }
+}
+
+@media (max-width: 374px) {
+  .integration-wrapper {
+    flex-wrap: wrap;
+  }
+
+  header img {
+    width: 80% !important;
+  }
+
+  #redpoint-logo {
+    width: 28px;
+    right: 27px;
+  }
+
+  #github-logo {
+    width: 28px;
+    right: 23px;
+  }
+
+  #toTop-logo {
+    bottom: 20px;
+    width: 23px;
+    right: 27px;
+  }
+
+  /* section */
+
+  .text-box p {
+    font-size: 1.7rem;
+  }
+
+  .text-box h1 {
+    font-size: 2.5rem;
+  }
+
+  main {
+    padding: 0 20px 0 18px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  nav#site-navigation ul {
+    font-size: 1.1rem;
+  }
+
+  nav#site-navigation > ul {
+    margin-top: 20px;
+    padding-bottom: 25px;
+  }
+
+  nav#site-navigation ul li {
+    margin-bottom: 3.5vh;
+  }
+
+  nav#case-study-mobile {
+    margin-top: 1.75vh;
+  }
+
+  #case-study img {
+    max-width: 65vw;
+  }
+
+  #our-team {
+    padding-bottom: 18px;
+  }
+
+  #our-team > p {
     width: 57%;
   }
 }
@@ -1329,13 +1386,10 @@ small {
 ------------------------------------ */
 
 @media (max-height: 815px) {
-
   #side-nav img {
     display: none;
   }
-
 }
-
 
 @media (max-height: 500px) {
   header {
